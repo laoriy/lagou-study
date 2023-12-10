@@ -1,0 +1,17 @@
+{
+    "title": "Nuxt.js data",
+    "data": [
+        {
+            "id": 1,
+            "title": "title one "
+        },
+        {
+            "id": 2,
+            "title": "title two "
+        },
+        {
+            "id": 3,
+            "title": "title three "
+        }
+    ]
+}
