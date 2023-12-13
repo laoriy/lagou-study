@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
+    router: {
+        options: {
+            linkExactActiveClass: "active",
+        },
+    },
     hooks: {
         "pages:extend": (pages) => {
             // add a route
@@ -13,7 +18,7 @@ export default defineNuxtConfig({
                 {
                     name: "home",
                     path: "/home",
-                    redirect:'/',
+                    redirect: "/",
                     file: "~/pages/home/index.vue",
                 }
             )

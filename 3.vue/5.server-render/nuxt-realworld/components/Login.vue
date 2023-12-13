@@ -19,9 +19,10 @@
                         <li>That email is already taken</li>
                     </ul>
 
-                    <form>
+                    <form @submit.prevent="handleSubmit">
                         <fieldset v-if="!isLogin" class="form-group">
                             <input
+                                v-model="username"
                                 class="form-control form-control-lg"
                                 type="text"
                                 placeholder="Username"
@@ -29,15 +30,19 @@
                         </fieldset>
                         <fieldset class="form-group">
                             <input
+                                v-model="user.email"
                                 class="form-control form-control-lg"
-                                type="text"
+                                type="email"
                                 placeholder="Email"
+                                required
                             />
                         </fieldset>
                         <fieldset class="form-group">
                             <input
+                                v-model="user.password"
                                 class="form-control form-control-lg"
                                 type="password"
+                                required
                                 placeholder="Password"
                             />
                         </fieldset>
@@ -52,12 +57,29 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
     isLogin: {
         type: Boolean,
         default: false,
     },
 })
+const emit = defineEmits(["submit"])
+
+const username = ref("")
+
+const user = reactive({
+    email: "",
+    password: "",
+})
+
+const handleSubmit = () => {
+    if (!props.isLogin) {
+        // 注册
+    } else {
+        // 登录
+        emit("submit", toRaw(user))
+    }
+}
 </script>
 
 <style scoped></style>

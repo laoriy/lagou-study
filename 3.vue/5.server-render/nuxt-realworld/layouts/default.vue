@@ -4,12 +4,7 @@
             <NuxtLink class="navbar-brand" to="/">conduit</NuxtLink>
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item" v-for="c in configPath" :key="c.name">
-                    <!-- Add "active" class when you're on that page" -->
-                    <NuxtLink
-                        class="nav-link"
-                        :class="{ active: matchedPath === c.path }"
-                        :to="c.path"
-                    >
+                    <NuxtLink class="nav-link" :to="c.path">
                         <template v-if="c.icon"
                             ><i :class="[c.icon]"></i>&nbsp;</template
                         >
