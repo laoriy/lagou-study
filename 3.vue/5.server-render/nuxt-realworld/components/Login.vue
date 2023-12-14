@@ -16,7 +16,17 @@
                     </p>
 
                     <ul class="error-messages">
-                        <li>That email is already taken</li>
+                        <template
+                            v-for="(messages, field) in errors"
+                            :key="field"
+                        >
+                            <li
+                                v-for="(message, index) in messages"
+                                :key="index"
+                            >
+                                {{ field }} {{ message }}
+                            </li>
+                        </template>
                     </ul>
 
                     <form @submit.prevent="handleSubmit">
@@ -62,11 +72,14 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    errors: {
+        type: Object,
+        default: () => ({}),
+    },
 })
 const emit = defineEmits(["submit"])
 
 const username = ref("")
-
 const user = reactive({
     email: "",
     password: "",
@@ -75,6 +88,7 @@ const user = reactive({
 const handleSubmit = () => {
     if (!props.isLogin) {
         // 注册
+        emit("submit", { ...toRaw(user), username: username.value })
     } else {
         // 登录
         emit("submit", toRaw(user))
