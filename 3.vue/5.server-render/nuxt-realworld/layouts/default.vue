@@ -11,6 +11,12 @@
                         {{ c.name }}</NuxtLink
                     >
                 </li>
+                <li v-if="token" class="nav-item">
+                    <NuxtLink class="nav-link" :to="`/profile/${userInfo.username}`">
+                        <img :src="userInfo.image" class="user-pic" />
+                        {{ userInfo.username }}
+                    </NuxtLink>
+                </li>
             </ul>
         </div>
     </nav>
@@ -33,6 +39,8 @@ type Path = {
     name: string
     icon?: string
 }
+
+const { token, userInfo } = storeToRefs(userStore())
 
 const basePaths = [
     {
@@ -62,21 +70,13 @@ const loginedPaths = [
         name: "Settings",
         icon: "ion-gear-a",
     },
-    {
-        path: "/profile/laor",
-        name: "Laoriy",
-        icon: "ion-person",
-    },
 ]
 const configPath = computed<Path[]>(() => [
     ...basePaths,
-    ...unLoginPaths,
-    ...loginedPaths,
+    ...(token.value ? loginedPaths : unLoginPaths),
 ])
 
 const route = useRoute()
-
-const matchedPath = computed(() => route.path)
 </script>
 
 <style scoped></style>

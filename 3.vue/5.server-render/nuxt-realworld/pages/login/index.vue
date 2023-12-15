@@ -5,8 +5,12 @@
 <script setup lang="ts">
 import { login } from "~/service/login"
 import type { LoginParams } from "~/service/login"
+import type { UserInfo } from "~/stores"
+import { userStore } from "~/stores"
+
 const router = useRouter()
 const errors = ref({})
+const { setUser } = userStore()
 const handleLogin = async (user: LoginParams) => {
     const { data, error } = await login(user)
 
@@ -14,7 +18,9 @@ const handleLogin = async (user: LoginParams) => {
         errors.value = error.value?.data.errors
         return
     }
-    if (data.value) router.push("/")
+
+    setUser((data.value as any).user as UserInfo)
+    router.push("/")
 }
 </script>
 
