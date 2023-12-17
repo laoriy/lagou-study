@@ -12,118 +12,114 @@
                 <div class="col-md-9">
                     <div class="feed-toggle">
                         <ul class="nav nav-pills outline-active">
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Your Feed</a>
+                            <li class="nav-item" v-if="token">
+                                <a
+                                    class="nav-link"
+                                    href="javascript:void(0)"
+                                    :class="{
+                                        active: feedType === FeedType.MyFeed,
+                                    }"
+                                    @click="handleMyFeed"
+                                    >Your Feed</a
+                                >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href=""
+                                <a
+                                    class="nav-link"
+                                    :class="{
+                                        active: feedType === FeedType.Global,
+                                    }"
+                                    href="javascript:void(0)"
+                                    @click="handleGlobalFeed"
                                     >Global Feed</a
                                 >
                             </li>
+                            <li v-if="currentTag" class="nav-item">
+                                <a
+                                    class="nav-link ion-pound active"
+                                    href="javascript:void(0)"
+                                >
+                                    &nbsp;{{ currentTag }}
+                                </a>
+                            </li>
                         </ul>
                     </div>
-
-                    <div class="article-preview">
+                    <div
+                        v-for="article in articles"
+                        :key="article.slug"
+                        class="article-preview"
+                    >
                         <div class="article-meta">
-                            <a href="/profile/eric-simons"
-                                ><img
-                                    src="https://img1.baidu.com/it/u=3130960825,4175655092&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
-                            /></a>
+                            <NuxtLink
+                                :to="`/profile/${article.author.username}`"
+                            >
+                                <img :src="article.author.image"
+                            /></NuxtLink>
                             <div class="info">
-                                <a href="/profile/eric-simons" class="author"
-                                    >Eric Simons</a
+                                <NuxtLink
+                                    :to="`/profile/${article.author.username}`"
+                                    class="author"
+                                    >{{ article.author.username }}</NuxtLink
                                 >
-                                <span class="date">January 20th</span>
+                                <span class="date">{{
+                                    article.createdAt
+                                }}</span>
                             </div>
                             <button
                                 class="btn btn-outline-primary btn-sm pull-xs-right"
+                                :class="{ active: article.favorited }"
                             >
-                                <i class="ion-heart"></i> 29
+                                <i class="ion-heart"></i>
+                                {{ article.favoritesCount }}
                             </button>
                         </div>
-                        <a
-                            href="/article/how-to-build-webapps-that-scale"
+                        <NuxtLink
+                            :to="`/article/${article.slug}`"
                             class="preview-link"
                         >
-                            <h1>How to build webapps that scale</h1>
-                            <p>This is the description for the post.</p>
+                            <h1>{{ article.title }}</h1>
+                            <p>{{ article.description }}</p>
                             <span>Read more...</span>
-                            <ul class="tag-list">
-                                <li class="tag-default tag-pill tag-outline">
-                                    realworld
-                                </li>
-                                <li class="tag-default tag-pill tag-outline">
-                                    implementations
-                                </li>
-                            </ul>
-                        </a>
-                    </div>
-
-                    <div class="article-preview">
-                        <div class="article-meta">
-                            <a href="/profile/albert-pai"
-                                ><img
-                                    src="https://img1.baidu.com/it/u=3130960825,4175655092&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
-                            /></a>
-                            <div class="info">
-                                <a href="/profile/albert-pai" class="author"
-                                    >Albert Pai</a
-                                >
-                                <span class="date">January 20th</span>
-                            </div>
-                            <button
-                                class="btn btn-outline-primary btn-sm pull-xs-right"
+                            <ul
+                                v-for="tag in article.tagList"
+                                :key="tag"
+                                class="tag-list"
                             >
-                                <i class="ion-heart"></i> 32
-                            </button>
-                        </div>
-                        <a href="/article/the-song-you" class="preview-link">
-                            <h1>
-                                The song you won't ever stop singing. No matter
-                                how hard you try.
-                            </h1>
-                            <p>This is the description for the post.</p>
-                            <span>Read more...</span>
-                            <ul class="tag-list">
                                 <li class="tag-default tag-pill tag-outline">
-                                    realworld
-                                </li>
-                                <li class="tag-default tag-pill tag-outline">
-                                    implementations
+                                    {{ tag }}
                                 </li>
                             </ul>
-                        </a>
+                        </NuxtLink>
                     </div>
-
                     <ul class="pagination">
-                        <li class="page-item active">
-                            <a class="page-link" href="">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="">2</a>
+                        <li
+                            v-for="p in paginationCount"
+                            :key="p"
+                            :class="{ active: p === page }"
+                            class="page-item"
+                        >
+                            <a
+                                class="page-link"
+                                href="javascript:void(0)"
+                                @click="handlePaginationChange(p)"
+                                >{{ p }}</a
+                            >
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-md-3">
                     <div class="sidebar">
                         <p>Popular Tags</p>
 
                         <div class="tag-list">
-                            <a href="" class="tag-pill tag-default"
-                                >programming</a
+                            <a
+                                v-for="tag in tags"
+                                :key="tag"
+                                href="javascript:void(0)"
+                                class="tag-pill tag-default"
+                                @click="handleTag(tag)"
+                                >{{ tag }}</a
                             >
-                            <a href="" class="tag-pill tag-default"
-                                >javascript</a
-                            >
-                            <a href="" class="tag-pill tag-default">emberjs</a>
-                            <a href="" class="tag-pill tag-default"
-                                >angularjs</a
-                            >
-                            <a href="" class="tag-pill tag-default">react</a>
-                            <a href="" class="tag-pill tag-default">mean</a>
-                            <a href="" class="tag-pill tag-default">node</a>
-                            <a href="" class="tag-pill tag-default">rails</a>
                         </div>
                     </div>
                 </div>
@@ -132,6 +128,25 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useArticles from "~/hooks/useArticles"
+import { FeedType } from "~/hooks/useArticles"
+const { token } = userStore()
+const {
+    articles,
+    tags,
+    currentTag,
+    page,
+    paginationCount,
+    feedType,
+    getArticles,
+    getTags,
+    handleGlobalFeed,
+    handleMyFeed,
+    handleTag,
+    handlePaginationChange,
+} = useArticles()
+await Promise.all([getArticles(), getTags()]) // 这里必须加await  否则会保持 Hydration node mismatch. 因为服务端没拿到数据时生成的DOM和最终客户端要显示的模板肯定不一样DOM
+</script>
 
 <style scoped></style>

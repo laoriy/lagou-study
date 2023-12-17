@@ -3,10 +3,13 @@
 </template>
 
 <script setup lang="ts">
-import { login } from "~/service/login"
-import type { LoginParams } from "~/service/login"
+definePageMeta({
+    middleware: ["no-auth"],
+})
+
+import { login } from "~/service/user"
+import type { LoginParams } from "~/service/user"
 import type { UserInfo } from "~/stores"
-import { userStore } from "~/stores"
 
 const router = useRouter()
 const errors = ref({})
@@ -19,7 +22,7 @@ const handleLogin = async (user: LoginParams) => {
         return
     }
 
-    setUser((data.value as any).user as UserInfo)
+    setUser(data.value.user)
     router.push("/")
 }
 </script>

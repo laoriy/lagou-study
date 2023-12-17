@@ -7,7 +7,7 @@ type UserInfo = {
 }
 
 const userStore = defineStore("user", {
-    state: () => ({ userInfo: null as UserInfo }),
+    state: () => ({ userInfo: null as unknown as UserInfo }),
     getters:{
         token:(state)=> state.userInfo?.token
     },

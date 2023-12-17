@@ -3,8 +3,11 @@
 </template>
 
 <script setup lang="ts">
-import { register } from "~/service/login"
-import type { RegisterParams } from "~/service/login"
+definePageMeta({
+    middleware: ["no-auth"],
+})
+import { register } from "~/service/user"
+import type { RegisterParams } from "~/service/user"
 import type { UserInfo } from "~/stores"
 import { userStore } from "~/stores"
 
@@ -18,7 +21,7 @@ const handleRegister = async (user: RegisterParams) => {
         errors.value = error.value?.data.errors
         return
     }
-    setUser((data.value as any).user as UserInfo)
+    setUser(data.value.user)
     router.push("/")
 }
 </script>

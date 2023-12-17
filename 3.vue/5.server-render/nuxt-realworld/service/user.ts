@@ -10,11 +10,11 @@ interface RegisterParams extends LoginParams {
 }
 
 function login(params: LoginParams) {
-    return post("/users/login", { body: { user: params } })
+    return post<{ user: UserInfo }>("/users/login", { body: { user: params } })
 }
 
 function register(params: RegisterParams) {
-    return post("/users", { body: { user: params } })
+    return post<{ user: UserInfo }>("/users", { body: { user: params } })
 }
 
 export { login, register }

@@ -1,15 +1,22 @@
+import type { _AsyncData } from "nuxt/dist/app/composables/asyncData"
+
 const BASE_URL = "https://api.realworld.io/api"
 
 const request =
     (method: "get" | "post" | "put" | "delete" = "get") =>
-    async <T>(url: string, options: Parameters<typeof useFetch>["1"] = {}) => {
+    async <T = any, F = any>(
+        url: string,
+        options: Parameters<typeof useFetch>["1"] = {}
+    ) => {
+        if (options.server) await nextTick()
         const response = await useFetch(url, {
             baseURL: BASE_URL,
             method,
             watch: false,
             ...options,
         })
-        return response
+
+        return response as _AsyncData<T, F>
     }
 
 const get = request("get")
