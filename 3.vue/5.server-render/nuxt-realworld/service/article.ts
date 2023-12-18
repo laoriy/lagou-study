@@ -1,9 +1,12 @@
-interface FetchArticleParams {
+interface BaseListParams {
+    limit?: number
+    offset?: number
+}
+
+interface FetchArticleParams extends BaseListParams {
     tag?: string
     author?: string
     favorited?: string
-    limit?: number
-    offset?: number
 }
 
 interface Article {
@@ -34,9 +37,13 @@ function getGlobalArticles(query: FetchArticleParams = {}) {
     return get<ArticleData>("/articles", { query: query })
 }
 
+function getFeedArticles(query: BaseListParams) {
+    return get<ArticleData>("/articles/feed", { query: query })
+}
+
 function getAllTags() {
     return get<{ tags: string[] }>("/tags")
 }
 
-export { getGlobalArticles, getAllTags }
-export type { FetchArticleParams, Article }
+export { getGlobalArticles, getFeedArticles, getAllTags }
+export type { BaseListParams, FetchArticleParams, Article }

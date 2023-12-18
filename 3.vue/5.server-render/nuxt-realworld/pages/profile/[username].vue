@@ -8,7 +8,7 @@
                             src="http://i.imgur.com/Qr71crq.jpg"
                             class="user-img"
                         />
-                        <h4>Eric Simons</h4>
+                        <h4>{{ userInfo.username }}</h4>
                         <p>
                             Cofounder @GoThinkster, lived in Aol's HQ for a few
                             months, kinda looks like Peeta from the Hunger Games
@@ -133,6 +133,7 @@
 </template>
 
 <script setup lang="ts">
+const { userInfo } = userStore()
 definePageMeta({
     middleware: ["auth"],
 })

@@ -17,7 +17,7 @@
                                     class="nav-link"
                                     href="javascript:void(0)"
                                     :class="{
-                                        active: feedType === FeedType.MyFeed,
+                                        active: feedTab === FeedTab.MyFeed,
                                     }"
                                     @click="handleMyFeed"
                                     >Your Feed</a
@@ -27,7 +27,7 @@
                                 <a
                                     class="nav-link"
                                     :class="{
-                                        active: feedType === FeedType.Global,
+                                        active: feedTab === FeedTab.Global,
                                     }"
                                     href="javascript:void(0)"
                                     @click="handleGlobalFeed"
@@ -68,6 +68,7 @@
                             <button
                                 class="btn btn-outline-primary btn-sm pull-xs-right"
                                 :class="{ active: article.favorited }"
+                                @click="handleFavoriteArticle(article)"
                             >
                                 <i class="ion-heart"></i>
                                 {{ article.favoritesCount }}
@@ -130,7 +131,8 @@
 
 <script setup lang="ts">
 import useArticles from "~/hooks/useArticles"
-import { FeedType } from "~/hooks/useArticles"
+import useFavorite from "~/hooks/useFavorite"
+import { FeedTab } from "~/hooks/useArticles"
 const { token } = userStore()
 const {
     articles,
@@ -138,7 +140,7 @@ const {
     currentTag,
     page,
     paginationCount,
-    feedType,
+    feedTab,
     getArticles,
     getTags,
     handleGlobalFeed,
@@ -146,6 +148,8 @@ const {
     handleTag,
     handlePaginationChange,
 } = useArticles()
+
+const { handleFavoriteArticle } = useFavorite()
 await Promise.all([getArticles(), getTags()]) // 这里必须加await  否则会保持 Hydration node mismatch. 因为服务端没拿到数据时生成的DOM和最终客户端要显示的模板肯定不一样DOM
 </script>
 

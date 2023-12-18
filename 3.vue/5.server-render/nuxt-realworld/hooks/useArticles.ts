@@ -1,7 +1,15 @@
-import { getGlobalArticles, getAllTags } from "~/service/article"
-import type { Article, FetchArticleParams } from "~/service/article"
+import {
+    getGlobalArticles,
+    getFeedArticles,
+    getAllTags,
+} from "~/service/article"
+import type {
+    Article,
+    FetchArticleParams,
+    BaseListParams,
+} from "~/service/article"
 
-const enum FeedType {
+const enum FeedTab {
     Global = "global",
     MyFeed = "my_feed",
     Tag = "tag",
@@ -14,21 +22,27 @@ const useArticles = () => {
     const articlesCount = ref(0)
     const tags = ref([] as string[])
     const currentTag = ref("")
-    const feedType = ref(FeedType.Global)
+    const feedTab = ref(FeedTab.Global)
 
     const limit = ref(10)
     const page = ref(1)
     const paginationCount = computed(() =>
         Math.ceil(articlesCount.value / limit.value)
     )
+
     /**获取文章列表 */
     const getArticles = async (p: FetchArticleParams = {}) => {
-        const query: FetchArticleParams = {
+        let query: BaseListParams = {
             offset: limit.value * (page.value - 1),
             limit: limit.value,
-            ...p,
         }
-        const { data } = await getGlobalArticles(query)
+
+        if (feedTab.value !== FeedTab.MyFeed) Object.assign(query, { ...p })
+
+        const { data } =
+            feedTab.value !== FeedTab.MyFeed
+                ? await getGlobalArticles(query)
+                : await getFeedArticles(query)
         articles.value = data.value.articles
         articlesCount.value = data.value.articlesCount
     }
@@ -44,22 +58,24 @@ const useArticles = () => {
     }
 
     const handleTag = (tag: string) => {
-        feedType.value = FeedType.Tag
+        feedTab.value = FeedTab.Tag
         currentTag.value = tag
         page.value = 1
         getArticles({ tag })
     }
-    const handleGlobalFeed = () => {
-        feedType.value = FeedType.Global
+
+    const handleFeed = (type: FeedTab) => {
+        feedTab.value = type
         currentTag.value = ""
         page.value = 1
+    }
+    const handleGlobalFeed = () => {
+        handleFeed(FeedTab.Global)
         getArticles()
     }
 
     const handleMyFeed = () => {
-        feedType.value = FeedType.MyFeed
-        currentTag.value = ""
-        page.value = 1
+        handleFeed(FeedTab.MyFeed)
         getArticles({ author: userInfo.username })
     }
 
@@ -70,7 +86,7 @@ const useArticles = () => {
         page,
         paginationCount,
         currentTag,
-        feedType,
+        feedTab,
         getArticles,
         getTags,
         handleTag,
@@ -80,5 +96,5 @@ const useArticles = () => {
     }
 }
 
-export { FeedType }
+export { FeedTab }
 export default useArticles
