@@ -1,13 +1,10 @@
-import {
-    getGlobalArticles,
-    getFeedArticles,
-    getAllTags,
-} from "~/service/article"
+import { getGlobalArticles, getFeedArticles } from "~/service/article"
 import type {
     Article,
     FetchArticleParams,
     BaseListParams,
 } from "~/service/article"
+import { getAllTags } from '~/service/tag'
 
 const enum FeedTab {
     Global = "global",

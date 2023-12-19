@@ -62,7 +62,10 @@
                                     >{{ article.author.username }}</NuxtLink
                                 >
                                 <span class="date">{{
-                                    article.createdAt
+                                    dateFormat(
+                                        article.createdAt,
+                                        "MMMM D, YYYY"
+                                    )
                                 }}</span>
                             </div>
                             <button

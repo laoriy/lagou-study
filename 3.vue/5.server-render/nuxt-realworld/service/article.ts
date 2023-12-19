@@ -27,6 +27,8 @@ interface Article {
     }
 }
 
+type PartialArticle = Partial<Article>
+
 type ArticleData = {
     articles: Article[]
     articlesCount: number
@@ -41,9 +43,9 @@ function getFeedArticles(query: BaseListParams) {
     return get<ArticleData>("/articles/feed", { query: query })
 }
 
-function getAllTags() {
-    return get<{ tags: string[] }>("/tags")
+function getArticleDetail(slug: string) {
+    return get<{ article: Article }>(`/articles/${slug}`)
 }
 
-export { getGlobalArticles, getFeedArticles, getAllTags }
-export type { BaseListParams, FetchArticleParams, Article }
+export { getGlobalArticles, getFeedArticles, getArticleDetail }
+export type { BaseListParams, FetchArticleParams, Article,PartialArticle }

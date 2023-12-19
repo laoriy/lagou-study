@@ -12,11 +12,14 @@
     "devDependencies": {
         "@nuxt/devtools": "latest",
         "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+        "@types/markdown-it": "^13.0.7",
         "nuxt": "^3.8.2",
         "vue": "^3.3.10",
         "vue-router": "^4.2.5"
     },
     "dependencies": {
-        "@pinia/nuxt": "^0.5.1"
+        "@pinia/nuxt": "^0.5.1",
+        "dayjs": "^1.11.10",
+        "markdown-it": "^14.0.0"
     }
 }

@@ -2,56 +2,21 @@
     <div class="article-page">
         <div class="banner">
             <div class="container">
-                <h1>How to build webapps that scale</h1>
-
-                <div class="article-meta">
-                    <a href="/profile/eric-simons"
-                        ><img src="http://i.imgur.com/Qr71crq.jpg"
-                    /></a>
-                    <div class="info">
-                        <a href="/profile/eric-simons" class="author"
-                            >Eric Simons</a
-                        >
-                        <span class="date">January 20th</span>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="ion-plus-round"></i>
-                        &nbsp; Follow Eric Simons
-                        <span class="counter">(10)</span>
-                    </button>
-                    &nbsp;&nbsp;
-                    <button class="btn btn-sm btn-outline-primary">
-                        <i class="ion-heart"></i>
-                        &nbsp; Favorite Post <span class="counter">(29)</span>
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="ion-edit"></i> Edit Article
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger">
-                        <i class="ion-trash-a"></i> Delete Article
-                    </button>
-                </div>
+                <h1>{{ article.title }}</h1>
+                <ArticleMeta :article="article"></ArticleMeta>
             </div>
         </div>
 
         <div class="container page">
             <div class="row article-content">
                 <div class="col-md-12">
-                    <p>
-                        Web development technologies have evolved at an
-                        incredible clip over the past few years.
-                    </p>
-                    <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-                    <p>
-                        It's a great solution for learning how other frameworks
-                        work.
-                    </p>
+                    <div v-html="article.body"></div>
                     <ul class="tag-list">
-                        <li class="tag-default tag-pill tag-outline">
-                            realworld
-                        </li>
-                        <li class="tag-default tag-pill tag-outline">
-                            implementations
+                        <li
+                            v-for="tag in article.tagList || []"
+                            class="tag-default tag-pill tag-outline"
+                        >
+                            {{ tag }}
                         </li>
                     </ul>
                 </div>
@@ -60,32 +25,7 @@
             <hr />
 
             <div class="article-actions">
-                <div class="article-meta">
-                    <a href="profile.html"
-                        ><img src="http://i.imgur.com/Qr71crq.jpg"
-                    /></a>
-                    <div class="info">
-                        <a href="" class="author">Eric Simons</a>
-                        <span class="date">January 20th</span>
-                    </div>
-
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="ion-plus-round"></i>
-                        &nbsp; Follow Eric Simons
-                    </button>
-                    &nbsp;
-                    <button class="btn btn-sm btn-outline-primary">
-                        <i class="ion-heart"></i>
-                        &nbsp; Favorite Article
-                        <span class="counter">(29)</span>
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="ion-edit"></i> Edit Article
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger">
-                        <i class="ion-trash-a"></i> Delete Article
-                    </button>
-                </div>
+                <ArticleMeta :article="article"></ArticleMeta>
             </div>
 
             <div class="row">
@@ -165,6 +105,20 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { getArticleDetail, type PartialArticle } from "~/service/article"
+import MarkdownIt from "markdown-it"
+import ArticleMeta from "./components/ArticleMeta.vue"
+
+const { slug } = useRoute().params
+const md = new MarkdownIt()
+const article = ref<PartialArticle>({})
+const { data } = await getArticleDetail(slug as string)
+data.value.article.body = md.render(data.value.article.body)
+
+article.value = data.value.article
+
+useSeoMeta({ title: article.value.title })
+</script>
 
 <style scoped></style>
