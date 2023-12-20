@@ -8,7 +8,12 @@ interface FetchArticleParams extends BaseListParams {
     author?: string
     favorited?: string
 }
-
+interface Author {
+    username: string
+    bio: string
+    image: string
+    following: boolean
+}
 interface Article {
     slug: string
     title: string
@@ -19,12 +24,7 @@ interface Article {
     updatedAt: string
     favorited: boolean
     favoritesCount: number
-    author: {
-        username: string
-        bio: string
-        image: string
-        following: boolean
-    }
+    author: Author
 }
 
 type PartialArticle = Partial<Article>
@@ -48,4 +48,10 @@ function getArticleDetail(slug: string) {
 }
 
 export { getGlobalArticles, getFeedArticles, getArticleDetail }
-export type { BaseListParams, FetchArticleParams, Article,PartialArticle }
+export type {
+    BaseListParams,
+    FetchArticleParams,
+    Article,
+    PartialArticle,
+    Author,
+}
