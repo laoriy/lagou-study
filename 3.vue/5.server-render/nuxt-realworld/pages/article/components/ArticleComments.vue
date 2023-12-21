@@ -1,5 +1,5 @@
 <template>
-    <form class="card comment-form">
+    <form v-if="userInfo" class="card comment-form">
         <div class="card-block">
             <textarea
                 class="form-control"

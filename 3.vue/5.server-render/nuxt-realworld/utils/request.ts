@@ -15,7 +15,7 @@ const request =
             watch: false,
             ...options,
             headers: {
-                Authorization: `Token ${token}`,
+                Authorization: token ? `Token ${token}` : "",
                 ...(options.headers || {}),
             },
         })
