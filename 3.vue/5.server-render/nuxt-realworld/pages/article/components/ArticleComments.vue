@@ -1,7 +1,12 @@
 <template>
-    <form v-if="userInfo" class="card comment-form">
+    <form
+        v-if="userInfo"
+        class="card comment-form"
+        @submit.prevent="handlePostComment(comment)"
+    >
         <div class="card-block">
             <textarea
+                v-model="comment"
                 class="form-control"
                 placeholder="Write a comment..."
                 rows="3"
@@ -40,8 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Author } from "~/service/article"
-import { type ArticleComment, getCommentsFromArticle } from "~/service/comment"
+import useComment from "~/hooks/useComment"
 
 const props = defineProps({
     slug: {
@@ -50,15 +54,13 @@ const props = defineProps({
     },
 })
 
-const comments = ref<ArticleComment[]>([])
+const { comments, comment, handlePostComment, getComment } = useComment(
+    props.slug
+)
+
 const { userInfo } = userStore()
 
-const { data } = await getCommentsFromArticle(props.slug)
-comments.value = data.value?.comments || []
-
-watch(data, (newData) => {
-    comments.value = newData?.comments || []
-})
+getComment(true)
 </script>
 
 <style scoped></style>

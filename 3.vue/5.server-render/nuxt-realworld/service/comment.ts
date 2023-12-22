@@ -1,4 +1,4 @@
-import type { Author } from './article'
+import type { Author } from "./article"
 
 type ArticleComment = {
     id: string
@@ -14,5 +14,15 @@ function getCommentsFromArticle(slug: string) {
     })
 }
 
-export { getCommentsFromArticle }
+function postComment(slug: string, body: string) {
+    return post(`/articles/${slug}/comments`, {
+        body: {
+            comment: {
+                body,
+            },
+        },
+    })
+}
+
+export { getCommentsFromArticle, postComment }
 export type { ArticleComment }
