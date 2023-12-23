@@ -52,10 +52,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./release.zip
-        asset_name: release.zip
-        asset_content_type: application/zip
+        upload_url: ${{ steps.create_release.outputs.upload_url }}  
+        asset_path: ./3.vue/5.server-render/nuxt-realworld/release.tgz
+        asset_name: release.tgz
+        asset_content_type: application/x-tgz
 
     # 部署到服务器
     - name: Deploy
@@ -67,6 +67,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd /root/web/nuxt-realworld
-          wget https://github.com/laoriy/lagou-study/releases/latest/download/release.zip -O release.zip
-          tar zxvf release.zip
+          wget https://github.com/laoriy/lagou-study/releases/latest/download/release.tgz -O release.tgz
+          tar zxvf release.tgz
           pm2 reload
