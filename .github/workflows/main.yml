@@ -4,8 +4,8 @@ defaults:
     working-directory: ./3.vue/5.server-render/nuxt-realworld
 on:
   push:
-    branches:
-      - nuxt-realworld
+    tags:
+      - v-realworld*
 
 jobs:
   build-and-deploy:
