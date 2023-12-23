@@ -1,4 +1,7 @@
 name: Publish And Deploy Demo
+defaults:
+  run:
+    working-directory: ./3.vue/5.server-render/nuxt-realworld
 on:
   push:
     branches:
@@ -12,9 +15,6 @@ jobs:
     # 下载源码
     - name: Checkout
       uses: actions/checkout@master
-
-    - name: Change Dir
-      run: cd 3.vue/5.server-render/nuxt-realworld
 
     # 打包构建
     - name: SetUp nodejs
