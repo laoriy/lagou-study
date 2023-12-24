@@ -69,4 +69,5 @@ jobs:
           cd /root/web/nuxt-realworld
           wget https://github.com/laoriy/lagou-study/releases/latest/download/release.tgz -O release.tgz
           tar zxvf release.tgz
-          pm2 reload
+          pm2 reload ecosystem.config.js
+

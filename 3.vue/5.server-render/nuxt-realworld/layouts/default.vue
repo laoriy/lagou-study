@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-light">
         <div class="container">
-            <NuxtLink class="navbar-brand" to="/">conduit</NuxtLink>
+            <NuxtLink class="navbar-brand" to="/">laoriy conduit</NuxtLink>
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item" v-for="c in configPath" :key="c.name">
                     <NuxtLink class="nav-link" :to="c.path">
