@@ -24,5 +24,9 @@ function postComment(slug: string, body: string) {
     })
 }
 
-export { getCommentsFromArticle, postComment }
+function deleteComment(slug: string, commentId: string) {
+    return deleteApi(`/articles/${slug}/comments/${commentId}`)
+}
+
+export { getCommentsFromArticle, postComment, deleteComment }
 export type { ArticleComment }

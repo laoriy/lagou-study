@@ -26,5 +26,6 @@ const request =
 const get = request("get")
 const post = request("post")
 const deleteApi = request("delete")
+const put = request("put")
 
-export { get, post, deleteApi }
+export { get, post, put, deleteApi }

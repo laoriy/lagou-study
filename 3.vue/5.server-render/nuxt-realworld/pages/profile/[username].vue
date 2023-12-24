@@ -4,22 +4,21 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-10 offset-md-1">
-                        <img
-                            src="http://i.imgur.com/Qr71crq.jpg"
-                            class="user-img"
-                        />
+                        <img :src="userInfo.image" class="user-img" />
                         <h4>{{ userInfo.username }}</h4>
                         <p>
-                            Cofounder @GoThinkster, lived in Aol's HQ for a few
-                            months, kinda looks like Peeta from the Hunger Games
+                            {{ userInfo.bio }}
                         </p>
                         <button
+                            v-if="params.username !== userInfo.username"
                             class="btn btn-sm btn-outline-secondary action-btn"
                         >
                             <i class="ion-plus-round"></i>
-                            &nbsp; Follow Eric Simons
+                            &nbsp; Follow {{ params.username }}
                         </button>
                         <button
+                            @click="handleEditProfile"
+                            v-else
                             class="btn btn-sm btn-outline-secondary action-btn"
                         >
                             <i class="ion-gear-a"></i>
@@ -134,6 +133,12 @@
 
 <script setup lang="ts">
 const { userInfo } = userStore()
+const { params } = useRoute()
+const router = useRouter()
+
+const handleEditProfile = () => {
+    router.push(`/settings`)
+}
 definePageMeta({
     middleware: ["auth"],
 })

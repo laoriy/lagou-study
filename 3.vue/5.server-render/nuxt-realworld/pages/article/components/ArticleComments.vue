@@ -40,6 +40,13 @@
             <span class="date-posted">{{
                 dateFormat(comment.createdAt, "MMMM D, YYYY")
             }}</span>
+            <span
+                v-if="userInfo?.username === comment.author.username"
+                @click="handleDeleteComment(comment.id)"
+                class="mod-options"
+            >
+                <i class="ion-trash-a"></i>
+            </span>
         </div>
     </div>
 </template>
@@ -54,9 +61,13 @@ const props = defineProps({
     },
 })
 
-const { comments, comment, handlePostComment, getComment } = useComment(
-    props.slug
-)
+const {
+    comments,
+    comment,
+    handlePostComment,
+    handleDeleteComment,
+    getComment,
+} = useComment(props.slug)
 
 const { userInfo } = userStore()
 

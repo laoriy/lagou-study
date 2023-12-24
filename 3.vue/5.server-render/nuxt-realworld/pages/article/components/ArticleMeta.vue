@@ -35,6 +35,7 @@
             <button
                 class="btn btn-sm btn-outline-primary"
                 :class="{ active: article.favorited }"
+                @click="handleFavoriteArticle(article as Article)"
             >
                 <i class="ion-heart"></i>
                 &nbsp; Favorite Post
@@ -46,7 +47,8 @@
 
 <script setup lang="ts">
 import type { PropType } from "vue"
-import { type PartialArticle } from "~/service/article"
+import useFavorite from "~/hooks/useFavorite"
+import { type Article, type PartialArticle } from "~/service/article"
 
 defineProps({
     article: {
@@ -56,6 +58,7 @@ defineProps({
 })
 
 const { userInfo } = userStore()
+const { handleFavoriteArticle } = useFavorite()
 </script>
 
 <style scoped></style>

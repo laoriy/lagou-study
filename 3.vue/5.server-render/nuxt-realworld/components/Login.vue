@@ -15,19 +15,7 @@
                         >
                     </p>
 
-                    <ul class="error-messages">
-                        <template
-                            v-for="(messages, field) in errors"
-                            :key="field"
-                        >
-                            <li
-                                v-for="(message, index) in messages"
-                                :key="index"
-                            >
-                                {{ field }} {{ message }}
-                            </li>
-                        </template>
-                    </ul>
+                    <Errors :errors="errors" />
 
                     <form @submit.prevent="handleSubmit">
                         <fieldset v-if="!isLogin" class="form-group">
@@ -67,7 +55,6 @@
 </template>
 
 <script setup lang="ts">
-
 const props = defineProps({
     isLogin: {
         type: Boolean,

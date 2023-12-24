@@ -2,6 +2,7 @@ import {
     getCommentsFromArticle,
     type ArticleComment,
     postComment,
+    deleteComment,
 } from "~/service/comment"
 
 function useComment(slug: string) {
@@ -25,7 +26,18 @@ function useComment(slug: string) {
         comment.value = ""
     }
 
-    return { comments, comment, getComment, handlePostComment }
+    const handleDeleteComment = async (commentId: string) => {
+        await deleteComment(slug, commentId)
+        getComment()
+    }
+
+    return {
+        comments,
+        comment,
+        getComment,
+        handlePostComment,
+        handleDeleteComment,
+    }
 }
 
 export default useComment

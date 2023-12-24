@@ -2,7 +2,8 @@ type UserInfo = {
     username: string
     bio: string
     image: string
-    token: string
+    token?: string
+    password?: string
     email: string
 }
 
