@@ -44,7 +44,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div
+                    <!-- <div
                         v-for="article in articles"
                         :key="article.slug"
                         class="article-preview"
@@ -94,8 +94,9 @@
                                 </li>
                             </ul>
                         </NuxtLink>
-                    </div>
-                    <ul class="pagination">
+                    </div> -->
+                    <ArticleList :articles="articles" :total="paginationCount" :page="page" @pagination-change="handlePaginationChange" />
+                    <!-- <ul class="pagination">
                         <li
                             v-for="p in paginationCount"
                             :key="p"
@@ -109,7 +110,7 @@
                                 >{{ p }}</a
                             >
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="col-md-3">
                     <div class="sidebar">
@@ -134,7 +135,6 @@
 
 <script setup lang="ts">
 import useArticles from "~/hooks/useArticles"
-import useFavorite from "~/hooks/useFavorite"
 import { FeedTab } from "~/hooks/useArticles"
 const { token } = userStore()
 const {
@@ -152,7 +152,6 @@ const {
     handlePaginationChange,
 } = useArticles()
 
-const { handleFavoriteArticle } = useFavorite()
 await Promise.all([getArticles(), getTags()]) // 这里必须加await  否则会保持 Hydration node mismatch. 因为服务端没拿到数据时生成的DOM和最终客户端要显示的模板肯定不一样DOM
 </script>
 

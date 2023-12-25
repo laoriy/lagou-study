@@ -77,6 +77,7 @@ definePageMeta({
 })
 const router = useRouter()
 const { setUser } = userStore()
+
 const password = ref("")
 const errors = ref({})
 
@@ -106,8 +107,7 @@ const handleLogout = () => {
 }
 
 const { data } = await getUser()
-
-userInfo.value = data.value.user
+if (data.value) userInfo.value = data.value.user
 </script>
 
 <style scoped></style>

@@ -26,9 +26,10 @@
             <button
                 class="btn btn-sm btn-outline-secondary"
                 :class="{ active: article.author?.following }"
+                @click="handleFollowAnUser(article.author!)"
             >
-                <i class="ion-plus-round"></i>
-                &nbsp; Follow {{ article.author?.username }}
+                <i class="ion-plus-round" v-if="!article.author?.following"></i>
+                &nbsp; {{ article.author?.following ? "Unfollow" : "Follow" }} {{ article.author?.username }}
                 <!-- <span class="counter">({{ article.favoritesCount }})</span> -->
             </button>
             &nbsp;&nbsp;
@@ -48,6 +49,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue"
 import useFavorite from "~/hooks/useFavorite"
+import useFollow from "~/hooks/useFollow"
 import { type Article, type PartialArticle } from "~/service/article"
 
 defineProps({
@@ -59,6 +61,7 @@ defineProps({
 
 const { userInfo } = userStore()
 const { handleFavoriteArticle } = useFavorite()
+const { handleFollowAnUser, handleUnFollowAnUser } = useFollow()
 </script>
 
 <style scoped></style>

@@ -1,3 +1,5 @@
+import type { Profile } from "./profile"
+
 interface BaseListParams {
     limit?: number
     offset?: number
@@ -8,12 +10,7 @@ interface FetchArticleParams extends BaseListParams {
     author?: string
     favorited?: string
 }
-interface Author {
-    username: string
-    bio: string
-    image: string
-    following: boolean
-}
+type Author = Profile
 interface Article {
     slug: string
     title: string

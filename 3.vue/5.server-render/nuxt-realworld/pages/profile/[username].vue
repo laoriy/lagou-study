@@ -4,17 +4,23 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-10 offset-md-1">
-                        <img :src="userInfo.image" class="user-img" />
-                        <h4>{{ userInfo.username }}</h4>
+                        <img :src="profile.image" class="user-img" />
+                        <h4>{{ profile.username }}</h4>
                         <p>
-                            {{ userInfo.bio }}
+                            {{ profile.bio }}
                         </p>
                         <button
                             v-if="params.username !== userInfo.username"
                             class="btn btn-sm btn-outline-secondary action-btn"
+                            @click="handleFollowAnUser(profile)"
                         >
-                            <i class="ion-plus-round"></i>
-                            &nbsp; Follow {{ params.username }}
+                            <i
+                                v-if="!profile.following"
+                                class="ion-plus-round"
+                            ></i>
+                            &nbsp;
+                            {{ profile.following ? "Unfollow" : "Follow" }}
+                            {{ params.username }}
                         </button>
                         <button
                             @click="handleEditProfile"
@@ -35,19 +41,37 @@
                     <div class="articles-toggle">
                         <ul class="nav nav-pills outline-active">
                             <li class="nav-item">
-                                <a class="nav-link active" href=""
+                                <a
+                                    class="nav-link"
+                                    :class="{
+                                        active:
+                                            userArticleTab ===
+                                            UserArticleTab.MY_ARTICLES,
+                                    }"
+                                    href="javascript:void(0)"
+                                    @click="getArticlesByUsername(username)"
                                     >My Articles</a
                                 >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href=""
+                                <a
+                                    class="nav-link"
+                                    :class="{
+                                        active:
+                                            userArticleTab ===
+                                            UserArticleTab.FAVORITED_ARTICLES,
+                                    }"
+                                    href="javascript:void(0)"
+                                    @click="
+                                        getFavoritedArticlesByUsername(username)
+                                    "
                                     >Favorited Articles</a
                                 >
                             </li>
                         </ul>
                     </div>
 
-                    <div class="article-preview">
+                    <!-- <div class="article-preview">
                         <div class="article-meta">
                             <a href="/profile/eric-simons"
                                 ><img src="http://i.imgur.com/Qr71crq.jpg"
@@ -80,9 +104,9 @@
                                 </li>
                             </ul>
                         </a>
-                    </div>
+                    </div> -->
 
-                    <div class="article-preview">
+                    <!-- <div class="article-preview">
                         <div class="article-meta">
                             <a href="/profile/albert-pai"
                                 ><img src="http://i.imgur.com/N4VcUeJ.jpg"
@@ -124,7 +148,13 @@
                         <li class="page-item">
                             <a class="page-link" href="">2</a>
                         </li>
-                    </ul>
+                    </ul> -->
+                    <ArticleList
+                        :articles="articles"
+                        :total="paginationCount"
+                        :page="page"
+                        @pagination-change="handlePaginationChange"
+                    />
                 </div>
             </div>
         </div>
@@ -132,16 +162,40 @@
 </template>
 
 <script setup lang="ts">
+import { getProfileByUsername, type Profile } from "~/service/profile"
+import useFollow from "~/hooks/useFollow"
+import useArticles, { UserArticleTab } from "~/hooks/useArticles"
+
+definePageMeta({
+    middleware: ["auth"],
+})
 const { userInfo } = userStore()
+const {
+    userArticleTab,
+    getArticlesByUsername,
+    getFavoritedArticlesByUsername,
+    articles,
+    page,
+    paginationCount,
+    handlePaginationChange,
+} = useArticles()
+const profile = ref<Profile>({})
 const { params } = useRoute()
+const username = ref(params.username as string)
 const router = useRouter()
+const { handleFollowAnUser } = useFollow()
 
 const handleEditProfile = () => {
     router.push(`/settings`)
 }
-definePageMeta({
-    middleware: ["auth"],
-})
+
+const getProfile = async () => {
+    const { data } = await getProfileByUsername(username.value)
+    profile.value = data.value.profile
+}
+
+getProfile()
+getArticlesByUsername(username.value)
 </script>
 
 <style scoped></style>
