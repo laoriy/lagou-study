@@ -53,11 +53,15 @@
                                 </div>
                             </fieldset>
                             <button
-                                @click="slug ? handleCreateArticle() : handleUpdateArticle(slug)"
+                                @click="
+                                    slug
+                                        ? handleUpdateArticle(slug)
+                                        : handleCreateArticle()
+                                "
                                 class="btn btn-lg pull-xs-right btn-primary"
                                 type="button"
                             >
-                                {{slug ? 'Update' : 'Publish'}} Article
+                                {{ slug ? "Update" : "Publish" }} Article
                             </button>
                         </fieldset>
                     </form>
