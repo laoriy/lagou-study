@@ -9,18 +9,15 @@ definePageMeta({
 
 import { login } from "~/service/user"
 import type { LoginParams } from "~/service/user"
-import type { UserInfo } from "~/stores"
+import useError from "~/hooks/useError"
 
 const router = useRouter()
-const errors = ref({})
+const { errors, setErrors } = useError()
 const { setUser } = userStore()
 const handleLogin = async (user: LoginParams) => {
     const { data, error } = await login(user)
 
-    if (error.value) {
-        errors.value = error.value?.data.errors
-        return
-    }
+    if (setErrors(error)) return
 
     setUser(data.value.user)
     router.push("/")

@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 import { getUser, updateUser } from "~/service/user"
-
+import useError from "~/hooks/useError"
 definePageMeta({
     middleware: ["auth"],
 })
@@ -79,7 +79,7 @@ const router = useRouter()
 const { setUser } = userStore()
 
 const password = ref("")
-const errors = ref({})
+const { errors, setErrors } = useError()
 
 const userInfo = ref<UserInfo>({
     username: "",
@@ -94,11 +94,8 @@ const handleUpdateUser = async () => {
         d.password = password.value
     }
     const { data, error } = await updateUser(d)
-    if (error.value) {
-        errors.value = error.value?.data.errors
-    } else {
-        setUser(data.value.user)
-    }
+    if (setErrors(error)) return
+    setUser(data.value.user)
 }
 
 const handleLogout = () => {

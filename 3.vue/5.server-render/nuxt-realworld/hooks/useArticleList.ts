@@ -17,7 +17,7 @@ const enum UserArticleTab {
     FAVORITED_ARTICLES = "FAVORITED_ARTICLES",
 }
 
-const useArticles = () => {
+const useArticleList = () => {
     const { userInfo } = userStore()
 
     const articles = ref([] as Article[])
@@ -123,4 +123,4 @@ const useArticles = () => {
 }
 
 export { FeedTab, UserArticleTab }
-export default useArticles
+export default useArticleList

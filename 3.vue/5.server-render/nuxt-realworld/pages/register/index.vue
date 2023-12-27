@@ -8,19 +8,16 @@ definePageMeta({
 })
 import { register } from "~/service/user"
 import type { RegisterParams } from "~/service/user"
-import type { UserInfo } from "~/stores"
 import { userStore } from "~/stores"
+import useError from "~/hooks/useError"
 
 const router = useRouter()
-const errors = ref({})
+const { errors, setErrors } = useError()
 const { setUser } = userStore()
 const handleRegister = async (user: RegisterParams) => {
     const { data, error } = await register(user)
+    if (setErrors(error)) return
 
-    if (error.value) {
-        errors.value = error.value?.data.errors
-        return
-    }
     setUser(data.value.user)
     router.push("/")
 }

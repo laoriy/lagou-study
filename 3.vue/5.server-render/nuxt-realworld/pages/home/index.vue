@@ -134,8 +134,8 @@
 </template>
 
 <script setup lang="ts">
-import useArticles from "~/hooks/useArticles"
-import { FeedTab } from "~/hooks/useArticles"
+import useArticleList from "~/hooks/useArticleList"
+import { FeedTab } from "~/hooks/useArticleList"
 const { token } = userStore()
 const {
     articles,
@@ -150,7 +150,7 @@ const {
     handleMyFeed,
     handleTag,
     handlePaginationChange,
-} = useArticles()
+} = useArticleList()
 
 await Promise.all([getArticles(), getTags()]) // 这里必须加await  否则会保持 Hydration node mismatch. 因为服务端没拿到数据时生成的DOM和最终客户端要显示的模板肯定不一样DOM
 </script>

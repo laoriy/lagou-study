@@ -164,7 +164,7 @@
 <script setup lang="ts">
 import { getProfileByUsername, type Profile } from "~/service/profile"
 import useFollow from "~/hooks/useFollow"
-import useArticles, { UserArticleTab } from "~/hooks/useArticles"
+import useArticleList, { UserArticleTab } from "~/hooks/useArticleList"
 
 definePageMeta({
     middleware: ["auth"],
@@ -178,7 +178,7 @@ const {
     page,
     paginationCount,
     handlePaginationChange,
-} = useArticles()
+} = useArticleList()
 const profile = ref<Profile>({})
 const { params } = useRoute()
 const username = ref(params.username as string)
@@ -194,8 +194,7 @@ const getProfile = async () => {
     profile.value = data.value.profile
 }
 
-getProfile()
-getArticlesByUsername(username.value)
+await Promise.all([getProfile(), getArticlesByUsername(username.value)])
 </script>
 
 <style scoped></style>
