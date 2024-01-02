@@ -4,14 +4,19 @@ import { defineConfig } from "vitepress"
 export default defineConfig({
     title: "Laor Static Site",
     description: "A VitePress Site",
+    titleTemplate: ":title - Custom Suffix",
     // cleanUrls: true,
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: "Home", link: "/" },
             { text: "Examples", link: "/markdown-examples" },
-            { text: "HelloWorld", link: "/helloworld" }, 
+            { text: "HelloWorld", link: "/helloworld" },
+            { text: "Component", link: "/component" },
         ],
+        search: {
+            provider: "local",
+        },
 
         sidebar: [
             {
