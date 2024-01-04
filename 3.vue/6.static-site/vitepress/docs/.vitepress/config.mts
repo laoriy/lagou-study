@@ -6,6 +6,7 @@ export default defineConfig({
     description: "A VitePress Site",
     titleTemplate: ":title - Custom Suffix",
     srcDir: "../src/pages",
+    base:'/lagou-study/',
     // cleanUrls: true,
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
