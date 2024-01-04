@@ -1,23 +1,23 @@
 ---
 layout: home
 
-title: Kitty
-titleTemplate: 一个Vue3组件库
+title: Laoriy
+titleTemplate: 一个VitePress搭建的博客
 
 hero:
-  name: Kitty
-  text: 一个Vue3组件库
+  name: Laoriy
+  text: 一个VitePress搭建的博客
   tagline: 没啥特点仅供学习
   image:
-    src: /logo.png
+    src: https://bbs-img.huaweicloud.com/user/img/head/1617073496484_9232_6629.png
     alt: Kitty
   actions:
     - theme: brand
       text: 开始
       link: /guide/
     - theme: alt
-      text: 在 Gitee 上查看
-      link: https://gitee.com/geeksdidi/kittyui
+      text: 在 GitHub 上查看
+      link: https://github.com/laoriy/lagou-study
 
 features:
   - icon: 💡
