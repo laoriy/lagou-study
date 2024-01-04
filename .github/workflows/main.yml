@@ -1,4 +1,4 @@
-name: Publish And Deploy Demo
+name: Publish And Deploy Nuxt Realworld
 defaults:
   run:
     working-directory: ./3.vue/5.server-render/nuxt-realworld

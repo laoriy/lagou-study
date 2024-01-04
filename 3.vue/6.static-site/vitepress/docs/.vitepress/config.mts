@@ -5,7 +5,7 @@ export default defineConfig({
     title: "Laor Static Site",
     description: "A VitePress Site",
     titleTemplate: ":title - Custom Suffix",
-    srcDir: "./src",
+    srcDir: "../src/pages",
     // cleanUrls: true,
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
@@ -19,15 +19,18 @@ export default defineConfig({
             provider: "local",
         },
 
-        sidebar: [
-            {
-                text: "Examples",
-                items: [
-                    { text: "Markdown Examples", link: "/markdown-examples" },
-                    { text: "Runtime API Examples", link: "/api-examples" },
-                ],
-            },
-        ],
+        sidebar: {
+            "/examples/": [
+                {
+                    text: "Examples",
+                    items: [
+                        { text: "Hello World", link: "/examples/helloworld" },
+                        { text: "Component", link: "/examples/component" },
+                        { text: "Vitepress", link: "/examples/vitepress" },
+                    ],
+                },
+            ],
+        },
 
         socialLinks: [
             { icon: "github", link: "https://github.com/vuejs/vitepress" },
