@@ -14,14 +14,12 @@ this is hello world
 
 ## 链接
 
--   内部链接[Getting Started](./)
 
 -   外部链接[Link to baidu](https://www.baidu.com){target="\_self"}
 
 ## 动态路由
 
--   [foo](./pcks/foo)
--   [bar](./pcks/bar)
+
 
 ## YAML frontmatter
 
