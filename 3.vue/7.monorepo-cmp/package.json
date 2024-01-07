@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@laoriy/vue3-ui",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "pnpm -C example dev"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

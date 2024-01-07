@@ -1,0 +1,15 @@
+{
+    "name": "@laoriy/lg-button",
+    "version": "1.0.0",
+    "description": "a button",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "laoriy",
+    "license": "ISC",
+    "devDependencies": {
+        "less": "^4.2.0"
+    }
+}
