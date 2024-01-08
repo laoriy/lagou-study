@@ -1,5 +1,6 @@
-
 import { createApp } from 'vue'
 import App from './App.vue'
+import lGButton from '@laoriy/lg-button'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.use(lGButton).mount('#app')

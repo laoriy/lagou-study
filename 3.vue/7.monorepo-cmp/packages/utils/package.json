@@ -1,0 +1,6 @@
+{
+    "name": "@laoriy/lg-utils",
+    "main": "index.ts",
+    "private": true,
+    "license": "ISC"
+}

@@ -106,6 +106,9 @@ pnpm create vite example
 在`components`文件夹下创建`button`文件夹
 
 ![images](./images/微信图片_20240106224632.png)
+
+package.json
+
 ![images](./images/code-button.png)
 
 编写button组件
@@ -154,11 +157,97 @@ const typeClass = computed(() => `button-${props.type}`)
 
 由于用到了less，需要在该目录下安装一下`pnpm add less -D`
 
+### withInstall方法
+
+为了支持全局引入，增加一个withInstall方法。
+
+在utils/src/with-install.ts文件，代码如下：
+
+```ts
+/** 以下代码参考element-plus */
+import type { App, Plugin } from "vue"
+
+type SFCWithInstall<T> = T & Plugin
+
+export const withInstall = <T, E extends Record<string, any>>(
+    main: T,
+    extra?: E
+) => {
+    ;(main as SFCWithInstall<T>).install = (app: App): void => {
+        for (const comp of [main, ...Object.values(extra ?? {})]) {
+            app.component(comp.name, comp)
+        }
+    }
+
+    if (extra) {
+        for (const [key, comp] of Object.entries(extra)) {
+            ;(main as any)[key] = comp
+        }
+    }
+    return main as SFCWithInstall<T> & E
+}
+```
+
+在utils/index.ts中添加
+
+```ts
+export * from "./src/with-install"
+```
+
+生成utils 包的package.json如下：
+
+```json
+{
+    "name": "@laoriy/lg-utils",
+    "main": "index.ts",
+    "private": true,
+    "license": "ISC"
+}
+```
+
+全局安装pnpm add @laoriy/lg-utils -w
+
+修改index.ts中导出组件
+
+```ts
+import _Button from "./src/index.vue"
+import { withInstall } from "@laoriy/lg-utils"
+
+export default withInstall(_Button)
+```
+
+### 引入组件
+
 然后在example根目录执行
 
 ```shell
 pnpm add @laoriy/lg-button
 ```
 
-可以看到package.json 已经安装了
+可以看到package.json 已经添加了依赖，由于pnpm是由workspace管理，前缀workspace可以指向components下的工作空间从而方便本地直接调试各个包。
 ![images](./images/code.png)
+
+此时我们就可以在页面中使用了
+
+-   全局引入：
+    ```ts
+    // example/src/main.ts
+    import lGButton from "@laoriy/lg-button"
+    app.use(lGButton)
+    ```
+-   按需引入
+
+        ```vue
+        <script setup lang="ts">
+        // example/src/App.vue
+        import lGButton from "@laoriy/lg-button"
+        </script>
+
+        <template>
+            <div>
+                <lGButton type="primary">test lGButton</lGButton>
+            </div>
+        </template>
+        ```
+
+按钮已经正常显示，说明我们的引入是成功的

@@ -6,13 +6,20 @@ settings:
 
 importers:
 
-  .: {}
-
-  example:
+  .:
     dependencies:
       '@laoriy/lg-button':
         specifier: workspace:^
-        version: link:../packages/components/button
+        version: link:packages/components/button
+      '@laoriy/lg-utils':
+        specifier: workspace:^
+        version: link:packages/utils
+      vue:
+        specifier: ^3.3.11
+        version: 3.4.5(typescript@5.3.3)
+
+  example:
+    dependencies:
       vue:
         specifier: ^3.3.11
         version: 3.4.5(typescript@5.3.3)
@@ -68,6 +75,8 @@ importers:
       less:
         specifier: ^4.2.0
         version: 4.2.0
+
+  packages/utils: {}
 
 packages:
 

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import Button from '@laoriy/lg-button'
+/**
+ * 方式一：直接在页面局部引入使用
+ */
+// import lGButton from '@laoriy/lg-button'
 </script>
 
 <template>
   <div>
-    <Button type="primary" >test Button</Button>
+    <lGButton type="primary">test Button</lGButton>
   </div>
 </template>
-
-<style scoped></style>

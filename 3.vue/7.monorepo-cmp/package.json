@@ -8,5 +8,10 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "@laoriy/lg-button": "workspace:^",
+        "@laoriy/lg-utils": "workspace:^",
+        "vue": "^3.3.11"
+    }
 }
