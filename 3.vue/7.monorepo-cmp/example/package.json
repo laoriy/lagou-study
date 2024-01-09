@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@laoriy/lg-button": "workspace:^",
     "vue": "^3.3.11"
   },
   "devDependencies": {

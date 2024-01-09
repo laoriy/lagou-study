@@ -155,7 +155,9 @@ const typeClass = computed(() => `button-${props.type}`)
 </style>
 ```
 
-由于用到了less，需要在该目录下安装一下`pnpm add less -D`
+由于用到了less，需要安装一下 `pnpm add less -D -w`
+
+-w或--workspace代表允许安装到根目录下、全局所以项目都直接可以使用，视情况使用
 
 ### withInstall方法
 
@@ -205,7 +207,7 @@ export * from "./src/with-install"
 }
 ```
 
-全局安装pnpm add @laoriy/lg-utils -w
+全局安装 `pnpm add @laoriy/lg-utils -w`
 
 修改index.ts中导出组件
 
@@ -218,16 +220,19 @@ export default withInstall(_Button)
 
 ### 引入组件
 
-然后在example根目录执行
-
-```shell
-pnpm add @laoriy/lg-button
-```
+全局安装 `pnpm add @laoriy/lg-button -w`
 
 可以看到package.json 已经添加了依赖，由于pnpm是由workspace管理，前缀workspace可以指向components下的工作空间从而方便本地直接调试各个包。
-![images](./images/code.png)
 
-此时我们就可以在页面中使用了
+```json
+"dependencies": {
+    "@laoriy/lg-button": "workspace:^",
+    "@laoriy/lg-utils": "workspace:^",
+    "vue": "^3.3.11"
+}
+```
+
+此时我们就可以在example项目中的页面中使用了：
 
 -   全局引入：
     ```ts
@@ -237,17 +242,25 @@ pnpm add @laoriy/lg-button
     ```
 -   按需引入
 
-        ```vue
-        <script setup lang="ts">
-        // example/src/App.vue
-        import lGButton from "@laoriy/lg-button"
-        </script>
+    ```vue
+    <script setup lang="ts">
+    // example/src/App.vue
+    import lGButton from "@laoriy/lg-button"
+    </script>
 
-        <template>
-            <div>
-                <lGButton type="primary">test lGButton</lGButton>
-            </div>
-        </template>
-        ```
+    <template>
+        <div class="test-button">
+            <h3>this is a lg-button test</h3>
+            <lGButton type="primary">test Button</lGButton>
+        </div>
+    </template>
+    ```
 
 按钮已经正常显示，说明我们的引入是成功的
+
+![images](./images/微信图片_20240109222823.png)
+
+
+## 配置打包
+
+然后我们需要给组件库配置打包，更改后components项目的 vite.config.js 如下：
