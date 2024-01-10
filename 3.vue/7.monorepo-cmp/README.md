@@ -44,9 +44,7 @@ pnpm init
     "name": "@laoriy/vue3-ui",
     "description": "",
     "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
+    "scripts": {},
     "keywords": [],
     "author": "",
     "license": "ISC"
@@ -259,7 +257,6 @@ export default withInstall(_Button)
 按钮已经正常显示，说明我们的引入是成功的
 
 ![images](./images/微信图片_20240109222823.png)
-
 
 ## 配置打包
 

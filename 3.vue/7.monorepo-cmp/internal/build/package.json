@@ -1,0 +1,20 @@
+{
+    "name": "@laoriy/lg-build",
+    "version": "1.0.0",
+    "private": true,
+    "description": "",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "stub": "unbuild --stub",
+        "dev": "pnpm run stub",
+        "build": "unbuild"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "unbuild": "^2.0.0"
+    }
+}

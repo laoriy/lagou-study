@@ -2,7 +2,11 @@ import { UserConfig, PluginOption } from "vite"
 // import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
-function createViteConfig({ plugins = [] }: { plugins?: PluginOption[] }): UserConfig {
+function createViteConfig({
+    plugins = [],
+}: {
+    plugins?: PluginOption[]
+}): UserConfig {
     return {
         plugins: [...plugins],
         build: {
@@ -23,16 +27,14 @@ function createViteConfig({ plugins = [] }: { plugins?: PluginOption[] }): UserC
                         preserveModules: true,
                         preserveModulesRoot: "src",
                         //配置打包根目录
-                        dir: "/dist/es",
+                        dir: "./dist/es",
                     },
                     {
                         format: "umd",
                         entryFileNames: "[name].js",
-                        //让打包目录和我们目录对应
-                        preserveModules: true,
-                        preserveModulesRoot: "src",
+                        name: "lgButton",
                         //配置打包根目录
-                        dir: "/dist/umd",
+                        dir: "./dist/umd",
                     },
                 ],
             },

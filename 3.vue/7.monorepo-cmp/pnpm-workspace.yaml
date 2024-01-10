@@ -1,5 +1,7 @@
 packages:
     # 存放组件库和其他工具库
     - "packages/**"
+    # 打包相关
+    - "internal/**"
     # 存放组件测试的代码
     - "example"

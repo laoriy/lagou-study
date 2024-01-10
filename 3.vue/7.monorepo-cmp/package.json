@@ -6,12 +6,14 @@
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "dev": "pnpm -C example dev",
+        "dev:build": "pnpm --filter @laoriy/lg-build dev",
         "build:lg-button": "pnpm --filter @laoriy/lg-button build"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "vite": "^5.0.11"
+        "@laoriy/lg-build": "workspace:^",
+        "vite": "^5.0.10"
     }
 }
