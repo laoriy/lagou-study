@@ -1,6 +1,9 @@
 {
+    "private": true,
     "name": "@laoriy/lg-utils",
     "main": "index.ts",
-    "private": true,
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "vue": "^3.3.11"
+    }
 }

@@ -14,7 +14,7 @@ import lGButton from '@laoriy/lg-button'
 
 <style lang="less" scoped>
 .test-button {
-  width: 100vh;
+  width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;

@@ -10,7 +10,15 @@
     "keywords": [],
     "author": "laoriy",
     "license": "ISC",
+    "dependencies": {
+        "vue": "^3.3.4",
+        "@laoriy/lg-utils": "workspace:^"
+    },
     "devDependencies": {
-        "less": "^4.2.0"
+        "less": "^4.2.0",
+        "@vitejs/plugin-vue": "^4.5.2"
+    },
+    "peerDependencies": {
+        "vue": "^3.3.4"
     }
 }

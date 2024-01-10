@@ -4,19 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "pnpm -C example dev"
+        "preinstall": "npx only-allow pnpm",
+        "dev": "pnpm -C example dev",
+        "build:lg-button": "pnpm --filter @laoriy/lg-button build"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "dependencies": {
-        "@laoriy/lg-button": "workspace:^",
-        "@laoriy/lg-utils": "workspace:^",
-        "vue": "^3.3.11"
-    },
     "devDependencies": {
-        "@vitejs/plugin-vue": "^4.5.2",
-        "less": "^4.2.0",
-        "vite": "^5.0.10"
+        "vite": "^5.0.11"
     }
 }
