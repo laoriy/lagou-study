@@ -23,25 +23,22 @@ function createViteConfig({
                         format: "es",
                         // 打包成.mjs
                         entryFileNames: "[name].mjs",
-                        //让打包目录和我们目录对应
-                        preserveModules: true,
-                        preserveModulesRoot: "src",
-                        //配置打包根目录
-                        dir: "./dist/es",
+                        dir: "dist/es",
                     },
                     {
                         format: "umd",
                         entryFileNames: "[name].js",
                         name: "lgButton",
-                        //配置打包根目录
-                        dir: "./dist/umd",
+                        dir: "dist/umd",
+                        globals: {
+                            vue: 'Vue'
+                        }
                     },
                 ],
             },
             lib: {
                 entry: "./index.ts",
                 name: "lgButton",
-                formats: ["es", "umd"],
             },
         },
     }

@@ -6,14 +6,17 @@
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "dev": "pnpm -C example dev",
-        "dev:build": "pnpm --filter @laoriy/lg-build dev",
-        "build:lg-button": "pnpm --filter @laoriy/lg-button build"
+        "dev:lg-build": "pnpm --filter @laoriy/lg-build dev",
+        "build:lg-button": "pnpm --filter @laoriy/lg-button build",
+        "pub:lg-button": "pnpm --filter @laoriy/lg-button pub"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "@laoriy/lg-build": "workspace:^",
+        "@laoriy/lg-utils": "workspace:*",
+        "rimraf": "^5.0.5",
         "vite": "^5.0.10"
     }
 }

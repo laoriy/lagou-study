@@ -2,20 +2,28 @@
     "name": "@laoriy/lg-button",
     "version": "1.0.0",
     "description": "a button",
-    "main": "index.ts",
+    "main": "main.ts",
+    "publishConfig": {
+        "main": "dist/es/index.mjs",
+        "module": "dist/umd/index.js"
+    },
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "build": "vite build"
+        "clean:dist": "rimraf dist",
+        "build": "pnpm clean:dist && vite build",
+        "pub": "pnpm publish"
     },
     "keywords": [],
     "author": "laoriy",
     "license": "ISC",
     "dependencies": {
-        "vue": "^3.3.4",
-        "@laoriy/lg-utils": "workspace:^"
+        "vue": "^3.3.4"
     },
     "devDependencies": {
-        "less": "^4.2.0",
-        "@vitejs/plugin-vue": "^4.5.2"
+        "@vitejs/plugin-vue": "^4.5.2",
+        "less": "^4.2.0"
     },
     "peerDependencies": {
         "vue": "^3.3.4"
