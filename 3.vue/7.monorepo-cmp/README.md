@@ -36,18 +36,13 @@ cd monorepo-cmp
 pnpm init
 ```
 
-此时会生成 package.json 文件，根据自身需要进行修改。
+此时会生成 package.json 文件
+
+根目录不用当作包发布，在package.json加入如下设置：
 
 ```json
 {
-    "private": true,
-    "name": "@laoriy/vue3-ui",
-    "description": "",
-    "main": "index.js",
-    "scripts": {},
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    "private": true
 }
 ```
 
@@ -65,6 +60,8 @@ pnpm 内置了对单一存储库（也称为多包存储库、多项目存储库
 packages:
     # 存放组件库和其他工具库
     - "packages/**"
+    # 构建工具相关
+    - "internal/**"
     # 存放组件测试的代码
     - "example"
 ```
@@ -89,8 +86,6 @@ pnpm create vite example
 
 在根目录执行 `pnpm dev` 启动测试服务
 
-接着在 `packages` 目录下，创建`components`文件夹
-
 ## 编写组件
 
 实际业务场景中，我们更需要的是业务组件
@@ -98,6 +93,8 @@ pnpm create vite example
 个人觉得独立发布更好维护，每个组件都是一个独立的npm包，可参考vue的monorepo
 
 当然选择一个包含有所有组件也没问题，可参考element-plus的monorepo
+
+在 `packages` 目录下，创建`components`文件夹
 
 ### 创建一个Button组件
 
@@ -107,7 +104,16 @@ pnpm create vite example
 
 package.json
 
-![images](./images/code-button.png)
+```json
+{
+    "name": "@laoriy/lg-button",
+    "version": "1.0.0",
+    "description": "a button",
+    "main": "index.ts",
+    "scripts": {},
+    "license": "ISC"
+}
+```
 
 编写button组件
 
@@ -153,15 +159,30 @@ const typeClass = computed(() => `button-${props.type}`)
 </style>
 ```
 
-由于用到了less，需要安装一下 `pnpm add less -D -w`
-
--w或--workspace代表允许安装到根目录下、全局所以项目都直接可以使用，视情况使用
+由于用到了less，需要安装一下 `pnpm add less -D`
 
 ### withInstall方法
 
-为了支持全局引入，增加一个withInstall方法。
+为了支持最终该组件可以被全局引入，增加一个withInstall方法。
 
-在utils/src/with-install.ts文件，代码如下：
+生成utils 包的package.json如下：
+
+```json
+{
+    "private": true,
+    "name": "@laoriy/lg-utils",
+    "main": "index.ts",
+    "license": "ISC"
+}
+```
+
+utils/index.ts作为入口
+
+```ts
+export * from "./src/with-install"
+```
+
+创建utils/src/with-install.ts文件，代码如下：
 
 ```ts
 /** 以下代码参考element-plus */
@@ -188,26 +209,13 @@ export const withInstall = <T, E extends Record<string, any>>(
 }
 ```
 
-在utils/index.ts中添加
+@laoriy/lg-utils这个包就创建好了
 
-```ts
-export * from "./src/with-install"
-```
+由于这个包我不想发布到npm，如果要在其它包使用，需要全局安装 `pnpm add @laoriy/lg-utils -w -D`
 
-生成utils 包的package.json如下：
+-w或--workspace代表允许安装到根目录下、全局所以项目都直接可以使用
 
-```json
-{
-    "name": "@laoriy/lg-utils",
-    "main": "index.ts",
-    "private": true,
-    "license": "ISC"
-}
-```
-
-全局安装 `pnpm add @laoriy/lg-utils -w`
-
-修改index.ts中导出组件
+然后修改Button组件的入口index.ts，如下：
 
 ```ts
 import _Button from "./src/index.vue"
@@ -218,14 +226,13 @@ export default withInstall(_Button)
 
 ### 引入组件
 
-全局安装 `pnpm add @laoriy/lg-button -w`
+在example目录下执行 `pnpm add @laoriy/lg-button`
 
 可以看到package.json 已经添加了依赖，由于pnpm是由workspace管理，前缀workspace可以指向components下的工作空间从而方便本地直接调试各个包。
 
 ```json
 "dependencies": {
     "@laoriy/lg-button": "workspace:^",
-    "@laoriy/lg-utils": "workspace:^",
     "vue": "^3.3.11"
 }
 ```
@@ -260,4 +267,137 @@ export default withInstall(_Button)
 
 ## 配置打包
 
+在internal/build目录下创建 `@laoriy/lg-build` 包
+
+我们可以对vite打包的一些配置进行简单封装，由于这里只是演示，大部分内容都是写死。
+
+```ts
+// build/src/build.ts
+import { UserConfig, PluginOption } from "vite"
+
+function createViteConfig({
+    plugins = [],
+}: {
+    plugins?: PluginOption[]
+}): UserConfig {
+    return {
+        plugins: [...plugins],
+        build: {
+            target: "es2015",
+            //打包文件目录
+            outDir: "dist",
+            //压缩
+            minify: true,
+            rollupOptions: {
+                //忽略打包vue
+                external: ["vue"],
+                output: [
+                    {
+                        format: "es",
+                        // 打包成.mjs
+                        entryFileNames: "[name].mjs",
+                        dir: "dist/es",
+                    },
+                    {
+                        format: "umd",
+                        entryFileNames: "[name].js",
+                        name: "lgButton",
+                        dir: "dist/umd",
+                        globals: {
+                            vue: "Vue",
+                        },
+                    },
+                ],
+            },
+            lib: {
+                entry: "./index.ts",
+                name: "lgButton",
+            },
+        },
+    }
+}
+
+export { createViteConfig }
+
+// build/src/index.ts
+export * from "./build"
+```
+
+然后通过 `unbuild` 对该包进行构建
+
+为什么要使用构建后的文件？
+
+Button组件使用vite进行打包，构建过程中对于引入的第三方包，此处就会对该包进行判断是否是ESM，但我们的项目使用了ts，vite无法识别该扩展名，会报错。
+
+```ts
+// build/build.config.ts
+import { defineBuildConfig } from "unbuild"
+
+export default defineBuildConfig({
+    entries: ["src/index"],
+    clean: true,
+    declaration: true,
+    rollup: {
+        emitCJS: true,
+    },
+})
+```
+
+package.json:
+
+```json
+{
+    "name": "@laoriy/lg-build",
+    "version": "1.0.0",
+    "private": true,
+    "description": "",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "stub": "unbuild --stub",
+        "dev": "pnpm run stub",
+        "build": "unbuild"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "unbuild": "^2.0.0"
+    }
+}
+```
+
+在build目录运行 `pnpm run build`打包构建，然后就可以使用该包了。
+
+在 components/button 目录下
+
+运行 `pnpm add vite rimraf -w -D`，全局安装
+
+运行 `pnpm add @vitejs/plugin-vue -D`，本项目安装
+
+增加 vite.config.ts
+
+```ts
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
+import { createViteConfig } from "@laoriy/lg-build"
+
+export default defineConfig(createViteConfig({ plugins: [vue()] }))
+
+// components/button/vite.config.ts
+```
+
+修改package.json
+
+```json
+"script":{
+    "clean:dist": "rimraf dist",
+    "build": "pnpm clean:dist && vite build",
+}
+```
+
+然后运行 `pnpm run build` 打包组件，会生成 dist 文件夹为打包结果
+
+## 发布
 然后我们需要给组件库配置打包，更改后components项目的 vite.config.js 如下：
