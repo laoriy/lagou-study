@@ -2,6 +2,7 @@
     "private": true,
     "name": "@laoriy/lg-utils",
     "main": "index.ts",
+    "types": "index.d.ts",
     "license": "ISC",
     "devDependencies": {
         "vue": "^3.3.11"

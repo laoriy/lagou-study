@@ -1,6 +1,5 @@
 /** 以下代码参考element-plus */
 import type { App, Plugin } from "vue"
-
 type SFCWithInstall<T> = T & Plugin
 
 export const withInstall = <T, E extends Record<string, any>>(

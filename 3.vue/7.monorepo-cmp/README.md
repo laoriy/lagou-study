@@ -267,6 +267,8 @@ export default withInstall(_Button)
 
 ## 配置打包
 
+### 封装打包逻辑
+
 在internal/build目录下创建 `@laoriy/lg-build` 包
 
 我们可以对vite打包的一些配置进行简单封装，由于这里只是演示，大部分内容都是写死。
@@ -274,14 +276,21 @@ export default withInstall(_Button)
 ```ts
 // build/src/build.ts
 import { UserConfig, PluginOption } from "vite"
+import copy from "rollup-plugin-copy"
 
+// https://vitejs.dev/config/
 function createViteConfig({
     plugins = [],
 }: {
     plugins?: PluginOption[]
 }): UserConfig {
     return {
-        plugins: [...plugins],
+        plugins: [
+            ...plugins,
+            copy({
+                targets: [{ src: ["package.json", "README.md"], dest: "dist" }],
+            }) as PluginOption,
+        ],
         build: {
             target: "es2015",
             //打包文件目录
@@ -363,6 +372,7 @@ package.json:
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "rollup-plugin-copy": "^3.5.0",
         "unbuild": "^2.0.0"
     }
 }
@@ -370,34 +380,59 @@ package.json:
 
 在build目录运行 `pnpm run build`打包构建，然后就可以使用该包了。
 
+### 组件打包
+
 在 components/button 目录下
 
 运行 `pnpm add vite rimraf -w -D`，全局安装
 
 运行 `pnpm add @vitejs/plugin-vue -D`，本项目安装
 
-增加 vite.config.ts
+增加 ``vite.config.ts`,代码如下：
 
 ```ts
+// components/button/vite.config.ts
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import { createViteConfig } from "@laoriy/lg-build"
 
 export default defineConfig(createViteConfig({ plugins: [vue()] }))
-
-// components/button/vite.config.ts
 ```
 
 修改package.json
 
 ```json
 "script":{
-    "clean:dist": "rimraf dist",
+    "clean:dist": "rimraf ./dist",
     "build": "pnpm clean:dist && vite build",
 }
 ```
 
-然后运行 `pnpm run build` 打包组件，会生成 dist 文件夹为打包结果
+然后运行 `pnpm run build` 打包组件，生成 dist 文件夹
 
 ## 发布
-然后我们需要给组件库配置打包，更改后components项目的 vite.config.js 如下：
+
+细心的同学可能已经发现了，button包的package.json 的main字段值为 index.ts，直接拿去发布是不对的。
+
+这里我们可以借助于pnpm提供的 [publishConfig](https://pnpm.io/zh/package_json#publishconfig "publishConfig") 配置进行简单配置即可：
+
+```json
+"publishConfig": {
+    "main": "dist/es/index.mjs",
+    "module": "dist/umd/index.js"
+},
+```
+
+然后重新打包，并对最终打包生成的dist目录，直接执行pnpm publish 即可。
+
+可以在button目录下的package.json添加命令：
+
+```json
+"script":{
+    "pub": "cd ./dist && pnpm publish"
+}
+```
+
+至此发布完成。
+
+## TypeScript

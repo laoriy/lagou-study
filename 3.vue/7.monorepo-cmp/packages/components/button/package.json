@@ -1,20 +1,17 @@
 {
     "name": "@laoriy/lg-button",
     "access": "public",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "a button",
     "main": "index.ts",
     "publishConfig": {
         "main": "dist/es/index.mjs",
         "module": "dist/umd/index.js"
     },
-    "files": [
-        "dist"
-    ],
     "scripts": {
-        "clean:dist": "rimraf dist",
+        "clean:dist": "rimraf ./dist",
         "build": "pnpm clean:dist && vite build",
-        "pub": "pnpm publish"
+        "pub": "cd ./dist && pnpm publish"
     },
     "keywords": [],
     "author": "laoriy",

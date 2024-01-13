@@ -5,3 +5,5 @@ packages:
     - "internal/**"
     # 存放组件测试的代码
     - "example"
+
+    - '!**/dist/**'

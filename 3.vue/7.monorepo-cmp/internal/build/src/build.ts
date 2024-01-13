@@ -1,5 +1,6 @@
 import { UserConfig, PluginOption } from "vite"
-// import dts from 'vite-plugin-dts'
+import copy from "rollup-plugin-copy"
+import dts from "vite-plugin-dts"
 
 // https://vitejs.dev/config/
 function createViteConfig({
@@ -8,7 +9,15 @@ function createViteConfig({
     plugins?: PluginOption[]
 }): UserConfig {
     return {
-        plugins: [...plugins],
+        plugins: [
+            ...plugins,
+            copy({
+                targets: [{ src: ["package.json", "README.md"], dest: "dist" }],
+            }) as PluginOption,
+            dts({
+                cleanVueFileName: true,
+            }),
+        ],
         build: {
             target: "es2015",
             //打包文件目录
@@ -31,8 +40,8 @@ function createViteConfig({
                         name: "lgButton",
                         dir: "dist/umd",
                         globals: {
-                            vue: 'Vue'
-                        }
+                            vue: "Vue",
+                        },
                     },
                 ],
             },

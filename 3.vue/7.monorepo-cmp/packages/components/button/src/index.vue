@@ -7,15 +7,18 @@
 <script setup lang="ts">
 import { computed } from "vue"
 
+export type Props = {
+    type?: "default" | "primary"
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    type: "default",
+})
 defineOptions({
     name: "lGButton",
 })
-const props = defineProps({
-    type: {
-        type: String,
-        default: "default",
-    },
-})
+
+
 const typeClass = computed(() => `button-${props.type}`)
 </script>
 
