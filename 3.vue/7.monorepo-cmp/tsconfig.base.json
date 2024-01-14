@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "rootDir": ".",
+      "strict": true,
+      "target": "es2016",
+      "module": "ESNext",
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "noUnusedLocals": true,
+      "experimentalDecorators": true,
+      "resolveJsonModule": true,
+      "removeComments": false,
+      "allowJs": false
+    }
+  }
+  

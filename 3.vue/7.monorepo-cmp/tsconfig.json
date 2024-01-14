@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "jsx": "preserve",
+        "lib": ["esnext", "dom"]
+    },
+    "vueCompilerOptions": {
+        "target": 3
+    }
+}

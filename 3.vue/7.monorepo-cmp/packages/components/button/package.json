@@ -5,11 +5,11 @@
     "description": "a button",
     "main": "index.ts",
     "publishConfig": {
-        "main": "dist/es/index.mjs",
-        "module": "dist/umd/index.js"
+        "main": "./es/index.mjs",
+        "module": "./umd/index.js"
     },
     "scripts": {
-        "clean:dist": "rimraf ./dist",
+        "clean:dist": "rimraf dist",
         "build": "pnpm clean:dist && vite build",
         "pub": "cd ./dist && pnpm publish"
     },

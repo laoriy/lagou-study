@@ -310,7 +310,7 @@ function createViteConfig({
                     {
                         format: "umd",
                         entryFileNames: "[name].js",
-                        name: "lgButton",
+                        name: "lGButton",
                         dir: "dist/umd",
                         globals: {
                             vue: "Vue",
@@ -320,7 +320,7 @@ function createViteConfig({
             },
             lib: {
                 entry: "./index.ts",
-                name: "lgButton",
+                name: "lGButton",
             },
         },
     }
@@ -418,8 +418,8 @@ export default defineConfig(createViteConfig({ plugins: [vue()] }))
 
 ```json
 "publishConfig": {
-    "main": "dist/es/index.mjs",
-    "module": "dist/umd/index.js"
+    "main": "./umd/index.js",
+    "module": "./es/index.mjs"
 },
 ```
 

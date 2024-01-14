@@ -16,6 +16,7 @@ function createViteConfig({
             }) as PluginOption,
             dts({
                 cleanVueFileName: true,
+                include: ["packages/**/*.ts", "packages/**/*.vue"],
             }),
         ],
         build: {
@@ -37,7 +38,7 @@ function createViteConfig({
                     {
                         format: "umd",
                         entryFileNames: "[name].js",
-                        name: "lgButton",
+                        name: "lGButton",
                         dir: "dist/umd",
                         globals: {
                             vue: "Vue",
@@ -47,7 +48,7 @@ function createViteConfig({
             },
             lib: {
                 entry: "./index.ts",
-                name: "lgButton",
+                name: "lGButton",
             },
         },
     }
