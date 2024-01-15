@@ -4,6 +4,8 @@
         "jsx": "preserve",
         "lib": ["esnext", "dom"]
     },
+    "include": ["packages/components/**/*.ts"],
+    "exclude": ["packages/**/vite.config.ts"],
     "vueCompilerOptions": {
         "target": 3
     }

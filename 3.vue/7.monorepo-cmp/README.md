@@ -436,3 +436,75 @@ export default defineConfig(createViteConfig({ plugins: [vue()] }))
 至此发布完成。
 
 ## TypeScript
+
+### 设置全局ts配置
+
+tsconfig.base.json
+
+```json
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": ".",
+        "strict": true,
+        "target": "es2016",
+        "module": "ESNext",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "removeComments": false,
+        "allowJs": false
+    }
+}
+```
+
+tsconfig.json 需要注意配置的include和exclude
+
+```json
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "jsx": "preserve",
+        "lib": ["esnext", "dom"]
+    },
+    "include": ["packages/components/**/*.ts"],
+    "exclude": ["packages/**/vite.config.ts"],
+    "vueCompilerOptions": {
+        "target": 3
+    }
+}
+```
+
+### 生成声明文件
+
+在interval/build 目录下安装并引入 `vite-plugin-dts`
+
+insertTypesEntry 可以 根据package.json中的types字段生成入口声明文件
+
+```ts
+// build.ts
+import dts from "vite-plugin-dts"
+
+plugins: [
+   dts({
+        cleanVueFileName: true,
+        beforeWriteFile: (filePath, content) => {
+            return {
+                filePath:filePath.replace(/dist\/packages.*\/index.d.ts/,'dist/index.d.ts'), // 修改声明文件位置
+                content,
+            }
+        },
+    })
+],
+```
+
+在packages/components/button目录，增加types字段：
+
+```json
+{
+    "types": "dist/index.d.ts",
+}
+```

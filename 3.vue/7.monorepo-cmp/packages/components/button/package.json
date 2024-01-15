@@ -1,9 +1,10 @@
 {
     "name": "@laoriy/lg-button",
     "access": "public",
-    "version": "1.0.1",
+    "version": "1.0.4",
     "description": "a button",
     "main": "index.ts",
+    "types": "index.d.ts",
     "publishConfig": {
         "main": "./es/index.mjs",
         "module": "./umd/index.js"

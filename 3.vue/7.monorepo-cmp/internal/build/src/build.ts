@@ -16,7 +16,12 @@ function createViteConfig({
             }) as PluginOption,
             dts({
                 cleanVueFileName: true,
-                include: ["packages/**/*.ts", "packages/**/*.vue"],
+                beforeWriteFile: (filePath, content) => {
+                    return {
+                        filePath:filePath.replace(/dist\/packages.*\/index.d.ts/,'dist/index.d.ts'),
+                        content,
+                    }
+                },
             }),
         ],
         build: {
