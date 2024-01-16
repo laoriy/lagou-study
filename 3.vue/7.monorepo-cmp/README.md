@@ -1,8 +1,8 @@
-# 一文学会 pnpm monorepo + vite + ts 搭建自己的 vue3 组件库
+# 一文学会 pnpm monorepo + vite + ts 搭建团队的 vue3 组件库
 
 ## 为什么用 pnpm?
 
-[pnpm](https://pnpm.io/zh/ "pnpm") 是 快速的，节省磁盘空间的包管理工具。诸如 vue3 、element-plus 都在使用它
+[pnpm](https://pnpm.io/zh/ "pnpm") 是 快速的，节省磁盘空间的包管理工具。诸如 `vue3` 、`element-plus` 都在使用它
 
 其主要优点如下：
 
@@ -36,9 +36,9 @@ cd monorepo-cmp
 pnpm init
 ```
 
-此时会生成 package.json 文件
+此时会生成 `package.json` 文件
 
-根目录不用当作包发布，在package.json加入如下设置：
+根目录不用当作 npm 包发布，在 `package.json` 加入如下设置：
 
 ```json
 {
@@ -48,13 +48,15 @@ pnpm init
 
 ### 创建 workspace
 
-pnpm 内置了对单一存储库（也称为多包存储库、多项目存储库或单体存储库）的支持，只需要创建[workspace](https://pnpm.io/workspaces "workspace")即可。
+pnpm 内置了对单一存储库（也称为多包存储库、多项目存储库或单体存储库）的支持，只需要创建[workspace](https://pnpm.io/workspaces "workspace") 即可。
 
-根目录创建`packages`文件夹，以此作为组件库，工具库等工作空间
+首先，根目录创建 `packages`、`internal`、`example` 文件夹
 
-再新建 `pnpm-workspace.yaml` 文件，用来声明对应的工作区。
+-   `packages` 目录为组件库，工具库等工作空间
+-   `internal` 目录为构建工具工作空间
+-   `example` 目录为示例项目，用来开发和测试组件
 
-`example`文件夹 会作为示例项目，用来开发和测试组件
+然后，再新建 `pnpm-workspace.yaml` 文件，用来声明对应的工作区。
 
 ```yaml
 packages:
@@ -64,11 +66,13 @@ packages:
     - "internal/**"
     # 存放组件测试的代码
     - "example"
+    # dist 目录不需要作为工作空间
+    - "!**/dist/**"
 ```
 
 ### 创建组件测试环境
 
-在根目录执行
+先在根目录运行，本文选择如下
 
 ```shell
 pnpm create vite example
@@ -76,7 +80,7 @@ pnpm create vite example
 
 ![images](./images/微信图片_20240105232431.png)
 
-然后在根目录下面的`package.json`下面添加`scripts`脚本。`pnpm -C <path>, --dir <path>`在 `<path>` 中启动 pnpm ，而不是当前的工作目录。
+然后，在根目录下面的 `package.json` 下面添加 `scripts` 脚本如下：
 
 ```json
  "scripts": {
@@ -84,25 +88,27 @@ pnpm create vite example
   }
 ```
 
-在根目录执行 `pnpm dev` 启动测试服务
+其中 `pnpm -C <path>, --dir <path>` 代表在 `<path>` 中启动 pnpm ，而不是当前的工作目录。
+
+最后，运行 `pnpm dev` 启动测试项目本地服务。
 
 ## 编写组件
 
 实际业务场景中，我们更需要的是业务组件
 
-个人觉得独立发布更好维护，每个组件都是一个独立的npm包，可参考vue的monorepo
+个人觉得独立发布各个组件库更好维护，每个组件应该都是一个独立的npm包，`vue` 的 `monorepo` 架构如是也。
 
-当然选择一个包含有所有组件也没问题，可参考element-plus的monorepo
+当然选择一个包含有所有组件也没问题，即为 `element-plus`的 `monorepo`实现。
 
-在 `packages` 目录下，创建`components`文件夹
+### 创建Button组件目录
 
-### 创建一个Button组件
+首先，在 `packages` 目录下，创建 `components` 文件夹
 
-在`components`文件夹下创建`button`文件夹
+然后，在 `components` 文件夹下创建 `button` 文件夹
 
 ![images](./images/微信图片_20240106224632.png)
 
-package.json
+然后生成 `package.json`，如下：
 
 ```json
 {
@@ -115,7 +121,9 @@ package.json
 }
 ```
 
-编写button组件
+### 编写Button组件
+
+不过多赘述，代码如下：
 
 ```vue
 <template>
@@ -159,13 +167,13 @@ const typeClass = computed(() => `button-${props.type}`)
 </style>
 ```
 
-由于用到了less，需要安装一下 `pnpm add less -D`
+由于用到了less，注意需要安装一下 `pnpm add less -D`
 
-### withInstall方法
+### 增加 withInstall 方法
 
-为了支持最终该组件可以被全局引入，增加一个withInstall方法。
+为了支持最终该组件可以被全局引入，增加一个 `withInstall` 方法
 
-生成utils 包的package.json如下：
+首先，在 `packages` 目录下创建 `utils` 目录作为工具包，并生成其`package.json`如下：
 
 ```json
 {
@@ -176,13 +184,13 @@ const typeClass = computed(() => `button-${props.type}`)
 }
 ```
 
-utils/index.ts作为入口
+`utils/index.ts` 作为包入口
 
 ```ts
 export * from "./src/with-install"
 ```
 
-创建utils/src/with-install.ts文件，代码如下：
+创建 `utils/src/with-install.ts`文件，代码如下：
 
 ```ts
 /** 以下代码参考element-plus */
@@ -209,26 +217,37 @@ export const withInstall = <T, E extends Record<string, any>>(
 }
 ```
 
-@laoriy/lg-utils这个包就创建好了
+此时，`@laoriy/lg-utils` 这个包就创建好了
 
-由于这个包我不想发布到npm，如果要在其它包使用，需要全局安装 `pnpm add @laoriy/lg-utils -w -D`
+由于这个包我不想发布到 `npm`，如果要在其它包使用则需要全局安装（不会作为组件的依赖包出现），运行
 
--w或--workspace代表允许安装到根目录下、全局所以项目都直接可以使用
+```shell
+pnpm add @laoriy/lg-utils -w -D
+```
 
-然后修改Button组件的入口index.ts，如下：
+`-w` 或 `--workspace`代表允许安装到根目录下、全局所以项目都直接可以使用
+
+### 引入 withInstall 方法
+
+修改 `Button` 组件的入口文件 `index.ts`，如下：
 
 ```ts
+// packages/components/button/index.ts
 import _Button from "./src/index.vue"
 import { withInstall } from "@laoriy/lg-utils"
 
 export default withInstall(_Button)
 ```
 
-### 引入组件
+### 引入组件到测试项目
 
-在example目录下执行 `pnpm add @laoriy/lg-button`
+在 `example` 目录下运行
 
-可以看到package.json 已经添加了依赖，由于pnpm是由workspace管理，前缀workspace可以指向components下的工作空间从而方便本地直接调试各个包。
+```shell
+pnpm add @laoriy/lg-button
+```
+
+可以看到在 `package.json` 已经添加了依赖，由于 `pnpm` 是由 `workspace`管理，前缀 `workspace` 可以指向 `components`下的工作空间从而方便本地直接调试各个包。
 
 ```json
 "dependencies": {
@@ -237,7 +256,7 @@ export default withInstall(_Button)
 }
 ```
 
-此时我们就可以在example项目中的页面中使用了：
+此时，我们就可以在 `example` 项目的页面中使用了：
 
 -   全局引入：
     ```ts
@@ -248,8 +267,9 @@ export default withInstall(_Button)
 -   按需引入
 
     ```vue
-    <script setup lang="ts">
     // example/src/App.vue
+
+    <script setup lang="ts">
     import lGButton from "@laoriy/lg-button"
     </script>
 
@@ -261,7 +281,7 @@ export default withInstall(_Button)
     </template>
     ```
 
-按钮已经正常显示，说明我们的引入是成功的
+按钮已经在页面正常显示，说明我引入是成功的；
 
 ![images](./images/微信图片_20240109222823.png)
 
@@ -269,16 +289,15 @@ export default withInstall(_Button)
 
 ### 封装打包逻辑
 
-在internal/build目录下创建 `@laoriy/lg-build` 包
+在 `internal/build` 目录下创建 `@laoriy/lg-build` 包
 
-我们可以对vite打包的一些配置进行简单封装，由于这里只是演示，大部分内容都是写死。
+我们可以对 `vite` 打包的一些配置进行简单封装，由于这里只是演示，大部分内容都是写死。
 
 ```ts
-// build/src/build.ts
+// internal/build/src/build.ts
 import { UserConfig, PluginOption } from "vite"
 import copy from "rollup-plugin-copy"
 
-// https://vitejs.dev/config/
 function createViteConfig({
     plugins = [],
 }: {
@@ -328,18 +347,18 @@ function createViteConfig({
 
 export { createViteConfig }
 
-// build/src/index.ts
+// internal/build/src/index.ts
 export * from "./build"
 ```
 
-然后通过 `unbuild` 对该包进行构建
+然后使用 `unbuild` 对该包进行构建
 
 为什么要使用构建后的文件？
 
-Button组件使用vite进行打包，构建过程中对于引入的第三方包，此处就会对该包进行判断是否是ESM，但我们的项目使用了ts，vite无法识别该扩展名，会报错。
+`Button` 组件使用 `vite` 进行打包，构建过程中对于引入的第三方包，此处就会对该包进行判断是否是 `ESM`，但我们的项目使用了ts，`vite` 无法识别该扩展名，会报错。
 
 ```ts
-// build/build.config.ts
+// internal/build/build.config.ts
 import { defineBuildConfig } from "unbuild"
 
 export default defineBuildConfig({
@@ -352,7 +371,7 @@ export default defineBuildConfig({
 })
 ```
 
-package.json:
+该包的 `package.json` 如下:
 
 ```json
 {
@@ -378,20 +397,20 @@ package.json:
 }
 ```
 
-在build目录运行 `pnpm run build`打包构建，然后就可以使用该包了。
+在该目录运行 `pnpm run build` 打包构建，然后就可以使用该包对Button组件进行打包了。
 
 ### 组件打包
 
-在 components/button 目录下
+在 `components/button` 目录下
 
-运行 `pnpm add vite rimraf -w -D`，全局安装
+运行 `pnpm add vite rimraf -w -D`，全局安装 `rimraf`
 
-运行 `pnpm add @vitejs/plugin-vue -D`，本项目安装
+运行 `pnpm add @vitejs/plugin-vue -D`，本项目安装 `@vitejs/plugin-vue`
 
-增加 ``vite.config.ts`,代码如下：
+增加 `vite.config.ts` ,代码如下：
 
 ```ts
-// components/button/vite.config.ts
+// packages/components/button/vite.config.ts
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import { createViteConfig } from "@laoriy/lg-build"
@@ -399,7 +418,7 @@ import { createViteConfig } from "@laoriy/lg-build"
 export default defineConfig(createViteConfig({ plugins: [vue()] }))
 ```
 
-修改package.json
+修改 `package.json`
 
 ```json
 "script":{
@@ -408,13 +427,13 @@ export default defineConfig(createViteConfig({ plugins: [vue()] }))
 }
 ```
 
-然后运行 `pnpm run build` 打包组件，生成 dist 文件夹
+然后运行 `pnpm run build` 打包组件，生成目标产物 `dist` 文件夹
 
 ## 发布
 
-细心的同学可能已经发现了，button包的package.json 的main字段值为 index.ts，直接拿去发布是不对的。
+细心的同学可能已经发现了，`Button` 包的 `package.json` 的 `main`字段值为 `index.ts`，直接拿去发布是不对的。
 
-这里我们可以借助于pnpm提供的 [publishConfig](https://pnpm.io/zh/package_json#publishconfig "publishConfig") 配置进行简单配置即可：
+这里我们可以借助于 [publishConfig](https://pnpm.io/zh/package_json#publishconfig "publishConfig") 配置进行简单配置即可：
 
 ```json
 "publishConfig": {
@@ -423,9 +442,9 @@ export default defineConfig(createViteConfig({ plugins: [vue()] }))
 },
 ```
 
-然后重新打包，并对最终打包生成的dist目录，直接执行pnpm publish 即可。
+然后重新打包，并对最终打包生成的 `dist` 目录，直接运行 `pnpm publish` 即可。
 
-可以在button目录下的package.json添加命令：
+为了方便， 可以在 `button`目录下的 `package.json` 添加命令：
 
 ```json
 "script":{
@@ -433,9 +452,11 @@ export default defineConfig(createViteConfig({ plugins: [vue()] }))
 }
 ```
 
-至此发布完成。
+运行 `pnpm pub` , 至此发布完成。
 
-## TypeScript
+## TypeScript支持
+
+给组件生成最终的 `ts` 声明文件
 
 ### 设置全局ts配置
 
@@ -461,7 +482,7 @@ tsconfig.base.json
 }
 ```
 
-tsconfig.json 需要注意配置的include和exclude
+`tsconfig.json` 需要注意配置的 `include`和 `exclude`
 
 ```json
 {
@@ -480,9 +501,13 @@ tsconfig.json 需要注意配置的include和exclude
 
 ### 生成声明文件
 
-在interval/build 目录下安装并引入 `vite-plugin-dts`
+在 `interval/build` 目录下安装并引入 `vite-plugin-dts`
 
-insertTypesEntry 可以 根据package.json中的types字段生成入口声明文件
+```shell
+pnpm i vite-plugin-dts -D
+```
+
+修改 `build.ts`
 
 ```ts
 // build.ts
@@ -501,10 +526,80 @@ plugins: [
 ],
 ```
 
-在packages/components/button目录，增加types字段：
+在 `packages/components/button` 目录的 `package.json`，增加types字段：
 
 ```json
 {
-    "types": "dist/index.d.ts",
+    "types": "dist/index.d.ts"
 }
 ```
+
+这样再次对组件进行打包，就会在 `dist` 文件夹下生成 `index.d.ts` 声明文件
+
+```ts
+declare const _default: ({
+    new (...args: any[]): import("vue").CreateComponentPublicInstance<Readonly<import("vue").ExtractPropTypes<{
+        type: {
+            type: import("vue").PropType<"default" | "primary">;
+            default: string;
+        };
+    }>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{
+        type: {
+            type: import("vue").PropType<"default" | "primary">;
+            default: string;
+        };
+    }>>, {
+        type: "default" | "primary";
+    }, true, {}, {}, {
+        P: {};
+        B: {};
+        D: {};
+        C: {};
+        M: {};
+        Defaults: {};
+    }, Readonly<import("vue").ExtractPropTypes<{
+        type: {
+            type: import("vue").PropType<"default" | "primary">;
+            default: string;
+        };
+    }>>, {}, {}, {}, {}, {
+        type: "default" | "primary";
+    }>;
+    __isFragment?: undefined;
+    __isTeleport?: undefined;
+    __isSuspense?: undefined;
+} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<{
+    type: {
+        type: import("vue").PropType<"default" | "primary">;
+        default: string;
+    };
+}>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    type: "default" | "primary";
+}, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+    $slots: {
+        default?(_: {}): any;
+    };
+}) & import("vue").Plugin) & Record<string, any>;
+export default _default;
+
+```
+
+## 其它
+
+[pnpm filter](https://pnpm.io/zh/filtering "pnpm filter") 使用，在根目录下的 `package.json` 配置如下方便快速构建发布
+
+```json
+{
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        "dev": "pnpm -C example dev",
+        "dev:lg-build": "pnpm --filter @laoriy/lg-build dev",
+        "build:lg-button": "pnpm --filter @laoriy/lg-button build",
+        "pub:lg-button": "pnpm --filter @laoriy/lg-button pub"
+    }
+}
+```
+## 结尾
+至此，我们使用 vue3 + vite + ts + pnpm monorepo 搭建组件库就到此结束了
+
+文章主要是简单入门，实际情况中肯定要复杂的多，但只要基础搭牢固，相信上层根据业务扩展对大家都是信手拈来。

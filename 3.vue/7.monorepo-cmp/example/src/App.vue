@@ -8,7 +8,7 @@ import lGButton from '@laoriy/lg-button'
 <template>
   <div class="test-button">
     <h3>this is a lg-button test</h3>
-    <lGButton type="primary">test Button</lGButton>
+    <lGButton>test Button</lGButton>
   </div>
 </template>
 
