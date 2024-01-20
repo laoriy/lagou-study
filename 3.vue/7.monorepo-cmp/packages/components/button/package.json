@@ -7,7 +7,8 @@
     "types": "index.d.ts",
     "publishConfig": {
         "main": "./es/index.mjs",
-        "module": "./umd/index.js"
+        "module": "./umd/index.js",
+        "directory": "dist"
     },
     "scripts": {
         "clean:dist": "rimraf dist",
