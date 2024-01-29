@@ -16,7 +16,32 @@ const virtualDOM = (
     <input type="text" value="13" />
   </div>
 );
+// TinyReact.render(virtualDOM, document.getElementById("root"));
+// console.log(<virtualDOM />);
 
-TinyReact.render(virtualDOM, document.getElementById("root"));
+function Demo() {
+  return <h1>hello</h1>;
+}
 
-console.log(virtualDOM);
+// 组件渲染
+function Heart(props) {
+  return (
+    <div>
+      <h1>❤</h1>
+      <Demo />
+      {props.title}
+    </div>
+  );
+}
+// TinyReact.render(<Heart title="你好" />, document.getElementById("root"));
+
+// 类组件
+class Alert extends TinyReact.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h1>hello React alert {this.props.title}</h1>;
+  }
+}
+TinyReact.render(<Alert title="你好 hello" />, document.getElementById("root"));
