@@ -30,7 +30,6 @@ const modifyDOM = (
     {2 == 2 && <div>2</div>}
     <span>这是一段被改变后的内容</span>
     <button onClick={() => alert("你好!!!!!")}>点击我</button>
-    <h6>这个将会被删除</h6>
     <input type="text" value="13" />
   </div>
 );
@@ -62,9 +61,26 @@ function Heart(props) {
 class Alert extends TinyReact.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      title: "Default title",
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState({
+      title: "new title",
+    });
   }
   render() {
-    return <h1>hello React alert {this.props.title}</h1>;
+    return (
+      <h1>
+        <div>
+          hello React alert {this.props.title}
+          {this.state.title}
+        </div>
+        <button onClick={this.handleClick}></button>
+      </h1>
+    );
   }
 }
 // TinyReact.render(<Alert title="你好 hello" />, root);

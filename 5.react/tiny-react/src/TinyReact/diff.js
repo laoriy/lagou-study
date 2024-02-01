@@ -1,5 +1,6 @@
 import createDOMElement from "./createDOMElement";
 import mountElement from "./mountElement";
+import unmountNode from "./unmountNode";
 import updateNodeElement from "./updateNodeElement";
 import updateTextNode from "./updateTextNode";
 
@@ -26,9 +27,24 @@ export default function diff(virtualDOM, container, oldDOM) {
         // 更新元素节点属性
         updateNodeElement(oldDOM, virtualDOM, oldVirtualDOM);
       }
+      // 对比子节点
       virtualDOM.children.forEach((child, index) => {
         diff(child, oldDOM, oldDOM.childNodes[index]);
       });
+
+      // 在节点更新完以后，把后面多余的子节点删除
+      let oldChildNodes = oldDOM.childNodes;
+      // 判断老的子节点是否大于新的
+      if (oldChildNodes.length > virtualDOM.children.length) {
+        //
+        for (
+          let i = oldChildNodes.length - 1;
+          i > virtualDOM.children.length - 1;
+          i--
+        ) {
+          unmountNode(oldChildNodes[i]);
+        }
+      }
     }
   }
 }
