@@ -34,12 +34,12 @@ const modifyDOM = (
   </div>
 );
 
-TinyReact.render(virtualDOM, root);
+// TinyReact.render(virtualDOM, root);
 
 //更新DOM
-setTimeout(() => {
-  TinyReact.render(modifyDOM, root);
-}, 2000);
+// setTimeout(() => {
+//   TinyReact.render(modifyDOM, root);
+// }, 2000);
 
 // 函数组件渲染
 function Demo() {
@@ -78,9 +78,9 @@ class Alert extends TinyReact.Component {
           hello React alert {this.props.title}
           {this.state.title}
         </div>
-        <button onClick={this.handleClick}></button>
+        <button onClick={this.handleClick}>改变title内容</button>
       </h1>
     );
   }
 }
-// TinyReact.render(<Alert title="你好 hello" />, root);
+TinyReact.render(<Alert title="你好 hello" />, root);
