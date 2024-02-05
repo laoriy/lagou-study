@@ -71,11 +71,21 @@ class Alert extends TinyReact.Component {
       title: "new title",
     });
   }
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+  }
+  componentWillUpdate(nextProps, nextState) {
+    console.log("componentWillUpdate");
+  }
+  componentDidUpdate(prevProps, preState) {
+    console.log("componentDidUpdate");
+  }
   render() {
     return (
       <h1>
         <div>
-          hello React alert {this.props.title}
+          {this.props.name}: {this.props.age}
+          <br />
           {this.state.title}
         </div>
         <button onClick={this.handleClick}>改变title内容</button>
@@ -83,4 +93,9 @@ class Alert extends TinyReact.Component {
     );
   }
 }
-TinyReact.render(<Alert title="你好 hello" />, root);
+TinyReact.render(<Alert name="张三" age={20} />, root);
+
+setTimeout(() => {
+  TinyReact.render(<Alert name="李四" age={50} />, root);
+  // TinyReact.render(<Heart title="我是Heart组件" />, root);
+}, 2000);

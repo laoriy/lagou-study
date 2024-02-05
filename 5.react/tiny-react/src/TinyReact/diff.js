@@ -1,4 +1,5 @@
 import createDOMElement from "./createDOMElement";
+import diffComponent from "./diffComponent";
 import mountElement from "./mountElement";
 import unmountNode from "./unmountNode";
 import updateNodeElement from "./updateNodeElement";
@@ -11,7 +12,9 @@ export default function diff(virtualDOM, container, oldDOM) {
     mountElement(virtualDOM, container);
   } else {
     const oldVirtualDOM = oldDOM._virtualDOM;
+    const oldComponent = oldVirtualDOM?.component;
     // 如果要比对的两个节点类型不相同, 并且新的节点不是组件
+
     if (
       virtualDOM.type !== oldVirtualDOM.type &&
       typeof virtualDOM.type !== "function"
@@ -19,6 +22,9 @@ export default function diff(virtualDOM, container, oldDOM) {
       // 类型不同，直接替换
       const newElement = createDOMElement(virtualDOM);
       oldDOM.parentNode.replaceChild(newElement, oldDOM);
+    } else if (typeof virtualDOM.type === "function") {
+      // 是组件
+      diffComponent(virtualDOM, oldComponent, oldDOM, container);
     } else if (oldVirtualDOM.type === virtualDOM.type) {
       if (virtualDOM.type === "text") {
         // 更新文本节点
