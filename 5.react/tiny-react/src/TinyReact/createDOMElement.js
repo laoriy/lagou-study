@@ -19,5 +19,9 @@ export default function createDOMElement(virtualDOM) {
   children.forEach((child) => {
     mountElement(child, newElement);
   });
+
+  if (virtualDOM.props?.ref) {
+    virtualDOM.props.ref(newElement);
+  }
   return newElement;
 }

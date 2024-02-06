@@ -5,11 +5,22 @@ import mountNativeElement from "./mountNativeElement";
 export default function mountComponent(virtualDOM, container, oldDOM) {
   // 判断组件是类组件还是函数组件
   let nextVirtualDOM = null;
+  let component = null;
   if (isFunctionComponent(virtualDOM)) {
     nextVirtualDOM = buildFunctionComponent(virtualDOM);
   } else {
+    // 类组件
     nextVirtualDOM = buildClassComponent(virtualDOM);
+    component = nextVirtualDOM.component
   }
+
+  if(component){
+    component.componentDidMount();
+    if(component.props?.ref) {
+      component.props.ref(component);
+    }
+  }
+
   if (isFunction(nextVirtualDOM)) {
     // 如果函数组件直接返回了一个函数组件
     mountComponent(nextVirtualDOM, container, oldDOM);
