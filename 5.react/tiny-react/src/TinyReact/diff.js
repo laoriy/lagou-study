@@ -78,12 +78,31 @@ export default function diff(virtualDOM, container, oldDOM) {
       // 判断老的子节点是否大于新的
       if (oldChildNodes.length > virtualDOM.children.length) {
         //
-        for (
-          let i = oldChildNodes.length - 1;
-          i > virtualDOM.children.length - 1;
-          i--
-        ) {
-          unmountNode(oldChildNodes[i]);
+        if (hasNoKey) {
+          for (
+            let i = oldChildNodes.length - 1;
+            i > virtualDOM.children.length - 1;
+            i--
+          ) {
+            unmountNode(oldChildNodes[i]);
+          }
+        } else {
+          for (let i = 0; i < oldChildNodes.length; i++) {
+            let oldChild = oldChildNodes[i];
+            let oldChildKey = oldChild._virtualDOM.props.key;
+            let found = false;
+            for (let j = 0; j < virtualDOM.children.length; j++) {
+              let newChild = virtualDOM.children[j];
+              let newChildKey = newChild.props.key;
+              if (oldChildKey === newChildKey) {
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              unmountNode(oldChild);
+            }
+          }
         }
       }
     }
