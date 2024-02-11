@@ -1,6 +1,5 @@
 import React, { render } from "./react";
 const root = document.getElementById("root");
-console.log(React);
 
 const jsx = (
   <div>
