@@ -1,4 +1,4 @@
-import { createTaskQueue } from "../Misc";
+import { arrified, createStateNode, createTaskQueue } from "../Misc";
 
 const taskQueue = createTaskQueue();
 let subTask = null;
@@ -15,11 +15,53 @@ const getFirstTask = () => {
     stateNode: task.dom, // 节点dom对象 ，组件实例对象
     tag: "host_root",
     effects: [],
+    effectTag: null, // placement 新增,update 更新，deletion 删除
     child: null,
   };
 };
+
+const reconcileChildren = (fiber, children) => {
+  /**
+   * children 可能是对象也可能是数组，调用render函数，就是个对象
+   * 将children 转换成数组
+   */
+  const arrifiedChildren = arrified(children);
+
+  let index = 0;
+  let numberOfElements = arrifiedChildren.length;
+  let element = null;
+  let newFiber = null;
+  let preFiber = null;
+  console.log(index, numberOfElements);
+  while (index < numberOfElements) {
+    element = arrifiedChildren[index];
+    newFiber = {
+      type: element.type,
+      props: element.props,
+      tag: "host_component",
+      effects: [],
+      effectTag: "placement", // 追加
+      stateNode: null,
+      parent: fiber,
+    };
+
+    newFiber.stateNode = createStateNode(newFiber);
+
+    // 第一个子节点作为父节点的child。其他的子节点都作为前一个节点的兄弟节点
+    if (index === 0) {
+      fiber.child = newFiber;
+    } else {
+      preFiber.sibling = newFiber;
+    }
+
+    preFiber = newFiber;
+    index++;
+  }
+};
+
 const executeTask = (fiber) => {
-  //   fiber();
+  reconcileChildren(fiber, fiber.props.children);
+  console.log(fiber);
 };
 const workLoop = (deadline) => {
   /** 如果子任务不存在就获取第一个任务 */
