@@ -1,7 +1,24 @@
-import { arrified, createStateNode, createTaskQueue } from "../Misc";
+import { arrified, createStateNode, createTaskQueue, getTag } from "../Misc";
 
 const taskQueue = createTaskQueue();
 let subTask = null;
+let pendingCommit = null;
+
+const commitAllWork = (fiber) => {
+  fiber.effects.forEach((item) => {
+    if (item.effectTag === "placement") {
+      let fiber = item;
+      let parentFiber = item.parent;
+      // 找到普通节点父级
+      while (parentFiber.tag === "class_component") {
+        parentFiber = parentFiber.parent;
+      }
+      if (fiber.tag === "host_component") {
+        parentFiber.stateNode.appendChild(fiber.stateNode);
+      }
+    }
+  });
+};
 
 const getFirstTask = () => {
   /** 从任务队列中取出任务 */
@@ -14,7 +31,7 @@ const getFirstTask = () => {
     props: task.props,
     stateNode: task.dom, // 节点dom对象 ，组件实例对象
     tag: "host_root",
-    effects: [],
+    effects: [], // 数组，存储需要更改的fiber对象
     effectTag: null, // placement 新增,update 更新，deletion 删除
     child: null,
   };
@@ -32,13 +49,12 @@ const reconcileChildren = (fiber, children) => {
   let element = null;
   let newFiber = null;
   let preFiber = null;
-  console.log(index, numberOfElements);
   while (index < numberOfElements) {
     element = arrifiedChildren[index];
     newFiber = {
       type: element.type,
       props: element.props,
-      tag: "host_component",
+      tag: getTag(element),
       effects: [],
       effectTag: "placement", // 追加
       stateNode: null,
@@ -60,8 +76,35 @@ const reconcileChildren = (fiber, children) => {
 };
 
 const executeTask = (fiber) => {
-  reconcileChildren(fiber, fiber.props.children);
-  console.log(fiber);
+  /**
+   * 如果子级任务存在，返回子级
+   * 将这个子级作为父级， 构建父级下的子级
+   */
+  if (fiber.tag === "class_component") {
+    // 如果是类组件
+    reconcileChildren(fiber, fiber.stateNode.render());
+  } else {
+    reconcileChildren(fiber, fiber.props.children);
+  }
+  if (fiber.child) {
+    return fiber.child;
+  }
+
+  let currentExecutedFiber = fiber;
+
+  while (currentExecutedFiber.parent) {
+    // 合并fiber对象到effects数组,如下代码作用是将当前fiber对象添加到父fiber对象的effects数组中
+    currentExecutedFiber.parent.effects =
+      currentExecutedFiber.parent.effects.concat(
+        currentExecutedFiber.effects.concat(currentExecutedFiber)
+      );
+    // 如果有同级，返回同级，否则往上一层找，直到找到根节点
+    if (currentExecutedFiber.sibling) {
+      return currentExecutedFiber.sibling;
+    }
+    currentExecutedFiber = currentExecutedFiber.parent;
+  }
+  pendingCommit = currentExecutedFiber;
 };
 const workLoop = (deadline) => {
   /** 如果子任务不存在就获取第一个任务 */
@@ -71,9 +114,14 @@ const workLoop = (deadline) => {
   /**
    * 如果任务存在并且浏览器空闲时间大于1
    * 调用 executeTask 执行任务，并返回新任务
+   * 最终创建出完整的fiber树
    */
   while (subTask && deadline.timeRemaining() > 1) {
     subTask = executeTask(subTask);
+  }
+  //将fiber树提交给浏览器渲染
+  if (pendingCommit) {
+    commitAllWork(pendingCommit);
   }
 };
 const performTask = (deadline) => {
