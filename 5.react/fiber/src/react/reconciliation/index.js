@@ -1,3 +1,4 @@
+import { updateNodeElement } from "../DOM";
 import { arrified, createStateNode, createTaskQueue, getTag } from "../Misc";
 
 const taskQueue = createTaskQueue();
@@ -6,11 +7,33 @@ let pendingCommit = null;
 
 const commitAllWork = (fiber) => {
   fiber.effects.forEach((item) => {
-    if (item.effectTag === "placement") {
+    if (item.effectTag === "delete") {
+      item.parent.stateNode.removeChild(item.stateNode);
+    } else if (item.effectTag === "update") {
+      if (item.type === item.alternate.type) {
+        /**
+         * 节点类型相同
+         */
+        updateNodeElement(item.stateNode, item, item.alternate);
+      } else {
+        /**
+         * 节点类型不同
+         */
+        console.log("ss");
+        console.log(item.stateNode, item.alternate.stateNode);
+        item.parent.stateNode.replaceChild(
+          item.stateNode,
+          item.alternate.stateNode
+        );
+      }
+    } else if (item.effectTag === "placement") {
       let fiber = item;
       let parentFiber = item.parent;
       // 找到普通节点父级
-      while (parentFiber.tag === "class_component") {
+      while (
+        parentFiber.tag === "class_component" ||
+        parentFiber.tag === "function_component"
+      ) {
         parentFiber = parentFiber.parent;
       }
       if (fiber.tag === "host_component") {
@@ -18,6 +41,10 @@ const commitAllWork = (fiber) => {
       }
     }
   });
+  /**
+   * 备份旧的fiber对象
+   */
+  fiber.stateNode.__rootFiberContainer = fiber;
 };
 
 const getFirstTask = () => {
@@ -32,8 +59,9 @@ const getFirstTask = () => {
     stateNode: task.dom, // 节点dom对象 ，组件实例对象
     tag: "host_root",
     effects: [], // 数组，存储需要更改的fiber对象
-    effectTag: null, // placement 新增,update 更新，deletion 删除
+    effectTag: null, // placement 新增,update 更新，delete 删除
     child: null,
+    alternate: task.dom.__rootFiberContainer,
   };
 };
 
@@ -47,27 +75,70 @@ const reconcileChildren = (fiber, children) => {
   let index = 0;
   let numberOfElements = arrifiedChildren.length;
   let element = null;
+  /**
+   * 子级fiber对象
+   */
   let newFiber = null;
+  /**
+   * 上一个兄弟 fiber 对象
+   */
   let preFiber = null;
-  while (index < numberOfElements) {
-    element = arrifiedChildren[index];
-    newFiber = {
-      type: element.type,
-      props: element.props,
-      tag: getTag(element),
-      effects: [],
-      effectTag: "placement", // 追加
-      stateNode: null,
-      parent: fiber,
-    };
 
-    newFiber.stateNode = createStateNode(newFiber);
+  let alternate = null; // 备份节点
+  if (fiber.alternate && fiber.alternate.child) {
+    alternate = fiber.alternate.child;
+  }
+
+  while (index < numberOfElements || alternate) {
+    element = arrifiedChildren[index];
+
+    if (!element && alternate) {
+      // 删除操作
+      alternate.effectTag = "delete";
+      fiber.effects.push(alternate);
+    } else if (element && alternate) {
+      // 更新操作
+      newFiber = {
+        type: element.type,
+        props: element.props,
+        tag: getTag(element),
+        effects: [],
+        effectTag: "update",
+        stateNode: null,
+        parent: fiber,
+        alternate,
+      };
+
+      if (element.type === alternate.type) {
+        newFiber.stateNode = alternate.stateNode;
+      } else {
+        newFiber.stateNode = createStateNode(newFiber);
+      }
+    } else if (element && !alternate) {
+      // 初始渲染
+      newFiber = {
+        type: element.type,
+        props: element.props,
+        tag: getTag(element),
+        effects: [],
+        effectTag: "placement", // 追加
+        stateNode: null,
+        parent: fiber,
+      };
+      newFiber.stateNode = createStateNode(newFiber);
+    }
 
     // 第一个子节点作为父节点的child。其他的子节点都作为前一个节点的兄弟节点
     if (index === 0) {
       fiber.child = newFiber;
-    } else {
+    } else if (element) {
       preFiber.sibling = newFiber;
+    }
+
+    if (alternate && alternate.sibling) {
+      alternate = alternate.sibling;
+    } else {
+      alternate = null;
     }
 
     preFiber = newFiber;
@@ -83,6 +154,9 @@ const executeTask = (fiber) => {
   if (fiber.tag === "class_component") {
     // 如果是类组件
     reconcileChildren(fiber, fiber.stateNode.render());
+  } else if (fiber.tag === "function_component") {
+    // 如果是函数组件
+    reconcileChildren(fiber, fiber.stateNode(fiber.props));
   } else {
     reconcileChildren(fiber, fiber.props.children);
   }

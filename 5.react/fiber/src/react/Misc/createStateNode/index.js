@@ -5,7 +5,7 @@ const createStateNode = (fiber) => {
   if (fiber.tag === "host_component") {
     return createDOMElement(fiber);
   } else {
-      return createReactInstance(fiber)
+    return createReactInstance(fiber);
   }
 };
 

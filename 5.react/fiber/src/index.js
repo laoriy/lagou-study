@@ -11,7 +11,20 @@ const jsx = (
   </div>
 );
 
-// render(jsx, root);
+render(jsx, root);
+
+/**
+ * 4. 更新操作
+ */
+setTimeout(() => {
+  const jsx = (
+    <div>
+      <div>奥利给</div>
+      <div>Hi Fiber</div>
+    </div>
+  );
+  render(jsx, root);
+}, 2000);
 
 /**
  * 2. 类组件
@@ -33,4 +46,13 @@ class Greating extends Component {
   }
 }
 
-render(<Greating title="奥利给" />, root);
+// render(<Greating title="奥利给" />, root);
+
+/**
+ * 3. 函数组件
+ * */
+function FnComponent(props) {
+  return <div>{props.title}FnComponent</div>;
+}
+
+// render(<FnComponent title="Hello" />, root)

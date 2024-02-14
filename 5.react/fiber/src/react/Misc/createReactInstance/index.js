@@ -3,7 +3,7 @@ export const createReactInstance = (fiber) => {
   if (fiber.tag === "class_component") {
     instance = new fiber.type(fiber.props);
   } else {
-    instance = fiber(fiber.props);
+    instance = fiber.type
   }
   return instance;
 };
