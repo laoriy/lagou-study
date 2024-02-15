@@ -1,5 +1,11 @@
 import { updateNodeElement } from "../DOM";
-import { arrified, createStateNode, createTaskQueue, getTag } from "../Misc";
+import {
+  arrified,
+  createStateNode,
+  createTaskQueue,
+  getRoot,
+  getTag,
+} from "../Misc";
 
 const taskQueue = createTaskQueue();
 let subTask = null;
@@ -7,6 +13,9 @@ let pendingCommit = null;
 
 const commitAllWork = (fiber) => {
   fiber.effects.forEach((item) => {
+    if (item.tag === "class_component") {
+      item.stateNode.__fiber = item;
+    }
     if (item.effectTag === "delete") {
       item.parent.stateNode.removeChild(item.stateNode);
     } else if (item.effectTag === "update") {
@@ -50,6 +59,21 @@ const commitAllWork = (fiber) => {
 const getFirstTask = () => {
   /** 从任务队列中取出任务 */
   const task = taskQueue.pop();
+  if (task.from === "class_component") {
+    const root = getRoot(task.instance);
+    task.instance.__fiber.partialState = task.partialState;
+
+    return {
+      props: root.props,
+      stateNode: root.stateNode,
+      tag: "host_root",
+      effects: [], // 数组，存储需要更改的fiber对象
+      effectTag: null, // placement 新增,update 更新，delete 删除
+      child: null,
+      alternate: root,
+    };
+  }
+
   /**
    * 返回最外层节点的fiber对象
    */
@@ -152,6 +176,13 @@ const executeTask = (fiber) => {
    * 将这个子级作为父级， 构建父级下的子级
    */
   if (fiber.tag === "class_component") {
+    if (fiber.stateNode.__fiber?.partialState) {
+      fiber.stateNode.state = {
+        ...fiber.stateNode.state,
+        ...fiber.stateNode.__fiber.partialState,
+      };
+    }
+
     // 如果是类组件
     reconcileChildren(fiber, fiber.stateNode.render());
   } else if (fiber.tag === "function_component") {
@@ -228,6 +259,15 @@ export const render = (element, dom) => {
     props: {
       children: element,
     },
+  });
+  requestIdleCallback(performTask);
+};
+
+export const scheduleUpdate = (instance, partialState) => {
+  taskQueue.push({
+    from: "class_component",
+    instance,
+    partialState,
   });
   requestIdleCallback(performTask);
 };

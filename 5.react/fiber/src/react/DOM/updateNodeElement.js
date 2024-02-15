@@ -9,12 +9,6 @@ export default function updateNodeElement(
   const newProps = virtualDOM.props;
   const oldProps = oldVirtualDOM?.props || {};
   if (virtualDOM.type === "text") {
-    console.log(
-      virtualDOM,
-      oldVirtualDOM,
-      newProps.textContent,
-      oldProps.textContent
-    );
     if (newProps.textContent !== oldProps.textContent) {
       if (virtualDOM.parent.type !== oldVirtualDOM.parent.type) {
         virtualDOM.parent.stateNode.appendChild(
