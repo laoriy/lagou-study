@@ -1,4 +1,4 @@
-import createElement from "./CreateElement.js";
+import createElement from "./CreateElement";
 
 export { render } from "./reconciliation";
 export { Component } from "./Component";
