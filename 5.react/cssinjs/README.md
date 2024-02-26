@@ -41,3 +41,7 @@ module.exports = {
 }
 <h2 css={{ color: "red" }}>CSS IN JS </h2>;
 ```
+
+### 样式化组件
+
+文档：https://emotion.sh/docs/styled
