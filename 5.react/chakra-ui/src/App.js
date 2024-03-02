@@ -9,50 +9,8 @@ import {
   Text,
   useColorModeValue,
   LightMode,
-  theme,
-  chakra,
 } from "@chakra-ui/react";
-
-console.log(theme);
-
-const CustomButton = chakra("button", {
-  baseStyle: {
-    borderRadius: "lg",
-  },
-  sizes: {
-    sm: {
-      px: "3",
-      py: "1",
-      fontSize: "12px",
-    },
-    md: {
-      px: "6",
-      py: "2",
-      fontSize: "16px",
-    },
-  },
-  variants: {
-    primary: {
-      bgColor: "blue.500",
-      color: "white",
-      _hover: {
-        bg: "blue.400",
-      },
-    },
-    danger: {
-      bgColor: "red.500",
-      color: "white",
-      _hover: {
-        bg: "red.400",
-      },
-    },
-  },
-});
-
-CustomButton.defaultProps = {
-  size: "sm",
-  variant: "primary",
-};
+import CustomButton from "./components/CustomButton";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -84,7 +42,9 @@ function App() {
       <Button onClick={toggleColorMode}>
         Toggle {colorMode === "light" ? "Dark" : "Light"}
       </Button>
-      <CustomButton>自定义按钮</CustomButton>
+      <CustomButton size="md" variant="danger">
+        自定义按钮
+      </CustomButton>
     </>
   );
 }
