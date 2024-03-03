@@ -11,12 +11,15 @@ import {
   LightMode,
 } from "@chakra-ui/react";
 import CustomButton from "./components/CustomButton";
+import Main from "./components/Main";
+
+const isTest = false;
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = useColorModeValue("tomato", "skyblue");
   // 2. Wrap ChakraBaseProvider at the root of your app
-  return (
+  return isTest ? (
     <>
       <CSSReset />
       <Box w={100} h={100} bg={bgColor} p={5} borderRadius={10}></Box>
@@ -46,6 +49,8 @@ function App() {
         自定义按钮
       </CustomButton>
     </>
+  ) : (
+    <Main></Main>
   );
 }
 
