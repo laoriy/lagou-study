@@ -7,7 +7,6 @@ import {
   InputLeftAddon,
   InputRightAddon,
   Stack,
-  background,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock, FaCheck } from "react-icons/fa";
 function SingIn() {

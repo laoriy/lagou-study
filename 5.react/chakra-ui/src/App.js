@@ -11,7 +11,7 @@ import {
   LightMode,
 } from "@chakra-ui/react";
 import CustomButton from "./components/CustomButton";
-import Main from "./components/Main";
+import Form from "./components/Form";
 
 const isTest = false;
 
@@ -50,7 +50,9 @@ function App() {
       </CustomButton>
     </>
   ) : (
-    <Main></Main>
+    <>
+      <Form />
+    </>
   );
 }
 
