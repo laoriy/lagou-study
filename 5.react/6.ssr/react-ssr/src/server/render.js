@@ -1,11 +1,11 @@
-import app from "./http";
 import Home from "../share/pages/Home";
+import React from "react";
 import { renderToString } from "react-dom/server";
 
-app.get("/", (req, res) => {
-  const content = renderToString(Home);
-  res.send(
-    `<!DOCTYPE html>
+export default () => {
+  const content = renderToString(<Home />);
+
+  return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -14,8 +14,8 @@ app.get("/", (req, res) => {
     </head>
     <body>
         <div id="root">${content}</div>
+        <script src="bundle.js" type="module"></script>
     </body>
     </html>
-    `
-  );
-});
+    `;
+};
