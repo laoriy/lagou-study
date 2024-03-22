@@ -1,11 +1,12 @@
 // app/page.tsx
-'use client'
-import { Link } from '@chakra-ui/next-js'
+"use client";
+import Layout from "../components/Layout";
 
 export default function Page() {
   return (
-    <Link href='/about' color='blue.400' _hover={{ color: 'blue.500' }}>
-      About
-    </Link>
-  )
+    <Layout>
+      {/* <Swiper data={swiper} /> */}
+      {/* <Movie title="电影" data={movie} /> */}
+    </Layout>
+  );
 }
