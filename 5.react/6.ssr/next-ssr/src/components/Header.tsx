@@ -1,6 +1,4 @@
 import { Button, Image, Box, Container } from "@chakra-ui/react";
-import styled from "@emotion/styled";
-// import { css } from "@emotion/core";
 import { FaSignInAlt, FaSearch } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import Link from "next/link";

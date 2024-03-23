@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -26,5 +27,18 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.carousel-root{
+  position: relative;
+  & > .carousel:last-child {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    & > .thumbs-wrapper > .thumbs {
+      display: flex;
+      justify-content: center;
+    }
   }
 }

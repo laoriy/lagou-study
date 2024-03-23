@@ -1,6 +1,6 @@
 // app/layout.tsx
 import { Providers } from "./providers";
-import "./globals.css";
+import "./globals.scss";
 
 export const metadata = {
   title: "Laor Movie",
