@@ -1,8 +1,8 @@
 import { Box, Stack, Image, Text, Heading } from "@chakra-ui/react";
 import { MdMovie } from "react-icons/md";
-// import axios from "axios";
+import axios from "axios";
 import Link from "next/link";
-// import { baseURL } from "../axios.config";
+import { baseURL } from "@/service/axio";
 
 export default function Movie({
   title,
@@ -13,7 +13,7 @@ export default function Movie({
 }) {
   return (
     <Box maxW="1200px" mx="auto" overflow="hidden">
-      <Stack direction={"column"} mt="20px" fontSize="24px">
+      <Stack direction={"row"} mt="20px" fontSize="24px">
         <MdMovie />
         <Heading as="h3" fontSize="20px">
           {title}
@@ -55,6 +55,6 @@ function MovieItem({
   );
 }
 
-// export function loadMovie() {
-//   return axios.get("/movie", { baseURL: baseURL });
-// }
+export function loadMovie() {
+  return axios.get("/movie", { baseURL: baseURL });
+}

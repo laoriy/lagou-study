@@ -9,7 +9,7 @@ export default function Navigation() {
         alignItems="center"
         color="white"
         h={"52px"}
-        direction={["column", "row"]}
+        direction={"row"}
         fontSize={13}
       >
         <Link href="#">影片</Link>
