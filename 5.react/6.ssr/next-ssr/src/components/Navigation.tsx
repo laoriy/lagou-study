@@ -10,6 +10,7 @@ export default function Navigation() {
         color="white"
         h={"52px"}
         direction={["column", "row"]}
+        fontSize={13}
       >
         <Link href="#">影片</Link>
         <Link href="#">漫画</Link>

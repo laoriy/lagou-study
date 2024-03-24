@@ -4,14 +4,6 @@ import { Heading, Box, Divider, Text } from "@chakra-ui/react";
 // import axios from "axios";
 // import { baseURL } from '../../axios.config';
 
-// const detailContainer = css`
-//   font-size: 14px;
-//   & > p,
-//   & > img {
-//     margin-bottom: 15px;
-//   }
-// `;
-
 const post = {
   title: "这是个Post title",
   sub: "这是个Post sub",
