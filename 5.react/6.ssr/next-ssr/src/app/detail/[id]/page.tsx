@@ -9,7 +9,7 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export async function getPost(id: string) {
+async function getPost(id: string) {
   let { data: post } = await axios.get(`/detail?id=${id}`, {
     baseURL: baseURL,
   });
