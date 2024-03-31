@@ -14,6 +14,12 @@ dependencies:
   gatsby-plugin-postcss:
     specifier: ^6.13.1
     version: 6.13.1(gatsby@5.13.3)(postcss@8.4.38)(typescript@5.3.3)(webpack@5.88.2)
+  gatsby-source-filesystem:
+    specifier: ^5.13.1
+    version: 5.13.1(gatsby@5.13.3)
+  gatsby-transformer-json:
+    specifier: ^5.13.1
+    version: 5.13.1(gatsby@5.13.3)
   postcss:
     specifier: ^8.4.38
     version: 8.4.38
@@ -5833,6 +5839,24 @@ packages:
       sharp: 0.32.6
     dev: false
 
+  /gatsby-source-filesystem@5.13.1(gatsby@5.13.3):
+    resolution: {integrity: sha512-nFWzOBpi84nDeVNeO7bpKL9mVYMl1tfjJmE5l868YATFShGzZnA6qMd200XCsf78PexZHAiV/P1MlsyKqjJduA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      gatsby: ^5.0.0-next
+    dependencies:
+      '@babel/runtime': 7.21.5
+      chokidar: 3.5.3
+      file-type: 16.5.4
+      fs-extra: 11.1.1
+      gatsby: 5.13.3(babel-eslint@10.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+      gatsby-core-utils: 4.13.1
+      mime: 3.0.0
+      pretty-bytes: 5.6.0
+      valid-url: 1.0.9
+      xstate: 4.38.2
+    dev: false
+
   /gatsby-telemetry@4.13.1:
     resolution: {integrity: sha512-NstKs3N8LK9rwEli6SXO+ClNmewFbVzqS2yo6XZzQSXbymH6+Kkk+eqQivKhrD8PbQLLrdXkk1p47n91zc85XQ==}
     engines: {node: '>=18.0.0'}
@@ -5852,6 +5876,17 @@ packages:
       node-fetch: 2.6.11
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /gatsby-transformer-json@5.13.1(gatsby@5.13.3):
+    resolution: {integrity: sha512-e+k6tlHamAYwwBph/Hs7Yx+/6t6m6GndmMQEDSZQOfp6h3oQttR7Uvl+Gj8P6HZ5zg370NRXNDT7CrsNZ5fqvg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      gatsby: ^5.0.0-next
+    dependencies:
+      '@babel/runtime': 7.21.5
+      bluebird: 3.7.2
+      gatsby: 5.13.3(babel-eslint@10.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
     dev: false
 
   /gatsby-worker@2.13.1:
@@ -8577,6 +8612,11 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: false
 
+  /pretty-bytes@5.6.0:
+    resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
+    engines: {node: '>=6'}
+    dev: false
+
   /pretty-error@2.1.2:
     resolution: {integrity: sha512-EY5oDzmsX5wvuynAByrmY0P0hcp+QpnAKbJng2A2MPjVKXCxrDSUkzghVJ4ZGPIv+JC4gX8fPUWscC0RtjsWGw==}
     dependencies:
@@ -10172,6 +10212,10 @@ packages:
 
   /v8-compile-cache@2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
+    dev: false
+
+  /valid-url@1.0.9:
+    resolution: {integrity: sha512-QQDsV8OnSf5Uc30CKSwG9lnhMPe6exHtTXLRYX8uMwKENy640pU+2BgBL0LRbDh/eYRahNCS7aewCx0wf3NYVA==}
     dev: false
 
   /value-or-promise@1.0.12:
