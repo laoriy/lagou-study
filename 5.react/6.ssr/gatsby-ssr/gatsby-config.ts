@@ -20,7 +20,18 @@ const config: GatsbyConfig = {
         path: `${__dirname}/json/`,
       },
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "markdown",
+        path: `${__dirname}/src/posts/`,
+      },
+    },
     "gatsby-transformer-json", //将原始 JSON 字符串转换成 JavaScript 对象
+    // 不需要特殊配置的可以直接放到 plugin 数组中
+    "gatsby-plugin-sharp", // 提供本地图像的处理功能（调整图像尺寸、压缩体积等）
+    "gatsby-transformer-sharp", // 将 gatsby-plugin-sharp插件处理后的图像信息添加到数据层
+    "gatsby-transformer-remark", // 将数据层中的原始 Markdown 数据转化成可用的对象形式
   ],
 };
 
