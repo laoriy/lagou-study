@@ -14,7 +14,7 @@ function ProductionPage({ data }: PageProps<Queries.ProductionPageQuery>) {
             {/* fluid 接收响应式图片 图片的宽以父元素为准 */}
             {/* <Img fluid={node?.url?.childImageSharp?.fluid} /> */}
             {/* fixed 接收固定大小图片 图片的宽高固定 */}
-            <Img fixed={node?.url?.childImageSharp?.fixed} />
+            <Img fixed={node?.url?.childImageSharp?.fixed!} />
           </div>
         </div>
       ))}

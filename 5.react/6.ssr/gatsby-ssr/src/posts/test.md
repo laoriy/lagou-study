@@ -4,3 +4,4 @@ date: "2031-22-01"
 ---
 
 this is a test md file
+![image](./images/icon.png)
