@@ -45,6 +45,25 @@ const config: GatsbyConfig = {
         ],
       },
     }, // 将数据层中的原始 Markdown 数据转化成可用的对象形式
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: "http://127.0.0.1:1337",
+        accessToken:
+          "0fdd61fb3c1f5a00474a977e71175411ffc8c68ed8b6f6dae61cbeb4b20f138af67bd62745bd6998aa7b7b150a7dcba925dd85ff929c5aa55d65b7b58cd4b5b01a88f96c3d2b33e962751b804ce7f74249312c3b5028b1cf397a14019695f4866c57192f770a8d5bfb72492ee419972d5eb54e1df09ad6b01751cc878d89a43e",
+        collectionTypes: ["post"],
+        singleTypes: [],
+        remoteFileHeaders: {
+          /**
+           * Customized request headers
+           * For http request with a image or other files need authorization
+           * For expamle: Fetch a CDN file which has a security config when gatsby building needs
+           */
+          // Referer: "https://your-site-domain/",
+          // Authorization: "Bearer eyJhabcdefg_replace_it_with_your_own_token",
+        },
+      },
+    },
   ],
 };
 

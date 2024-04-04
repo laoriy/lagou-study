@@ -23,14 +23,15 @@ async function createPages({ graphql, actions }: CreatePagesArgs) {
   // 根据模板和数据创建页面
   const { createPage } = actions;
   (data as any).allMarkdownRemark.nodes.forEach((node: any) => {
-    createPage({
-      path: `/posts/${node.fields.slug}`, // 页面访问地址
-      component: template, // 模板绝对路径
-      // 组件中使用的查询命令可以通过 `$slug` 接收传递给页面的参数
-      context: {
-        slug: node.fields.slug,
-      },
-    });
+    node.fields?.slug &&
+      createPage({
+        path: `/posts/${node.fields.slug}`, // 页面访问地址
+        component: template, // 模板绝对路径
+        // 组件中使用的查询命令可以通过 `$slug` 接收传递给页面的参数
+        context: {
+          slug: node.fields.slug,
+        },
+      });
   });
 }
 
@@ -38,6 +39,7 @@ async function createPages({ graphql, actions }: CreatePagesArgs) {
 function onCreateNode({ node, actions }: CreateNodeArgs) {
   const { createNodeField } = actions;
   if (node.internal.type === "MarkdownRemark") {
+    if (!node.fileAbsolutePath) return;
     const slug = path.basename(node.fileAbsolutePath, ".md");
     createNodeField({
       node,
