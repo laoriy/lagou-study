@@ -27,6 +27,13 @@ const config: GatsbyConfig = {
         path: `${__dirname}/src/posts/`,
       },
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "xml",
+        path: `${__dirname}/xml/`,
+      },
+    },
     "gatsby-transformer-json", //将原始 JSON 字符串转换成 JavaScript 对象
     // 不需要特殊配置的可以直接放到 plugin 数组中
     "gatsby-plugin-sharp", // 提供本地图像的处理功能（调整图像尺寸、压缩体积等）
@@ -46,7 +53,7 @@ const config: GatsbyConfig = {
       },
     }, // 将数据层中的原始 Markdown 数据转化成可用的对象形式
     {
-      resolve: `gatsby-source-strapi`,
+      resolve: `gatsby-source-mystrapi`,
       options: {
         apiURL: "http://127.0.0.1:1337",
         accessToken:
@@ -64,6 +71,7 @@ const config: GatsbyConfig = {
         },
       },
     },
+    "gatsby-transformer-xml",
   ],
 };
 
