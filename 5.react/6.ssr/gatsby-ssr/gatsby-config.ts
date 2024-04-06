@@ -72,6 +72,7 @@ const config: GatsbyConfig = {
       },
     },
     "gatsby-transformer-xml",
+    `gatsby-plugin-less`
   ],
 };
 
