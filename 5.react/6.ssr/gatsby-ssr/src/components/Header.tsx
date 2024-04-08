@@ -1,30 +1,16 @@
-import { PageProps } from "gatsby";
-import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux"
+import { PageProps } from "gatsby"
+import React, { useEffect } from "react"
+import { useAuthStore } from "../store"
 
 export default function Header() {
-  // const dispatch = useDispatch()
+  const auth = useAuthStore()
 
-  const dispatch = (_d: any) => {
-    authReducer.success = true;
-  };
-
-  const authReducer = {
-    success: false,
-    user: {
-      username: "",
-    },
-  };
-  // const authReducer = useSelector(state => state.authReducer)
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
     if (token) {
-      dispatch({
-        type: "loadUser",
-        payload: token,
-      });
+      auth.loadUser(token)
     }
-  }, []);
+  }, [])
   return (
     <nav className="navbar navbar-light">
       <div className="container">
@@ -36,15 +22,11 @@ export default function Header() {
             {/* Add "active" class when you're on that page" */}
             <a className="nav-link active">Home</a>
           </li>
-          {authReducer.success ? (
-            <Login username={authReducer.user.username} />
-          ) : (
-            <Logout />
-          )}
+          {auth.success ? <Login username={auth.user.username} /> : <Logout />}
         </ul>
       </div>
     </nav>
-  );
+  )
 }
 
 function Login({ username }: { username: string }) {
@@ -66,7 +48,7 @@ function Login({ username }: { username: string }) {
         <a className="nav-link">{username}</a>
       </li>
     </>
-  );
+  )
 }
 
 function Logout() {
@@ -79,5 +61,5 @@ function Logout() {
         <a className="nav-link">Sign up</a>
       </li>
     </>
-  );
+  )
 }

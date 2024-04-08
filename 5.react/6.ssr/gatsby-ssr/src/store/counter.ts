@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-const useBearStore = create<{
+const useCountStore = create<{
   count: number
   increment: () => void
   decrement: () => void
@@ -10,4 +10,4 @@ const useBearStore = create<{
   decrement: () => set(state => ({ count: state.count - 1 })),
 }))
 
-export { useBearStore }
+export { useCountStore }

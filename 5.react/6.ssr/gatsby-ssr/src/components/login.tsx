@@ -1,54 +1,30 @@
-import React, { FormEventHandler } from "react";
-// import useInput from "../hooks/useInput"
-// import { useDispatch, useSelector } from "react-redux"
-import { navigate } from "gatsby";
+import React from "react"
+import useInput from "../hooks/useInput"
+import { navigate } from "gatsby"
+import { useAuthStore } from "../store"
 
 export default function Login() {
-  // const email = useInput("")
-  // const password = useInput("")
-  // const dispatch = useDispatch()
-  // const authReducer = useSelector(state => state.authReducer)
+  const auth = useAuthStore()
+  const email = useInput("")
+  const password = useInput("")
 
-  const authReducer = {
-    success: false,
-    errors: [],
-  };
-
-  const password = {
-    input: {
-      value: "",
-    },
-  };
-  const email = {
-    input: {
-      value: "",
-    },
-  };
-
-  const dispatch = (_d: any) => {
-    authReducer.success = true;
-  };
-
-  if (authReducer.success) {
-    navigate("/");
-    return null;
+  if (auth.success) {
+    navigate("/")
+    return null
   }
   function displayErrors() {
-    if (authReducer.errors) {
-      return authReducer.errors.map((item, index) => (
+    if (auth.errors) {
+      return auth.errors.map((item: any, index: any) => (
         <li key={index}>{item}</li>
-      ));
+      ))
     }
-    return null;
+    return null
   }
   function handleSubmit(e: any) {
-    e.preventDefault();
-    const passwordValue = password.input.value;
-    const emailValue = email.input.value;
-    dispatch({
-      type: "login",
-      payload: { user: { email: emailValue, password: passwordValue } },
-    });
+    e.preventDefault()
+    const passwordValue = password.input.value
+    const emailValue = email.input.value
+    auth.login({ user: { email: emailValue, password: passwordValue } })
   }
   return (
     <div className="auth-page">
@@ -75,12 +51,12 @@ export default function Login() {
                 />
               </fieldset>
               <button className="btn btn-lg btn-primary pull-xs-right">
-                Sign up
+                Sign In
               </button>
             </form>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
