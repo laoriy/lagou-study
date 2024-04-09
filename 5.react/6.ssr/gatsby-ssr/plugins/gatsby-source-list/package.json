@@ -1,0 +1,17 @@
+{
+  "name": "gatsby-source-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gatsby-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "gatsby-awesome-pagination": "^0.3.6",
+    "gatsby-node-helpers": "^0.3.0"
+  }
+}

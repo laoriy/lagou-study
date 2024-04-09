@@ -1,7 +1,7 @@
 import React from "react"
-import Banner from "./Banner"
-import Toggle from "./Toggle"
-import Sidebar from "./Sidebar"
+import Banner from "../components/Banner"
+import Toggle from "../components/Toggle"
+import Sidebar from "../components/Sidebar"
 
 export default function Home() {
   return (

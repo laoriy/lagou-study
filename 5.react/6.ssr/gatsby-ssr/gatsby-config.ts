@@ -1,4 +1,4 @@
-import type { GatsbyConfig } from "gatsby";
+import type { GatsbyConfig } from "gatsby"
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -72,8 +72,12 @@ const config: GatsbyConfig = {
       },
     },
     "gatsby-transformer-xml",
-    `gatsby-plugin-less`
+    `gatsby-plugin-less`,
+    {
+      resolve: "gatsby-source-list",
+      options: { apiUrl: "https://api.realworld.io/api" },
+    },
   ],
-};
+}
 
-export default config;
+export default config
