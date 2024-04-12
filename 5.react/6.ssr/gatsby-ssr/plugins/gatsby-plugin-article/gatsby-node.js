@@ -1,3 +1,5 @@
+const path = require("path")
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   let { data } = await graphql(`
@@ -12,7 +14,7 @@ exports.createPages = async ({ graphql, actions }) => {
   data.allArticlesList.nodes.forEach(article => {
     createPage({
       path: `/article/${article.slug}`,
-      component: require.resolve("../../src/templates/article.js"),
+      component: path.resolve(__dirname, "../../src/templates/article.tsx"),
       context: {
         slug: article.slug,
       },

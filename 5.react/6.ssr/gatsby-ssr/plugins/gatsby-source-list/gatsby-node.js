@@ -1,5 +1,6 @@
 const axios = require("axios")
 const createNodeHelpers = require("gatsby-node-helpers").default
+const path = require("path")
 const { paginate } = require("gatsby-awesome-pagination")
 
 exports.sourceNodes = async ({ actions }, { apiUrl }) => {
@@ -35,25 +36,25 @@ async function loadArticles(apiUrl) {
   return result
 }
 
-// exports.createPages = async ({ actions, graphql }) => {
-//   const { createPage } = actions
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions
 
-//   let { data } = await graphql(`
-//     query {
-//       allArticlesList {
-//         nodes {
-//           slug
-//         }
-//       }
-//     }
-//   `)
+  let { data } = await graphql(`
+    query {
+      allArticlesList {
+        nodes {
+          slug
+        }
+      }
+    }
+  `)
 
-//   // Create your paginated pages
-//   paginate({
-//     createPage, // The Gatsby `createPage` function
-//     items: data.allArticlesList.nodes, // An array of objects
-//     itemsPerPage: 10, // How many items you want per page
-//     pathPrefix: "/list", // Creates pages like `/blog`, `/blog/2`, etc
-//     component: require.resolve("../../src/templates/list.js"), // Just like `createPage()`
-//   })
-// }
+  // Create your paginated pages
+  paginate({
+    createPage, // The Gatsby `createPage` function
+    items: data.allArticlesList.nodes, // An array of objects
+    itemsPerPage: 10, // How many items you want per page
+    pathPrefix: "/list", // Creates pages like `/blog`, `/blog/2`, etc
+    component: path.resolve(__dirname, "../../src/templates/list.tsx"), // Just like `createPage()`
+  })
+}

@@ -76,6 +76,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.2.19
     version: 18.2.24
+  gatsby-disable-404:
+    specifier: ^0.2.1
+    version: 0.2.1
   typescript:
     specifier: ^5.3.3
     version: 5.4.3
@@ -6286,6 +6289,10 @@ packages:
       tmp: 0.2.3
       xdg-basedir: 4.0.0
     dev: false
+
+  /gatsby-disable-404@0.2.1:
+    resolution: {integrity: sha512-P7A4mZH+RTNKkMEOaF9TzlqCI4/3Nautym3bbC8AbTGBgd1TbnH7c//St/EAtt6zWg7Z/+XSwlnBQF84QxfFtg==}
+    dev: true
 
   /gatsby-graphiql-explorer@3.13.1:
     resolution: {integrity: sha512-WR6jv18OhKLwK/hGZ6ZGUd82GFtM6gHz+sOpgsJJx/+uqRjZwqcrH2LSrWRSWUCk7FoZY1rJuBSD1QkOODV01A==}

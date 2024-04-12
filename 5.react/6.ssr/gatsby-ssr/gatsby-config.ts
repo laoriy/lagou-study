@@ -77,6 +77,8 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-list",
       options: { apiUrl: "https://api.realworld.io/api" },
     },
+    "gatsby-plugin-article",
+    "gatsby-disable-404",
   ],
 }
 
