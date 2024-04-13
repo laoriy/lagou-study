@@ -1,0 +1,34 @@
+{
+    "todos": [
+        {
+            "id": 1,
+            "title":"吃饭",
+            "completed":true,
+            "editing":false
+
+        },
+        {
+            "id": 2,
+            "title":"睡觉",
+            "completed":false,
+            "editing":false
+
+        },
+        {
+            "id": 3,
+            "title":"打豆豆",
+            "completed":false,
+            "editing":false
+        }
+    ],
+   "posts": [
+       {
+        "id" : 1,
+        "title" : "hello react query"
+       },
+       {
+        "id" : 2,
+        "title" : "hello react query 2"
+       }
+   ]
+}
