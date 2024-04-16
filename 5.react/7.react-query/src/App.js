@@ -1,3 +1,4 @@
+import FetchTodoById from "./FetchTodoById";
 import Todo from "./Todo";
 
 function App() {
@@ -6,6 +7,8 @@ function App() {
       <header className="App-header">to do list</header>
       <hr />
       <Todo></Todo>
+      <hr />
+      <FetchTodoById></FetchTodoById>
     </div>
   );
 }
