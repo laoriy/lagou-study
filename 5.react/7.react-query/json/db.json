@@ -9,8 +9,9 @@
     {
       "id": "2",
       "title": "睡觉",
-      "completed": false,
-      "editing": false
+      "completed": true,
+      "editing": false,
+      "params": {}
     },
     {
       "id": "3",

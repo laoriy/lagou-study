@@ -1,0 +1,14 @@
+ul{
+    list-style: none;
+    box-shadow: 1px 1px 5px #ccc;
+    li{
+        height: 30px;
+        padding: 5px;
+        display: flex;
+    margin-bottom: 5px;
+    }
+    li.completed{
+        text-decoration: line-through;
+        color: #ccc;
+    }
+}

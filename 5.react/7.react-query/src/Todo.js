@@ -1,13 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-async function fetchTodos() {
-  try {
-    return axios.get("/todos");
-  } catch (error) {
-    throw new Error(error);
-  }
-}
+import "./todo.css";
+import Footer from "./Footer";
+import { useTodos } from "./hooks/useTodos";
+
 function addTodo(todo) {
   console.log(todo);
 
@@ -18,22 +15,33 @@ function addTodo(todo) {
   }
 }
 
+function modifyTodoCompleted({ id, completed }) {
+  try {
+    return axios.patch("/todos/" + id, { completed });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function Todo() {
-  const [isLoad, setLoad] = useState(false);
   const [title, setTitle] = useState("");
-  const queryClient = useQueryClient()
-  const { isError, isLoading, error, data } = useQuery({
-    queryKey: ["todos"],
-    queryFn: fetchTodos,
-    refetchOnWindowFocus: true,
-    enabled: isLoad,
-    staleTime: 5000,
-  });
+  const { isError, isLoading, error, data } = useTodos();
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: addTodo,
     onSuccess: () => {
       setTitle("");
-      queryClient.invalidateQueries({ queryKey: ['todos'] })
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+
+  const { mutate: mutateCompleted } = useMutation({
+    mutationFn: modifyTodoCompleted,
+    onSuccess: (response) => {
+      queryClient.setQueryData(["todos"], (old) => {
+        return old.map((todo) => (todo.id === response.id ? response : todo));
+      });
     },
   });
 
@@ -42,7 +50,6 @@ function Todo() {
 
   return (
     <section className="main">
-      <button onClick={() => setLoad(true)}>请求状态</button>
       <input
         placeholder="请输入"
         value={title}
@@ -55,16 +62,22 @@ function Todo() {
       ></input>
       <ul className="todo-list">
         {data?.map((todo) => (
-          <li key={todo.id}>
+          <li key={todo.id} className={todo.completed ? "completed" : ""}>
             <div className="view">
-              <input className="toggle" type="checkbox" />
+              <input
+                className="toggle"
+                checked={todo.completed}
+                type="checkbox"
+                onChange={(e) => {
+                  mutateCompleted({ id: todo.id, completed: !todo.completed });
+                }}
+              />
               <label>{todo.title}</label>
-              <button className="destroy"></button>
             </div>
-            <input className="edit" />
           </li>
         ))}
       </ul>
+      <Footer />
     </section>
   );
 }
