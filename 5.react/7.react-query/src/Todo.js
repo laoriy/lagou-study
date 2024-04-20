@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./todo.css";
 import Footer from "./Footer";
 import { useTodos } from "./hooks/useTodos";
+import Parallel from "./Parallel";
 
 function addTodo(todo) {
   console.log(todo);
@@ -78,6 +79,7 @@ function Todo() {
         ))}
       </ul>
       <Footer />
+      <Parallel></Parallel>
     </section>
   );
 }
