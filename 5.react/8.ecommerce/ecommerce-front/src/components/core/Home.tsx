@@ -1,10 +1,8 @@
-import React from 'react'
-import Layout from './Layout'
+import React from "react";
+import Layout from "./Layout";
 
 function Home() {
-  return (
-    <Layout>Home</Layout>
-  )
+  return <Layout title="首页">Home</Layout>;
 }
 
-export default Home
+export default Home;

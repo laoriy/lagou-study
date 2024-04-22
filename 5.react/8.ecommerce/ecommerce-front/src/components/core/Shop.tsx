@@ -1,10 +1,8 @@
-import React from 'react'
-import Layout from './Layout'
+import React from "react";
+import Layout from "./Layout";
 
 function Shop() {
-  return (
-    <Layout>Shop</Layout>
-  )
+  return <Layout title="购物车">Shop</Layout>;
 }
 
-export default Shop
+export default Shop;
