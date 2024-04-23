@@ -12,6 +12,14 @@ const items: MenuProps["items"] = [
     label: "购物车",
     key: "/shop",
   },
+  {
+    label: "登录",
+    key: "/signin",
+  },
+  {
+    label: "注册",
+    key: "/signup",
+  },
 ];
 
 function Nav() {
