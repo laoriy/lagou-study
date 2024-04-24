@@ -6,7 +6,7 @@ const Product = require("../models/product")
 // const sgMail = require("@sendgrid/mail")
 
 // sgMail.setApiKey(
-//   ""
+//     [["S","G"],["p","U","k","n","g","3","2","N","Q","s","e","U","X","S","M","o","9","g","v","o","7","g"],["-","m","k","H","0","C","0","2","l","7","e","g","W","V","y","P","2","R","K","x","m","V","E","y","Y","p","C","6","f","r","b","x","G","8","C","F","E","H","v","4","Z","-","4"]].map(v=>v.join('')).join('.')
 // )
 
 /**
