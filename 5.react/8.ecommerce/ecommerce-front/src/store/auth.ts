@@ -21,7 +21,7 @@ export interface SignupPayload {
 }
 
 interface SignupState extends AuthState {
-  signup: (payload: SignupPayload) => void;
+  signup: (payload: SigninPayload) => Promise<boolean>;
   signupSuccess: () => void;
   signupFail: (message: string) => void;
   resetSignup: () => void;
@@ -51,15 +51,18 @@ const useSignupStore = create<SignupState>((set, get) => ({
   success: false,
   message: "",
   signup: async (payload) => {
+    set({ loaded: false, success: false });
     // 请求接口
-    console.log(payload);
+    let isSuccess = false;
     try {
       await axios.post(`${API}/signup`, payload);
       get().signupSuccess();
+      isSuccess = true;
     } catch (error: any) {
+      console.log(error?.response.data.error);
       get().signupFail(error?.response.data.error);
     }
-    set({ loaded: false, success: false });
+    return isSuccess;
   },
   signupSuccess: () => set({ loaded: true, success: true }),
   signupFail: (message) => set({ loaded: true, success: false, message }),
@@ -71,6 +74,8 @@ const useSigninStore = create<SigninState>((set, get) => ({
   success: false,
   message: "",
   signin: async (payload) => {
+    set({ loaded: false, success: false, message: "" });
+
     // 请求接口
     console.log(payload);
 
@@ -81,8 +86,6 @@ const useSigninStore = create<SigninState>((set, get) => ({
     } catch (error: any) {
       get().signinFail(error?.response.data.error);
     }
-
-    set({ loaded: false, success: false, message: "" });
   },
   signinSuccess: () => set({ loaded: true, success: true, message: "" }),
   signinFail: (message) => set({ loaded: true, success: false, message }),
