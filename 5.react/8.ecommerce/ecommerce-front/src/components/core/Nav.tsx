@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Menu, MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
 import useRoute from "../../hooks/useRoute";
+import { isAuth } from "../../helpers/auth";
+import { Jwt } from "../../types/auth";
 
 const items: MenuProps["items"] = [
   {
@@ -12,20 +14,37 @@ const items: MenuProps["items"] = [
     label: "购物车",
     key: "/shop",
   },
-  {
-    label: "登录",
-    key: "/signin",
-  },
-  {
-    label: "注册",
-    key: "/signup",
-  },
 ];
 
 function Nav() {
   const {
     location: { pathname },
   } = useRoute();
+  const auth = isAuth();
+  const menus = [...items!];
+
+  if (auth) {
+    const {
+      user: { role },
+    } = auth as Jwt;
+    menus.push(
+      role === 0
+        ? { label: "dashboard", key: "/user/dashboard" }
+        : { label: "dashboard", key: "/user/dashboard" }
+    );
+  } else {
+    menus.push(
+      {
+        label: "登录",
+        key: "/signin",
+      },
+      {
+        label: "注册",
+        key: "/signup",
+      }
+    );
+  }
+
   const navigate = useNavigate();
   const [current, setCurrent] = useState(pathname);
   const onClick: MenuProps["onClick"] = (e) => {
@@ -37,7 +56,7 @@ function Nav() {
       mode="horizontal"
       onClick={onClick}
       selectedKeys={[current]}
-      items={items}
+      items={menus}
     ></Menu>
   );
 }

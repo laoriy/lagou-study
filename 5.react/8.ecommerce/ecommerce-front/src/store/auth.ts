@@ -21,7 +21,7 @@ export interface SignupPayload {
 }
 
 interface SignupState extends AuthState {
-  signup: (payload: SigninPayload) => Promise<boolean>;
+  signup: (payload: SignupPayload) => Promise<boolean>;
   signupSuccess: () => void;
   signupFail: (message: string) => void;
   resetSignup: () => void;
@@ -41,7 +41,7 @@ export interface SigninPayload {
 }
 
 interface SigninState extends AuthState {
-  signin: (payload: SigninPayload) => void;
+  signin: (payload: SigninPayload) => Promise<boolean>;
   signinSuccess: () => void;
   signinFail: (message: string) => void;
 }
@@ -76,6 +76,7 @@ const useSigninStore = create<SigninState>((set, get) => ({
   signin: async (payload) => {
     set({ loaded: false, success: false, message: "" });
 
+    let isSuccess = false;
     // 请求接口
     console.log(payload);
 
@@ -83,9 +84,12 @@ const useSigninStore = create<SigninState>((set, get) => ({
       let response = await axios.post(`${API}/signin`, payload);
       localStorage.setItem("jwt", JSON.stringify(response.data));
       get().signinSuccess();
+      isSuccess = true;
     } catch (error: any) {
       get().signinFail(error?.response.data.error);
+      isSuccess = false;
     }
+    return isSuccess;
   },
   signinSuccess: () => set({ loaded: true, success: true, message: "" }),
   signinFail: (message) => set({ loaded: true, success: false, message }),
