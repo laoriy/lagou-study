@@ -1,11 +1,8 @@
 import { create } from "zustand";
 import { API } from "../config";
 import axios from "axios";
+import { Category } from "../types/category";
 
-export interface Category {
-  _id: string;
-  name: string;
-}
 export interface CategoryState {
   loaded: boolean;
   success: boolean;
