@@ -1,8 +1,9 @@
+import { SearchProductPayload } from "./../types/product";
 import { create } from "zustand";
 import { API } from "../config";
 import axios from "axios";
 import { Category } from "../types/category";
-import { GetProductAction, Product } from "../types/product";
+import { GetProductPayload, Product } from "../types/product";
 
 export interface ProductState {
   createdAt: {
@@ -29,10 +30,11 @@ export interface ProductState {
     success: boolean;
     result: Product;
   };
-  handleGetProduct: (p: GetProductAction) => void;
+  handleGetProduct: (p: GetProductPayload) => void;
+  handleSearchProduct: (p: SearchProductPayload) => void;
 }
 
-const useCategoryStore = create<ProductState>((set, get) => ({
+const useProductStore = create<ProductState>((set, get) => ({
   createdAt: {
     loaded: false,
     success: false,
@@ -71,11 +73,11 @@ const useCategoryStore = create<ProductState>((set, get) => ({
       createdAt: "",
     },
   },
-  handleGetProduct: async ({ sortBy, order, limit }: GetProductAction) => {
+  handleGetProduct: async ({ sortBy, order, limit }: GetProductPayload) => {
     let isSuccess = false;
     // 请求接口
     const sortType = sortBy === "createdAt" ? "createdAt" : "sold";
-    set({ [sortType]: { loaded: false, success: false } });
+    set({ [sortType]: { ...get()[sortType], loaded: false, success: false } });
     try {
       let response = await axios.get<Product[]>(`${API}/products`, {
         params: { sortBy, order, limit },
@@ -91,6 +93,22 @@ const useCategoryStore = create<ProductState>((set, get) => ({
     }
     return isSuccess;
   },
+  async handleSearchProduct({ search, category }: SearchProductPayload) {
+    let response = await axios.get(`${API}/products/search`, {
+      params: { search, category },
+    });
+    set({ search: response.data });
+  },
 }));
 
-export { useCategoryStore };
+export const getProduct = (
+  sortBy: string,
+  order: string = "desc",
+  limit: number = 10
+): GetProductPayload => ({
+  sortBy,
+  order,
+  limit,
+});
+
+export { useProductStore };

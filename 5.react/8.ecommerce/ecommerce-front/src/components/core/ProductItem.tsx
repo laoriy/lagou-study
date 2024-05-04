@@ -1,60 +1,60 @@
-import { Button, Card, Col, Image, Row, Typography } from "antd"
-import moment from "moment"
-import React, { FC } from "react"
-import { Link } from "react-router-dom"
-import { API } from "../../config"
-// import { Product } from "../../store/models/product"
-import { addItem } from "../../helpers/cart"
-import { Product } from "../../types/product"
-// import { useDispatch } from "react-redux"
-// import { push } from "connected-react-router"
+import { Button, Card, Col, Image, Row, Typography } from "antd";
+import moment from "moment";
+import React, { FC } from "react";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
+import { API } from "../../config";
+import { addItem } from "../../helpers/cart";
+import { Product } from "../../types/product";
+import useRoute from "../../hooks/useRoute";
 
-const { Title, Paragraph } = Typography
+const { Title, Paragraph } = Typography;
 
 interface Props {
-  product: Product
-  showViewProduct?: boolean
-  showCartBtn?: boolean
+  product: Product;
+  showViewProduct?: boolean;
+  showCartBtn?: boolean;
 }
 
 const ProductItem: FC<Props> = ({
   product,
   showViewProduct = true,
-  showCartBtn = true
+  showCartBtn = true,
 }) => {
-  // const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const addToCart = () => {
     addItem(product, () => {
-      // dispatch(push("/cart"))
-    })
-  }
+      navigate("/cart");
+    });
+  };
 
   const showButtons = () => {
-    let buttonArray = []
+    let buttonArray = [];
     if (showViewProduct)
       buttonArray.push(
         <Button type="link">
           <Link to={`/product/${product._id}`}>查看详情</Link>
         </Button>
-      )
+      );
     if (showCartBtn) {
       buttonArray.push(
         <Button type="link" onClick={addToCart}>
           加入购物车
         </Button>
-      )
+      );
     }
-    return buttonArray
-  }
+    return buttonArray;
+  };
 
   return (
     <Card
       cover={
-        <Image
-          src={`${API}/product/photo/${product._id}`}
-          alt={product.name}
-        />
+        <Image src={`${API}/product/photo/${product._id}`} alt={product.name} />
       }
       actions={showButtons()}
     >
@@ -75,7 +75,7 @@ const ProductItem: FC<Props> = ({
         </Col>
       </Row>
     </Card>
-  )
-}
+  );
+};
 
-export default ProductItem
+export default ProductItem;

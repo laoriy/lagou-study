@@ -1,8 +1,12 @@
 import { Category } from "./category";
-export interface GetProductAction {
+export interface GetProductPayload {
   sortBy: string;
   order: string;
   limit: number;
+}
+export interface SearchProductPayload {
+  category: string;
+  search: string;
 }
 export interface Product {
   _id: string;

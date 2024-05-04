@@ -2,39 +2,22 @@ import { Button, Col, Divider, Form, Input, Row, Select, Space } from "antd";
 import React, { useEffect } from "react";
 import ProductItem from "./ProductItem";
 import { useCategoryStore } from "../../store/category";
-// import { useDispatch, useSelector } from "react-redux"
-// import { getCategory } from "../../store/actions/category.actions"
-// import { AppState } from "../../store/reducers/index"
-// import { CategoryState } from "../../store/reducers/category.reducer"
-// import { searchProduct } from "../../store/actions/product.actions"
-// import { ProductState } from "../../store/reducers/product.reducer"
+import { useProductStore } from "../../store/product";
 
 const Search = () => {
   const getCategories = useCategoryStore((state) => state.getCategories);
   const categories = useCategoryStore((state) => state.result);
+  const search = useProductStore((state) => state.search);
+  const handleSearchProduct = useProductStore(
+    (state) => state.handleSearchProduct
+  );
 
   useEffect(() => {
     getCategories();
   }, [getCategories]);
 
-  // const dispatch = useDispatch()
-
-  // const { category } = useSelector<AppState, CategoryState>(
-  //   state => state.category
-  // )
-
-  // const { search } = useSelector<AppState, ProductState>(
-  //   state => state.product
-  // )
-
-  // useEffect(() => {
-  //   dispatch(getCategory())
-  // }, [])
-
   const onFinish = (value: { category: string; search: string }) => {
-    // dispatch(
-    //   searchProduct({ category: value.category, search: value.search })
-    // )
+    handleSearchProduct(value);
   };
 
   return (
@@ -65,11 +48,11 @@ const Search = () => {
       </Form>
       <Divider />
       <Row gutter={[16, 16]}>
-        {/* {search.map(item => (
-          <Col span="6">
+        {search.map((item) => (
+          <Col span="6" key={item._id}>
             <ProductItem product={item} />
           </Col>
-        ))} */}
+        ))}
       </Row>
     </>
   );

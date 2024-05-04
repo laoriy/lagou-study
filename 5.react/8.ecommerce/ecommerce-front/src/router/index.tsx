@@ -9,6 +9,7 @@ import AdminRoute from "../components/admin/AdminRoute";
 import AdminDashboard from "../components/admin/AdminDashboard";
 import AddCategory from "../components/admin/AddCategory";
 import AddProduct from "../components/admin/AddProduct";
+import Cart from "../components/core/Cart";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/create/product",
     element: <AdminRoute component={AddProduct} />,
-  }
+  },
+  {
+    path: "cart",
+    element: <Cart />,
+  },
 ]);
 
 export default router;
