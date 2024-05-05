@@ -26,3 +26,20 @@ export interface Price {
   name: string;
   array: [number?, number?];
 }
+
+export interface FilterPayload {
+  order?: string;
+  sortBy?: string;
+  limit?: number;
+  skip: number;
+  filters?: {
+    category: string[];
+    price: number[];
+  };
+}
+
+export interface Price {
+  id: number;
+  name: string;
+  array: [number?, number?];
+}

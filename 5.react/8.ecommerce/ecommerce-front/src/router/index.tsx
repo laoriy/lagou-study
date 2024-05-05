@@ -10,6 +10,7 @@ import AdminDashboard from "../components/admin/AdminDashboard";
 import AddCategory from "../components/admin/AddCategory";
 import AddProduct from "../components/admin/AddProduct";
 import Cart from "../components/core/Cart";
+import Product from "../components/core/Product";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,11 @@ const router = createBrowserRouter([
   },
   {
     path: "cart",
-    element: <Cart />,
+    element: <AdminRoute component={Cart} />,
+  },
+  {
+    path: "/product/:productId",
+    element: <AdminRoute component={Product} />,
   },
 ]);
 

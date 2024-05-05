@@ -30,7 +30,7 @@ function Nav() {
     menus.push(
       role === 0
         ? { label: "dashboard", key: "/user/dashboard" }
-        : { label: "dashboard", key: "/user/dashboard" }
+        : { label: "dashboard", key: "/admin/dashboard" }
     );
   } else {
     menus.push(

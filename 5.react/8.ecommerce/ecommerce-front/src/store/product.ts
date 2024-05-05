@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { API } from "../config";
 import axios from "axios";
 import { Category } from "../types/category";
-import { GetProductPayload, Product } from "../types/product";
+import { GetProductPayload, Product, FilterPayload } from "../types/product";
 
 export interface ProductState {
   createdAt: {
@@ -32,6 +32,8 @@ export interface ProductState {
   };
   handleGetProduct: (p: GetProductPayload) => void;
   handleSearchProduct: (p: SearchProductPayload) => void;
+  handleFilterProduct(payload: FilterPayload): Promise<void>;
+  handleGetProductById(productId: string): Promise<void>;
 }
 
 const useProductStore = create<ProductState>((set, get) => ({
@@ -73,6 +75,7 @@ const useProductStore = create<ProductState>((set, get) => ({
       createdAt: "",
     },
   },
+
   handleGetProduct: async ({ sortBy, order, limit }: GetProductPayload) => {
     let isSuccess = false;
     // 请求接口
@@ -98,6 +101,42 @@ const useProductStore = create<ProductState>((set, get) => ({
       params: { search, category },
     });
     set({ search: response.data });
+  },
+  async handleFilterProduct(payload: FilterPayload) {
+    set({
+      filter: {
+        ...get().filter,
+        loaded: false,
+        success: false,
+        result: {
+          size: 0,
+          data: get().filter.result.data,
+        },
+      },
+    });
+
+    let response = await axios.post(`${API}/products/filter`, payload);
+
+    let data =
+      payload.skip === 0
+        ? response.data.data
+        : [...get().filter.result.data, ...response.data.data];
+
+    set({
+      filter: {
+        loaded: true,
+        success: true,
+        result: {
+          size: response.data.data.length,
+          data,
+        },
+      },
+    });
+  },
+  async handleGetProductById(productId: string) {
+    set({ product: { ...get().product, loaded: false, success: false } });
+    let response = await axios.get(`${API}/product/${productId}`);
+    set({ product: { loaded: true, success: true, result: response.data } });
   },
 }));
 
