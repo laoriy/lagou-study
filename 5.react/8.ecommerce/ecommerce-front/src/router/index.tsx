@@ -47,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path: "cart",
-    element: <AdminRoute component={Cart} />,
+    element:<Cart />,
   },
   {
     path: "/product/:productId",

@@ -1,27 +1,41 @@
-import React, { useState } from "react";
-import { Menu, MenuProps } from "antd";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { Badge, Menu, MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
 import useRoute from "../../hooks/useRoute";
 import { isAuth } from "../../helpers/auth";
 import { Jwt } from "../../types/auth";
+import { TotalContext } from "../../anotherStore";
+import { itemCount } from "../../helpers/cart";
 
-const items: MenuProps["items"] = [
-  {
-    label: "首页",
-    key: "/",
-  },
-  {
-    label: "购物车",
-    key: "/shop",
-  },
-];
+const items: (count: number) => MenuProps["items"] = (count: number) =>
+  [
+    {
+      label: "首页",
+      key: "/",
+    },
+    {
+      label: "商城",
+      key: "/shop",
+    },
+    {
+      label: (
+        <>
+          购物车
+          <Badge count={count} offset={[5, -10]} />
+        </>
+      ),
+      key: "/cart",
+    },
+  ] as MenuProps["items"];
 
 function Nav() {
   const {
     location: { pathname },
   } = useRoute();
   const auth = isAuth();
-  const menus = [...items!];
+  const [count, setCount] = useContext(TotalContext);
+
+  const menus = [...items(count)!];
 
   if (auth) {
     const {
@@ -51,6 +65,9 @@ function Nav() {
     setCurrent(e.key);
     navigate(e.key);
   };
+  useEffect(() => {
+    setCount(itemCount());
+  });
   return (
     <Menu
       mode="horizontal"
