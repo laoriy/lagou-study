@@ -1,23 +1,51 @@
 import React from "react";
+import { columns } from "./columns";
+import MockData from "./MOCK_DATA.json";
+import {
+  useReactTable,
+  getCoreRowModel,
+  flexRender
+} from "@tanstack/react-table";
 
 function Table() {
+  const table = useReactTable({
+    columns,
+    data: MockData,
+    getCoreRowModel: getCoreRowModel(), //row model
+  });
+
+  console.log(table);
+
   return (
     <table className="gridtable">
-      <tr>
-        <th>信息标题 1</th>
-        <th>信息标题 2</th>
-        <th>信息标题 3</th>
-      </tr>
-      <tr>
-        <td>文本 1A</td>
-        <td>文本 1B</td>
-        <td>文本 1C</td>
-      </tr>
-      <tr>
-        <td>文本 2A</td>
-        <td>文本 2B</td>
-        <td>文本 2C</td>
-      </tr>
+      <thead>
+        {table.getHeaderGroups().map((headerGroup) => {
+          return (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(
+                (
+                  header // map over the headerGroup headers array
+                ) => (
+                  <th key={header.id} colSpan={header.colSpan}>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  </th>
+                )
+              )}
+            </tr>
+          );
+        })}
+      </thead>
+      <tbody>
+        {table.getRowModel().rows.map((row) => (
+          <tr key={row.id}>
+            {row.getVisibleCells().map((cell) => (
+              <td key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }
