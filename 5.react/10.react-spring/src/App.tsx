@@ -1,7 +1,13 @@
 import React from "react";
+import { Base, Chain } from "./components";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      {/* <Base /> */}
+      <Chain />
+    </>
+  );
 }
 
 export default App;
