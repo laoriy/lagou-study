@@ -1,22 +1,38 @@
-table.gridtable {
-  font-family: verdana,arial,sans-serif;
-  font-size:11px;
-  color:#333333;
-  border-width: 1px;
-  border-color: #666666;
-  border-collapse: collapse;
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
 }
-table.gridtable th {
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #666666;
-  background-color: #dedede;
+
+body {
+  font-family: system-ui;
+  margin: 0;
 }
-table.gridtable td {
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #666666;
-  background-color: #ffffff;
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+:root {
+  --step0: #ff615d;
+  --step1: #bad5ea;
+  --step2: #fd8769;
+  --step3: #356d94;
+  --step4: #ffdcb3;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex.fill {
+  height: 100%;
+}
+
+.flex.center {
+  justify-content: center;
 }
