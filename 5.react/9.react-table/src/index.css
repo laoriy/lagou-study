@@ -12,6 +12,7 @@ table.gridtable th {
   border-style: solid;
   border-color: #666666;
   background-color: #dedede;
+  cursor: pointer;
 }
 table.gridtable td {
   border-width: 1px;
