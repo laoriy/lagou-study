@@ -1,3 +1,4 @@
+import dateFormat from "dateformat";
 export const COLUMNS = [
   {
     header: "ID",
@@ -18,6 +19,9 @@ export const COLUMNS = [
     header: "出生日期",
     footer: "出生日期",
     accessorKey: "date_of_birth",
+    cell: ({ cell, row }: any) => {
+      return dateFormat(cell.getValue(), "yyyy-mm-dd");
+    },
   },
   {
     header: "国家",
@@ -63,6 +67,9 @@ export const COLUMNS_GROUPS = [
         header: "出生日期",
         footer: "出生日期",
         accessorKey: "date_of_birth",
+        cell: ({ cell, row }: any) => {
+          return dateFormat(row.original.date_of_birth, "yyyy-mm-dd");
+        },
       },
       {
         header: "国家",

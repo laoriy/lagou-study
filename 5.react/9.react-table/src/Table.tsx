@@ -7,7 +7,21 @@ import {
   flexRender,
   getSortedRowModel,
   SortingState,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
+
+const GlobalFilter = ({ setFilter }: any) => {
+  return (
+    <div>
+      搜索：
+      <input
+        onChange={(e) => {
+          setFilter(e.target.value);
+        }}
+      />
+    </div>
+  );
+};
 
 function Table() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -17,6 +31,8 @@ function Table() {
     getCoreRowModel: getCoreRowModel(), //row model
     getSortedRowModel: getSortedRowModel(), //client-side sorting
     onSortingChange: setSorting, //optionally control sorting state in your own scope for easy access
+    getFilteredRowModel: getFilteredRowModel(), //client side filtering
+    getColumnCanGlobalFilter: (column) => column.id !== "id",
     state: {
       sorting,
     },
@@ -24,7 +40,7 @@ function Table() {
 
   return (
     <>
-      <pre>{JSON.stringify(sorting, null, 2)}</pre>
+      <GlobalFilter setFilter={table.setGlobalFilter} />
       <table className="gridtable">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => {
