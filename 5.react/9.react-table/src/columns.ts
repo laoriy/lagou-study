@@ -38,9 +38,17 @@ export const COLUMNS = [
 //表格分组
 export const COLUMNS_GROUPS = [
   {
-    header: "ID",
-    footer: "ID",
-    accessorKey: "id",
+    header: " ",
+    footer: " ",
+    accessorKey: "",
+    columns: [
+      {
+        header: "ID",
+        footer: "ID",
+        accessorKey: "id",
+        enableColumnFilter: false,
+      },
+    ],
   },
   {
     header: "姓名",

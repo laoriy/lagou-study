@@ -63,6 +63,11 @@ function Table() {
                         asc: " 🔼",
                         desc: " 🔽",
                       }[header.column.getIsSorted() as string] ?? null}
+                      {header.column.getCanFilter() ? (
+                        <div>
+                          <GlobalFilter setFilter={header.column.setFilterValue} />
+                        </div>
+                      ) : null}
                     </th>
                   )
                 )}
