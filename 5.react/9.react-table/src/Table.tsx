@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { COLUMNS, COLUMNS_GROUPS } from "./columns";
 import MockData from "./MOCK_DATA.json";
 import {
@@ -9,14 +9,21 @@ import {
   SortingState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
+import { debounce } from "lodash-es";
 
 const GlobalFilter = ({ setFilter }: any) => {
+  const onChange = useCallback(
+    debounce((value) => {
+      setFilter(value);
+    }, 1000),
+    []
+  );
   return (
     <div>
       搜索：
       <input
         onChange={(e) => {
-          setFilter(e.target.value);
+          onChange(e.target.value);
         }}
       />
     </div>
@@ -65,7 +72,9 @@ function Table() {
                       }[header.column.getIsSorted() as string] ?? null}
                       {header.column.getCanFilter() ? (
                         <div>
-                          <GlobalFilter setFilter={header.column.setFilterValue} />
+                          <GlobalFilter
+                            setFilter={header.column.setFilterValue}
+                          />
                         </div>
                       ) : null}
                     </th>
