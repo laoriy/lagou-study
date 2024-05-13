@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { COLUMNS, COLUMNS_GROUPS } from "./columns";
 import MockData from "./MOCK_DATA.json";
 import {
@@ -8,16 +8,15 @@ import {
   getSortedRowModel,
   SortingState,
   getFilteredRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { debounce } from "lodash-es";
 
 const GlobalFilter = ({ setFilter }: any) => {
-  const onChange = useCallback(
-    debounce((value) => {
-      setFilter(value);
-    }, 1000),
-    []
-  );
+  const onChange = debounce((value) => {
+    setFilter(value);
+  }, 1000);
+
   return (
     <div>
       搜索：
@@ -32,6 +31,10 @@ const GlobalFilter = ({ setFilter }: any) => {
 
 function Table() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0, //initial page index
+    pageSize: 10, //default page size
+  });
   const table = useReactTable({
     columns: COLUMNS_GROUPS,
     data: MockData,
@@ -40,8 +43,11 @@ function Table() {
     onSortingChange: setSorting, //optionally control sorting state in your own scope for easy access
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
     getColumnCanGlobalFilter: (column) => column.id !== "id",
+    getPaginationRowModel: getPaginationRowModel(), //load client-side pagination code
+    onPaginationChange: setPagination, //update the pagination state when internal APIs mutate the pagination state
     state: {
       sorting,
+      pagination,
     },
   });
 
@@ -95,7 +101,7 @@ function Table() {
             </tr>
           ))}
         </tbody>
-        <tfoot>
+        {/* <tfoot>
           {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
@@ -108,8 +114,69 @@ function Table() {
               ))}
             </tr>
           ))}
-        </tfoot>
+        </tfoot> */}
       </table>
+      <div className="flex items-center gap-2">
+        <button
+          className="border rounded p-1"
+          onClick={() => table.firstPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {"<<"}
+        </button>
+        <button
+          className="border rounded p-1"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {"<"}
+        </button>
+        <button
+          className="border rounded p-1"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          {">"}
+        </button>
+        <button
+          className="border rounded p-1"
+          onClick={() => table.lastPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          {">>"}
+        </button>
+        <span className="flex items-center gap-1">
+          <div>Page</div>
+          <strong>
+            {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount().toLocaleString()}
+          </strong>
+        </span>
+        <span className="flex items-center gap-1">
+          | Go to page:
+          <input
+            type="number"
+            defaultValue={table.getState().pagination.pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              table.setPageIndex(page);
+            }}
+            className="border p-1 rounded w-16"
+          />
+        </span>
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
     </>
   );
 }
