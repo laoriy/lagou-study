@@ -58,10 +58,12 @@ export const COLUMNS_GROUPS = [
         header: "名",
         footer: "名",
         accessorKey: "first_name",
+        enableSorting: false,
       },
       {
         header: "姓",
         footer: "姓",
+        enableSorting: false,
         accessorKey: "last_name",
       },
     ],
@@ -82,11 +84,13 @@ export const COLUMNS_GROUPS = [
       {
         header: "国家",
         footer: "国家",
+        enableSorting: false,
         accessorKey: "country",
       },
       {
         header: "电话",
         footer: "电话",
+        enableSorting: false,
         accessorKey: "phone",
       },
     ],

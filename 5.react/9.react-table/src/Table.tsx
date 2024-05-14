@@ -47,7 +47,7 @@ const GlobalFilter = ({ setFilter }: any) => {
   }, 1000);
 
   return (
-    <div>
+    <div className="flex">
       搜索：
       <input
         onChange={(e) => {
@@ -67,6 +67,7 @@ function Table() {
 
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [columnOrder, setColumnOrder] = React.useState<ColumnOrderState>([]);
+  const [columnPinning, setColumnPinning] = React.useState({});
 
   const columns = useMemo(
     () => [
@@ -115,11 +116,13 @@ function Table() {
     onPaginationChange: setPagination, //update the pagination state when internal APIs mutate the pagination state
     onColumnVisibilityChange: setColumnVisibility,
     onColumnOrderChange: setColumnOrder,
+    onColumnPinningChange: setColumnPinning,
     state: {
       sorting,
       pagination,
       columnOrder,
       columnVisibility,
+      columnPinning,
     },
   });
 
@@ -169,68 +172,106 @@ function Table() {
         </button>
       </div>
       <GlobalFilter setFilter={table.setGlobalFilter} />
-      <table className="gridtable">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(
-                  (
-                    header // map over the headerGroup headers array
-                  ) => (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {{
-                        asc: " 🔼",
-                        desc: " 🔽",
-                      }[header.column.getIsSorted() as string] ?? null}
-                      {header.column.getCanFilter() ? (
-                        <div>
-                          <GlobalFilter
-                            setFilter={header.column.setFilterValue}
-                          />
-                        </div>
-                      ) : null}
-                    </th>
-                  )
-                )}
+      <div className="table-wrapper">
+        <table width={400} className="gridtable">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => {
+              return (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map(
+                    (
+                      header // map over the headerGroup headers array
+                    ) => (
+                      <th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {{
+                          asc: " 🔼",
+                          desc: " 🔽",
+                        }[header.column.getIsSorted() as string] ?? null}
+                        {header.column.getCanFilter() ? (
+                          <div>
+                            <GlobalFilter
+                              setFilter={header.column.setFilterValue}
+                            />
+                          </div>
+                        ) : null}
+                        {!header.isPlaceholder && header.column.getCanPin() && (
+                          <div className="flex gap-1 justify-center">
+                            {header.column.getIsPinned() !== "left" ? (
+                              <button
+                                className="border rounded px-2"
+                                onClick={() => {
+                                  header.column.pin("left");
+                                }}
+                              >
+                                {"<="}
+                              </button>
+                            ) : null}
+                            {header.column.getIsPinned() ? (
+                              <button
+                                className="border rounded px-2"
+                                onClick={() => {
+                                  header.column.pin(false);
+                                }}
+                              >
+                                X
+                              </button>
+                            ) : null}
+                            {header.column.getIsPinned() !== "right" ? (
+                              <button
+                                className="border rounded px-2"
+                                onClick={() => {
+                                  header.column.pin("right");
+                                }}
+                              >
+                                {"=>"}
+                              </button>
+                            ) : null}
+                          </div>
+                        )}
+                      </th>
+                    )
+                  )}
+                </tr>
+              );
+            })}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
               </tr>
-            );
-          })}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td className="p-1">
+                <IndeterminateCheckbox
+                  {...{
+                    checked: table.getIsAllPageRowsSelected(),
+                    indeterminate: table.getIsSomePageRowsSelected(),
+                    onChange: table.getToggleAllPageRowsSelectedHandler(),
+                  }}
+                />
+              </td>
+              <td colSpan={20}>
+                Page Rows ({table.getRowModel().rows.length})
+              </td>
             </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td className="p-1">
-              <IndeterminateCheckbox
-                {...{
-                  checked: table.getIsAllPageRowsSelected(),
-                  indeterminate: table.getIsSomePageRowsSelected(),
-                  onChange: table.getToggleAllPageRowsSelectedHandler(),
-                }}
-              />
-            </td>
-            <td colSpan={20}>Page Rows ({table.getRowModel().rows.length})</td>
-          </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      </div>
       <div className="flex items-center gap-2">
         <button
           className="border rounded p-1"
