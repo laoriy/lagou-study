@@ -4,6 +4,7 @@
   height: 100%;
   justify-content: center;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .background {
