@@ -1,5 +1,11 @@
 import * as React from "react";
-import { useSpring, animated, config, useSprings } from "@react-spring/web";
+import {
+  useSpring,
+  animated,
+  config,
+  useSprings,
+  useTrail,
+} from "@react-spring/web";
 import styles from "./styles.module.css";
 import styled from "styled-components";
 const data = [
@@ -50,6 +56,10 @@ const Wrapper = styled.ul`
     border-radius: 5px;
     margin-bottom: 12px;
     color: #fff;
+    background-color: #38b2ac;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &.primary {
       background-color: blue;
     }
@@ -110,6 +120,27 @@ export default function App() {
     }))
   );
 
+  const [{ dataShow, indexStartRender }, setState] = React.useState({
+    dataShow: data,
+    indexStartRender: 0,
+  });
+
+  const trail = useTrail(dataShow.length, {
+    from: {
+      transform: "translateY(100%)",
+    },
+    to: {
+      transform: "translateY(0%)",
+    },
+    reset: true,
+    config: config.wobbly,
+  });
+
+  const onClickHandler = (i: number) => {
+    const newData = [...dataShow.slice(0, i), ...dataShow.slice(i + 1)];
+    setState({ dataShow: newData, indexStartRender: i });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.squares}>
@@ -145,6 +176,19 @@ export default function App() {
           );
         })}
         <button onClick={() => setOn(!on)}> change on state</button>
+      </Wrapper>
+
+      <Wrapper>
+        {trail.map((item, i) => (
+          <animated.li
+            onClick={() => onClickHandler(i)}
+            style={i > indexStartRender ? item : {}}
+            key={i}
+          >
+            {dataShow[i]}
+            {i + 1}
+          </animated.li>
+        ))}
       </Wrapper>
     </div>
   );
