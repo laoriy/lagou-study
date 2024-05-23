@@ -55,6 +55,7 @@
       - process.emit('exit')
       - process.exit(): 退出进程
 
-    5. 标准输入 输出 错误
-      - process.stdin：输入
-      - process.stdout：输出
+   5. 标准输入 输出 错误
+
+   - process.stdin：输入
+   - process.stdout：输出
