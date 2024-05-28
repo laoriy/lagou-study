@@ -60,3 +60,9 @@
 ## FS 基本操作类
 
 ## FS 常用 api
+
+- readFile: 读取文件
+- writeFile: 写入文件
+- appendFile: 追加内容到文件
+- copyFile: 复制文件
+- watch: 监听文件变化
