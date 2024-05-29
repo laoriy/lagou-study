@@ -66,3 +66,21 @@
 - appendFile: 追加内容到文件
 - copyFile: 复制文件
 - watch: 监听文件变化
+
+## 文件打开与关闭
+
+- fs.open、fs.close
+- fs.read 大文件读取，作就是将数据从磁盘文件中写入到 buffer 中，然后通过回调函数返回
+- fs.write 大文件写入，将 buffer 中的数据写入到磁盘文件中，然后通过回调函数返回
+- 大文件拷贝
+  1. 打开 a 文件，利用 read 将数据保存到 buffer 暂存起来
+  2. 打开 b 文件，利用 write 将 buffer 中数据写入到 b 文件中
+
+## 目录操作 api
+
+- access: 判断文件或者目录是否有操作权限
+- stat: 获取文件或者目录的详细信息
+- mkdir: 创建目录
+- rmdir: 删除目录
+- readdir: 读取目录下的文件
+- unlink: 删除文件
