@@ -108,3 +108,13 @@
 ## vm 模块
 
 创建独立运行的沙箱环境
+
+## Event 模块
+EventEmitter 常见api
+- on(eventName, callback) 监听事件
+- emit(eventName, ...args) 触发事件
+- once(eventName, callback) 监听事件，只触发一次
+- off(eventName, callback) 移除监听事件
+
+## 发布订阅模式
+

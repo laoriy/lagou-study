@@ -9,7 +9,7 @@ module.exports = {
   addFn: addFn
 } */
 
-// 二、module 
+// 二、module
 /* module.exports = 1111
 console.log(module) */
 
@@ -30,7 +30,7 @@ console.log(module) */
   ]
 } */
 
-// 三、exports 
+// 三、exports
 // exports.name = 'zce'
 /* exports = { // 这种方式无效
   name: 'syy',
@@ -47,6 +47,5 @@ module.exports = name
 console.log('m.js被加载导入了') */
 
 /* console.log(require.main == module) */ // require.main 可以认为指向当前模块的主模块
-
-module.exports = 'lg'
-
+const name = "zce";
+module.exports = name;
