@@ -110,7 +110,9 @@
 创建独立运行的沙箱环境
 
 ## Event 模块
-EventEmitter 常见api
+
+EventEmitter 常见 api
+
 - on(eventName, callback) 监听事件
 - emit(eventName, ...args) 触发事件
 - once(eventName, callback) 监听事件，只触发一次
@@ -118,3 +120,32 @@ EventEmitter 常见api
 
 ## 发布订阅模式
 
+# 事件循环
+
+## 浏览器下的事件循环
+
+- 从上至下执行所有的同步代码
+- 执行过程中将遇到的宏任务与微任务添加至相应的队列
+- 同步代码执行完毕后，执行满足条件的微任务回调
+- 微任务队列执行完毕后执行所有满足需求的宏任务队回调
+- 循环事件环操作
+- 注意：每执行一个宏任务之后就会立刻检查微任务队列，如果有任务就执行，没有任务就继续执行下一个宏任务
+
+## Nodejs 中的事件循环
+
+队列说明：
+
+- timers 队列：setTimeout、setInterval
+- pending callbacks：执行系统操作的回调，例如 tcp,udp
+- idle, prepare：nodejs 内部使用，一般无需关注
+- poll:执行与 IO 相关的回调
+- check：执行 setImmediate 中的回调
+- close callbacks：执行 close 事件的回调
+
+完整事件循环
+
+- 执行同步代码，将不同的任务添加至相应的队列
+- 将所有同步代码执行后会去执行满足条件的微任务
+- 所有微任务代码执行后会执行 timer 队列中满足的宏任务
+- timer 中的所有宏任务执行完毕后，就会以此切换队列
+- 注意：在完成队列切换之前会先清空微任务代码
