@@ -135,11 +135,11 @@ EventEmitter 常见 api
 
 队列说明：
 
-- timers 队列：setTimeout、setInterval
+- `timers` 队列：setTimeout、setInterval
 - pending callbacks：执行系统操作的回调，例如 tcp,udp
 - idle, prepare：nodejs 内部使用，一般无需关注
-- poll:执行与 IO 相关的回调
-- check：执行 setImmediate 中的回调
+- `poll`:执行与 IO 相关的回调
+- `check：执行` setImmediate 中的回调
 - close callbacks：执行 close 事件的回调
 
 完整事件循环
