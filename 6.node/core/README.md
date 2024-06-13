@@ -170,3 +170,6 @@ EventEmitter 常见 api
 - Writable：可写流，用于写入数据
 - Duplex：双工流，既可读又可写
 - Transform：转换流，用于处理数据
+
+
+## Duplex 和 Transform 的区别
