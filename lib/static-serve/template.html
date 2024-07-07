@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      list-style: none;
+    }
+    .parent{
+      margin: 10px 0;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h3>IndexOf <%=title%></h3>
+  <%if(parent) {%>
+    <div class="parent"><a href="<%=parentPath%>">上一层</a></div>
+  <%}%>
+  <ul>
+    
+    <%for(let i = 0; i < arr.length; i++) {%>
+      <li><a href="<%=arr[i].path%>"><%=arr[i].dirs%></a></li>
+    <%}%>
+  </ul>
+</body>
+</html>
