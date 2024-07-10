@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 // 连接 MongoDB 数据库
-mongoose.connect('mongodb://localhost/happy-chat', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://127.0.0.1:27017/wb', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 db.on('error', err => {
