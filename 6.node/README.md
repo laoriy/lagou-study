@@ -111,8 +111,30 @@ mongosh 启动
 - db.dropDatabase()
 - use dbname: 切换数据库、创建数据库
 - show collections
+
+- db.collection.insert({})
 - db.collection.insertOne({})
+- db.collection.insertMany([{},{}])
+
+- db.collection.findOne({})
 - db.collection.find()
+- db.collection.find({}).limit(10)
+- 查询运算符：
+   - $eq: 等于
+   - $ne: 不等于
+   - $gt: 大于
+   - $gte: 大于等于
+   - $lt: 小于
+   - $lte: 小于等于
+   - $in: 在范围内
+   - $nin: 不在范围内
+   - $exists: 是否存在
+   - $regex: 正则表达式
+   - $size: 长度
+   - $all: 全部包含
+   ...
+
+
 - db.collection.updateOne({},{})
 - db.collection.deleteOne({})
 - db.collection.drop()
@@ -125,3 +147,10 @@ db --> collection --> document --> field
 - collection: 集合，
 - document: 文档（就像是一个对象），将数据记录为 Bson 格式,它比 JSON 包含更多的数据类型
 - field: 列
+
+## 可视化工具
+1. Robo3T: https://robomongo.org/
+2. MongoDB Compass: https://www.mongodb.com/try/download/compass
+3. Studio 3T: https://studio3t.com/
+4. Navicat: https://www.navicat.com/
+
