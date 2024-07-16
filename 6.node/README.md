@@ -120,20 +120,30 @@ mongosh 启动
 - db.collection.find()
 - db.collection.find({}).limit(10)
 - 查询运算符：
-   - $eq: 等于
-   - $ne: 不等于
-   - $gt: 大于
-   - $gte: 大于等于
-   - $lt: 小于
-   - $lte: 小于等于
-   - $in: 在范围内
-   - $nin: 不在范围内
-   - $exists: 是否存在
-   - $regex: 正则表达式
-   - $size: 长度
-   - $all: 全部包含
-   ...
+  - $eq: 等于
+  - $ne: 不等于
+  - $gt: 大于
+  - $gte: 大于等于
+  - $lt: 小于
+  - $lte: 小于等于
+  - $in: 在范围内
+  - $nin: 不在范围内
+  - $exists: 是否存在
+  - $regex: 正则表达式
+  - $size: 长度
+  - $all: 全部包含
+    ...
+- 返回指定字段
 
+  - db.collection.find({}, {name: 1})
+  - db.collection.find({}, {name: 1, \_id: 0})
+  - db.collection.find({}, {name: 1, \_id: 0, s:{name: 0, age: 0}})
+
+- 类型空字段或者缺少字段
+
+  - db.collection.find({item:null})
+  - db.collection.find({item:{$type:10}})
+  - db.collection.find({item:{$exists:false}})
 
 - db.collection.updateOne({},{})
 - db.collection.deleteOne({})
@@ -149,8 +159,8 @@ db --> collection --> document --> field
 - field: 列
 
 ## 可视化工具
+
 1. Robo3T: https://robomongo.org/
 2. MongoDB Compass: https://www.mongodb.com/try/download/compass
 3. Studio 3T: https://studio3t.com/
 4. Navicat: https://www.navicat.com/
-
