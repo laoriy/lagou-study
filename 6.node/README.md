@@ -145,9 +145,24 @@ mongosh 启动
   - db.collection.find({item:{$type:10}})
   - db.collection.find({item:{$exists:false}})
 
-- db.collection.updateOne({},{})
-- db.collection.deleteOne({})
-- db.collection.drop()
+- 更新
+  - db.collection.updateOne({},{
+    $set: {
+    name: "new name"
+    age: 18
+    address: "new address"
+    }
+    })
+  - db.collection.updateMany({},{
+    $set: {
+    name: "new name"}
+    }
+    })
+- db.collection.replaceOne({},{})
+
+- 删除
+  - db.collection.deleteOne({})
+  - db.collection.drop()
 
 ## 数据存储结构
 
