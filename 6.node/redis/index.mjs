@@ -12,4 +12,4 @@ await client.connect();
 
 console.log(client);
 
-// await client.disconnect();
+await client.disconnect();
