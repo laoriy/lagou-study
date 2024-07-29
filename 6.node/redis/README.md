@@ -757,3 +757,7 @@ appendfsync no
 ## Redis 图形管理软件
 
 RDM：https://rdm.dev/。
+
+## NodeJs 中使用
+
+https://redis.io/docs/latest/develop/connect/clients/nodejs/
