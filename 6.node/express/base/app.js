@@ -2,7 +2,12 @@ const express = require("express");
 const { getDb, saveDb } = require("./db");
 
 const app = express();
+
+// 配置解析表单请求体：application/json
 app.use(express.json());
+
+// 解析表单请求体：application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/todos", async (req, res) => {
   try {
@@ -37,6 +42,8 @@ app.post("/todos", async (req, res) => {
   try {
     // 1. 获取客户端请求体参数
     const todo = req.body;
+
+    console.log(todo);
 
     // 2. 数据验证
     if (!todo.title) {
