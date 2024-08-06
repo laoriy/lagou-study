@@ -2,14 +2,15 @@ const express = require("express");
 const { getDb, saveDb } = require("./db");
 
 const app = express();
+const router = express.Router();
 
 // 配置解析表单请求体：application/json
-app.use(express.json());
+router.use(express.json());
 
 // 解析表单请求体：application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: false }));
+router.use(express.urlencoded({ extended: false }));
 
-app.get("/todos", async (req, res) => {
+router.get("/todos", async (req, res) => {
   try {
     const db = await getDb();
     res.status(200).json(db.todos);
@@ -19,7 +20,7 @@ app.get("/todos", async (req, res) => {
     });
   }
 });
-app.get("/todos/:id", async (req, res) => {
+router.get("/todos/:id", async (req, res) => {
   try {
     const db = await getDb();
 
@@ -38,7 +39,7 @@ app.get("/todos/:id", async (req, res) => {
     });
   }
 });
-app.post("/todos", async (req, res) => {
+router.post("/todos", async (req, res) => {
   try {
     // 1. 获取客户端请求体参数
     const todo = req.body;
@@ -67,7 +68,7 @@ app.post("/todos", async (req, res) => {
     });
   }
 });
-app.patch("/todos/:id", async (req, res) => {
+router.patch("/todos/:id", async (req, res) => {
   try {
     // 1. 获取表单数据
     const todo = req.body;
@@ -93,7 +94,7 @@ app.patch("/todos/:id", async (req, res) => {
     });
   }
 });
-app.delete("/todos/:id", async (req, res) => {
+router.delete("/todos/:id", async (req, res) => {
   try {
     const todoId = Number.parseInt(req.params.id);
     const db = await getDb();
@@ -110,6 +111,7 @@ app.delete("/todos/:id", async (req, res) => {
     });
   }
 });
+app.use(router)
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
