@@ -4,6 +4,7 @@ const cors = require("cors");
 const router = require("./router");
 const errorHandler = require("./middleware/error-handler");
 const app = express();
+require("./model");
 
 // 解析请求体
 app.use(express.json());

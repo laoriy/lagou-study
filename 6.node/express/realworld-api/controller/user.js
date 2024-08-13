@@ -1,3 +1,5 @@
+const { User } = require("../model");
+
 // 用户登录
 exports.login = async (req, res, next) => {
   try {
@@ -25,17 +27,17 @@ exports.login = async (req, res, next) => {
 // 用户注册
 exports.register = async (req, res, next) => {
   try {
-    // let user = new User(req.body.user)
-    // await user.save()
+    console.log("req.body", req.body.user);
+    let user = new User(req.body.user)
+    await user.save()
 
-    // user = user.toJSON()
+    user = user.toJSON()
 
     // delete user.password
 
-    // res.status(201).json({
-    //   user
-    // })
-    req.send("注册");
+    res.status(201).json({
+      user
+    })
   } catch (err) {
     next(err);
   }
