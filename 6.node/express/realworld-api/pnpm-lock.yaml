@@ -11,6 +11,9 @@ dependencies:
   express:
     specifier: ^4.19.2
     version: 4.19.2
+  express-validator:
+    specifier: ^7.2.0
+    version: 7.2.0
   mongoose:
     specifier: ^8.5.2
     version: 8.5.2
@@ -251,6 +254,14 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /express-validator@7.2.0:
+    resolution: {integrity: sha512-I2ByKD8panjtr8Y05l21Wph9xk7kk64UMyvJCl/fFM/3CTJq8isXYPLeKW/aZBCdb/LYNv63PwhY8khw8VWocA==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      lodash: 4.17.21
+      validator: 13.12.0
+    dev: false
+
   /express@4.19.2:
     resolution: {integrity: sha512-5T6nhjsT+EOMzuck8JjBHARTHfMht0POzlA60WV2pMD3gyXw2LZnZ+ueGdNxG+0calOJcWKbpFcuzLZ91YWq9Q==}
     engines: {node: '>= 0.10.0'}
@@ -444,6 +455,10 @@ packages:
   /kareem@2.6.3:
     resolution: {integrity: sha512-C3iHfuGUXK2u8/ipq9LfjFfXFxAZMQJJq7vLS45r3D9Y2xQ/m4S8zaR4zMLFWh9AsNPXmcFfUDhTEO8UIC/V6Q==}
     engines: {node: '>=12.0.0'}
+    dev: false
+
+  /lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
     dev: false
 
   /media-typer@0.3.0:
@@ -854,6 +869,11 @@ packages:
   /utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+    dev: false
+
+  /validator@13.12.0:
+    resolution: {integrity: sha512-c1Q0mCiPlgdTVVVIJIrBuxNicYE+t/7oKeI9MWLj3fh/uq2Pxh/3eeWbVZ4OcGW1TUf53At0njHw5SMdA3tmMg==}
+    engines: {node: '>= 0.10'}
     dev: false
 
   /vary@1.1.2:
