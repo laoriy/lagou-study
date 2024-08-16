@@ -5,7 +5,7 @@ exports.login = async (req, res, next) => {
   try {
     // 1. 数据验证
     // 2. 生成 token
-    const user = req.user.toJSON()
+    const user = req.user;
     // const token = await jwt.sign({
     //   userId: user._id
     // }, jwtSecret, {
@@ -18,7 +18,7 @@ exports.login = async (req, res, next) => {
     //   ...user,
     //   token
     // })
-    res.send("用户注册");
+    res.send("用户登录--");
   } catch (err) {
     next(err);
   }
@@ -28,16 +28,16 @@ exports.login = async (req, res, next) => {
 exports.register = async (req, res, next) => {
   try {
     console.log("req.body", req.body.user);
-    let user = new User(req.body.user)
-    await user.save()
+    let user = new User(req.body.user);
+    await user.save();
 
-    user = user.toJSON()
+    user = user.toJSON();
 
-    // delete user.password
+    delete user.password;
 
     res.status(201).json({
-      user
-    })
+      user,
+    });
   } catch (err) {
     next(err);
   }
