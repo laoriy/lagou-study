@@ -5,6 +5,7 @@ const router = require("./router");
 const errorHandler = require("./middleware/error-handler");
 const app = express();
 require("./model");
+const cookieParser = require("cookie-parser");
 
 // 解析请求体
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 // 跨域资源请求
 app.use(cors());
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
