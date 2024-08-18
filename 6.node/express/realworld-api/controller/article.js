@@ -1,3 +1,5 @@
+const { Article } = require("../model");
+
 // 获取文章列表
 exports.getArticles = async (req, res, next) => {
   try {
@@ -70,13 +72,13 @@ exports.getArticle = async (req, res, next) => {
 exports.createArticle = async (req, res, next) => {
   try {
     // 处理请求
-    // const article = new Article(req.body.article);
-    // article.author = req.user._id;
-    // article.populate("author").execPopulate();
-    // await article.save();
-    // res.status(201).json({
-    //   article,
-    // });
+    const article = new Article(req.body.article);
+    article.author = req.user._id;
+    await article.populate("author"); // 填充作者信息 。注意execPopulate 方法 removed https://mongoosejs.com/docs/migrating_to_6.html#removed-execpopulate
+    await article.save(); // 保存到数据库
+    res.status(201).json({
+      article,
+    });
     res.send("createArticle");
   } catch (err) {
     next(err);
@@ -95,8 +97,8 @@ exports.updateArticle = async (req, res, next) => {
     // res.status(200).json({
     //   article,
     // });
-    
-    res.send('更新文章');
+
+    res.send("更新文章");
   } catch (err) {
     next(err);
   }
@@ -108,7 +110,7 @@ exports.deleteArticle = async (req, res, next) => {
     // const article = req.article;
     // await article.remove();
     // res.status(204).end();
-    res.send('删除文章');
+    res.send("删除文章");
   } catch (err) {
     next(err);
   }

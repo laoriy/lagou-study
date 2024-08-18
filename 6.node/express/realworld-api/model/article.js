@@ -24,11 +24,11 @@ const articleSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  // author: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User',
-  //   required: true
-  // }
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 })
 
 module.exports = articleSchema
