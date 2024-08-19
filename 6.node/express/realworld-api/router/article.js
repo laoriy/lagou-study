@@ -13,7 +13,7 @@ router.get("/", articleCtrl.getArticles);
 router.get("/feed", articleCtrl.getFeedArticles);
 
 // 获取文章
-router.get("/:articleId", articleCtrl.getArticle);
+router.get("/:articleId", articleValidator.getArticle, articleCtrl.getArticle);
 
 // 创建文章
 router.post(

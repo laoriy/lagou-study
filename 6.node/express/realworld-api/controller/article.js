@@ -3,38 +3,35 @@ const { Article } = require("../model");
 // 获取文章列表
 exports.getArticles = async (req, res, next) => {
   try {
-    // const { limit = 20, offset = 0, tag, author } = req.query;
+    const { limit = 20, offset = 0, tag, author } = req.query;
 
-    // const filter = {};
+    const filter = {};
 
-    // if (tag) {
-    //   filter.tagList = tag;
-    // }
+    if (tag) {
+      filter.tagList = tag;
+    }
 
-    // if (author) {
-    //   const user = await User.findOne({
-    //     username: author,
-    //   });
-    //   filter.author = user ? user._id : null;
-    // }
+    if (author) {
+      const user = await User.findOne({
+        username: author,
+      });
+      filter.author = user ? user._id : null;
+    }
 
-    // const artilces = await Article.find(filter)
-    //   .populate("author")
-    //   .skip(Number.parseInt(offset)) // 跳过多少条
-    //   .limit(Number.parseInt(limit)) // 取多少条
-    //   .sort({
-    //     // -1 倒叙，1 升序
-    //     createdAt: -1,
-    //   });
+    const artilces = await Article.find(filter)
+      .populate("author")
+      .skip(Number.parseInt(offset)) // 跳过多少条
+      .limit(Number.parseInt(limit)) // 取多少条
+      .sort({
+        // -1 倒叙，1 升序
+        createdAt: -1,
+      });
 
-    // const articlesCount = await Article.countDocuments();
-
-    // res.status(200).json({
-    //   artilces,
-    //   articlesCount,
-    // });
-
-    req.send("ss");
+    const articlesCount = await Article.countDocuments();
+    res.status(200).json({
+      artilces,
+      articlesCount,
+    });
   } catch (err) {
     next(err);
   }
@@ -53,16 +50,15 @@ exports.getFeedArticles = async (req, res, next) => {
 // 获取文章
 exports.getArticle = async (req, res, next) => {
   try {
-    // const article = await Article.findById(req.params.articleId).populate(
-    //   "author"
-    // );
-    // if (!article) {
-    //   return res.status(404).end();
-    // }
-    // res.status(200).json({
-    //   article,
-    // });
-    res.send("getArticle");
+    const article = await Article.findById(req.params.articleId).populate(
+      "author"
+    );
+    if (!article) {
+      return res.status(404).end();
+    }
+    res.status(200).json({
+      article,
+    });
   } catch (err) {
     next(err);
   }
