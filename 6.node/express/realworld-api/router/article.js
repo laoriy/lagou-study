@@ -24,7 +24,12 @@ router.post(
 );
 
 // 更新文章
-router.put("/:articleId", articleCtrl.updateArticle);
+router.put(
+  "/:articleId",
+  auth,
+  articleValidator.updateArticle,
+  articleCtrl.updateArticle
+);
 
 // 删除文章
 router.delete("/:articleId", articleCtrl.deleteArticle);

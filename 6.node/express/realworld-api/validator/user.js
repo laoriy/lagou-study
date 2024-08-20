@@ -49,7 +49,7 @@ exports.login = [
       }
 
       // 将数据挂载到请求对象中，后续的中间件也可以使用了
-      req.user = user.toJSON();
+      req.user = user
     }),
   ]),
   validate([
