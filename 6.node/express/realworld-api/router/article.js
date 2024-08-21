@@ -32,10 +32,20 @@ router.put(
 );
 
 // 删除文章
-router.delete("/:articleId", articleCtrl.deleteArticle);
+router.delete(
+  "/:articleId",
+  auth,
+  articleValidator.deleteArticle,
+  articleCtrl.deleteArticle
+);
 
 // 添加文章评论
-router.post("/:articleId/comments", articleCtrl.createArticleComment);
+router.post(
+  "/:articleId/comments",
+  auth,
+  articleValidator.createArticleComment,
+  articleCtrl.createArticleComment
+);
 
 // 获取文章评论列表
 router.get("/:articleId/comments", articleCtrl.getArticleComments);

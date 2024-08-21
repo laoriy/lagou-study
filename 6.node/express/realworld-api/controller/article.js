@@ -1,4 +1,4 @@
-const { Article } = require("../model");
+const { Article, Comment } = require("../model");
 
 // 获取文章列表
 exports.getArticles = async (req, res, next) => {
@@ -50,9 +50,9 @@ exports.getFeedArticles = async (req, res, next) => {
 // 获取文章
 exports.getArticle = async (req, res, next) => {
   try {
-    const article = await Article.findById(req.params.articleId).populate(
-      "author"
-    );
+    const article = await Article.findById(req.params.articleId)
+      .populate("author")
+      .populate("comments");
     if (!article) {
       return res.status(404).end();
     }
@@ -101,9 +101,9 @@ exports.updateArticle = async (req, res, next) => {
 // 删除文章
 exports.deleteArticle = async (req, res, next) => {
   try {
-    // const article = req.article;
-    // await article.remove();
-    // res.status(204).end();
+    const article = req.article;
+    await article.remove();
+    res.status(204).end();
     res.send("删除文章");
   } catch (err) {
     next(err);
@@ -113,8 +113,12 @@ exports.deleteArticle = async (req, res, next) => {
 // 添加文章评论
 exports.createArticleComment = async (req, res, next) => {
   try {
-    // 处理请求
-    res.send("createArticleComment");
+    const comment = new Comment(req.body.comment);
+    comment.author = req.user._id;
+    await comment.populate("author");
+    await comment.save();
+    await req.article.updateOne({ $push: { comments: comment._id } });
+    res.status(201).json({ comment });
   } catch (err) {
     next(err);
   }

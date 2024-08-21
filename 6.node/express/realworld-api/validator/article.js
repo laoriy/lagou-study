@@ -46,3 +46,19 @@ exports.updateArticle = [
 ];
 
 exports.deleteArticle = exports.updateArticle;
+
+exports.createArticleComment = [
+  validate([
+    body("comment.body").notEmpty().withMessage("评论内容不能为空"),
+    validate.isValidObjectId(["params"], "articleId"),
+  ]),
+  async (req, res, next) => {
+    const articleId = req.params.articleId;
+    const article = await Article.findById(articleId);
+    req.article = article;
+    if (!article) {
+      return res.status(404).end();
+    }
+    next();
+  },
+];

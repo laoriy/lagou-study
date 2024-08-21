@@ -1,34 +1,38 @@
-const mongoose = require('mongoose')
-const baseModel = require('./base-model')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const baseModel = require("./base-model");
+const Schema = mongoose.Schema;
 
 const articleSchema = new mongoose.Schema({
   ...baseModel,
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   body: {
     type: String,
-    required: true
+    required: true,
   },
   tagList: {
     type: [String],
-    default: null
+    default: null,
   },
   favoritesCount: {
     type: Number,
-    default: 0
+    default: 0,
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }
-})
+    ref: "User",
+    required: true,
+  },
+  comments: {
+    type: [Schema.Types.ObjectId],
+    ref: "Comment",
+  },
+});
 
-module.exports = articleSchema
+module.exports = articleSchema;
