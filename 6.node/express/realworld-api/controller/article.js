@@ -104,7 +104,6 @@ exports.deleteArticle = async (req, res, next) => {
     const article = req.article;
     await article.remove();
     res.status(204).end();
-    res.send("删除文章");
   } catch (err) {
     next(err);
   }
@@ -128,7 +127,12 @@ exports.createArticleComment = async (req, res, next) => {
 exports.getArticleComments = async (req, res, next) => {
   try {
     // 处理请求
-    res.send("getArticleComments");
+    const article = await req.article.populate({
+      path: "comments",
+      populate: { path: "author" },
+    });
+
+    res.status(201).json(article.comments);
   } catch (err) {
     next(err);
   }
@@ -138,7 +142,11 @@ exports.getArticleComments = async (req, res, next) => {
 exports.deleteArticleComment = async (req, res, next) => {
   try {
     // 处理请求
-    res.send("deleteArticleComment");
+    const article = req.article;
+    await article.comments.pull(req.params.id);
+    await article.save();
+
+    res.status(204).end();
   } catch (err) {
     next(err);
   }

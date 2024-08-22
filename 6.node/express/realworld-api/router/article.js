@@ -48,10 +48,19 @@ router.post(
 );
 
 // 获取文章评论列表
-router.get("/:articleId/comments", articleCtrl.getArticleComments);
+router.get(
+  "/:articleId/comments",
+  articleValidator.getArticleComment,
+  articleCtrl.getArticleComments
+);
 
 // 删除文章评论
-router.delete("/:articleId/comments/:id", articleCtrl.deleteArticleComment);
+router.delete(
+  "/:articleId/comments/:id",
+  auth,
+  articleValidator.deleteArticleComment,
+  articleCtrl.deleteArticleComment
+);
 
 // 文章点赞
 router.post("/:articleId/favorite", articleCtrl.favoriteArticle);
