@@ -5,9 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  methods:
+    specifier: ^1.1.2
+    version: 1.1.2
   nodemon:
     specifier: ^3.1.4
     version: 3.1.4
+  path-to-regexp:
+    specifier: ^7.1.0
+    version: 7.1.0
 
 packages:
 
@@ -129,6 +135,11 @@ packages:
     engines: {node: '>=0.12.0'}
     dev: false
 
+  /methods@1.1.2:
+    resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
   /minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
     dependencies:
@@ -159,6 +170,11 @@ packages:
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /path-to-regexp@7.1.0:
+    resolution: {integrity: sha512-ZToe+MbUF4lBqk6dV8GKot4DKfzrxXsplOddH8zN3YK+qw9/McvP7+4ICjZvOne0jQhN4eJwHsX6tT0Ns19fvw==}
+    engines: {node: '>=16'}
     dev: false
 
   /picomatch@2.3.1:
