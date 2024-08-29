@@ -1,6 +1,6 @@
 const url = require("url");
 const methods = require("methods");
-const { pathToRegexp } = require("path-to-regexp");
+const Layer = require("./layer");
 
 function Router() {
   this.stack = [];
@@ -8,32 +8,34 @@ function Router() {
 
 methods.forEach((method) => {
   Router.prototype[method] = function (path, handler) {
-    this.stack.push({
-      path,
-      method,
-      handler,
-    });
+    const layer = new Layer(path, handler);
+    layer.method = method;
+    this.stack.push(layer);
   };
 });
 
 Router.prototype.handle = function (req, res) {
   const { pathname } = url.parse(req.url);
   const method = req.method.toLowerCase();
-  const route = this.stack.find((route) => {
-    const regexp = pathToRegexp(route.path);
-    const match = regexp.exec(pathname);
+  let index = 0;
+  const next = () => {
+    if (index >= this.stack.length) {
+      return res.end(`Can not get ${pathname}`);
+    }
+
+    const layer = this.stack[index++];
+    const match = layer.match(pathname);
     if (match) {
       req.params = req.params || {};
-      regexp.keys.forEach((key, index) => {
-        req.params[key.name] = match[index + 1];
-      });
+      Object.assign(req.params, layer.params);
     }
-    return match && route.method === method;
-  });
-  if (route) {
-    return route.handler(req, res);
-  }
-  res.end("404 Not Found.");
+    if (match && layer.method === method) {
+      return layer.handler(req, res, next);
+    }
+    next();
+  };
+
+  next();
 };
 
 module.exports = Router;
