@@ -1,16 +1,19 @@
 const url = require("url");
 const methods = require("methods");
 const Layer = require("./layer");
+const Route = require("./route");
 
 function Router() {
   this.stack = [];
 }
 
 methods.forEach((method) => {
-  Router.prototype[method] = function (path, handler) {
-    const layer = new Layer(path, handler);
-    layer.method = method;
+  Router.prototype[method] = function (path, handlers) {
+    const route = new Route();
+    const layer = new Layer(path, route.dispatch.bind(route));
+    layer.route = route;
     this.stack.push(layer);
+    route[method](path, handlers);
   };
 });
 
@@ -36,6 +39,18 @@ Router.prototype.handle = function (req, res) {
   };
 
   next();
+};
+
+Router.prototype.use = function (path, handlers) {
+  if (typeof path === "function") {
+    handlers.unshift(path); // 处理函数
+    path = "/"; // 任何路径都以它开头的
+  }
+  handlers.forEach((handler) => {
+    const layer = new Layer(path, handler);
+    layer.isUseMiddleware = true;
+    this.stack.push(layer);
+  });
 };
 
 module.exports = Router;
