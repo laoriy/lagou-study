@@ -10,6 +10,20 @@ router.use(express.json());
 // 解析表单请求体：application/x-www-form-urlencoded
 router.use(express.urlencoded({ extended: false }));
 
+router.get(
+  "/",
+  (req, res, next) => {
+    console.log("1");
+    next();
+    console.log("3");
+  },
+  (req, res) => {
+    res.send("hello world22");
+    console.log("2");
+    res.end()
+  }
+);
+
 router.get("/todos", async (req, res) => {
   try {
     const db = await getDb();
@@ -111,7 +125,7 @@ router.delete("/todos/:id", async (req, res) => {
     });
   }
 });
-app.use(router)
+app.use(router);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
