@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   koa:
-    specifier: ^2.15.3
+    specifier: ^2.13.0
     version: 2.15.3
 
 packages:
