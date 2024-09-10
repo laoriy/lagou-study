@@ -20,7 +20,13 @@
 
 const express = require("express"); // yarn add express
 const { createHandler } = require("graphql-http/lib/use/express");
-const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
+const {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLFloat,
+  GraphQLInt,
+} = require("graphql");
 
 /**
  * Construct a GraphQL schema and define the necessary resolvers.
@@ -29,6 +35,15 @@ const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
  *   hello: String
  * }
  */
+
+const PersonType = new GraphQLObjectType({
+  name: "Person",
+  fields: () => ({
+    name: { type: GraphQLString },
+    bestFriend: { type: PersonType },
+  }),
+});
+
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: "Query",
@@ -36,6 +51,24 @@ const schema = new GraphQLSchema({
       hello: {
         type: GraphQLString,
         resolve: () => "world",
+      },
+      weight: {
+        type: GraphQLInt,
+        resolve: () => 16,
+      },
+      age: {
+        type: GraphQLFloat,
+        resolve: () => {
+          return 18.18;
+        },
+      },
+      person: {
+        type: PersonType,
+        resolve: () => {
+          return {
+            name: "张三",
+          };
+        },
       },
     },
   }),
