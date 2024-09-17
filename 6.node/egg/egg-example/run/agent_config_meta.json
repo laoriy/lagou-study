@@ -1,0 +1,294 @@
+{
+  "keys": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\config\\config.default.js",
+  "view": {
+    "defaultViewEngine": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\config\\config.default.js",
+    "mapping": {
+      ".tpl": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\config\\config.default.js"
+    },
+    "root": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view@2.1.4\\node_modules\\egg-view\\config\\config.default.js",
+    "cache": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view@2.1.4\\node_modules\\egg-view\\config\\config.local.js",
+    "defaultExtension": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view@2.1.4\\node_modules\\egg-view\\config\\config.default.js"
+  },
+  "session": {
+    "maxAge": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session\\config\\config.default.js",
+    "key": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session\\config\\config.default.js",
+    "httpOnly": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session\\config\\config.default.js",
+    "encrypt": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session\\config\\config.default.js",
+    "logValue": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session\\config\\config.default.js"
+  },
+  "security": {
+    "domainWhiteList": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+    "protocolWhiteList": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+    "defaultMiddleware": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+    "csrf": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "type": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "ignoreJSON": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "useSession": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "cookieName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "sessionName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "headerName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "bodyName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "queryName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "rotateWhenInvalid": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "supportedRequests": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "refererWhiteList": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "cookieOptions": {
+        "signed": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+      }
+    },
+    "xframe": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "hsts": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.local.js",
+      "maxAge": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "includeSubdomains": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "dta": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "methodnoallow": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "noopen": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "nosniff": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "referrerPolicy": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "xssProtection": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "csp": {
+      "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "policy": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "ssrf": {
+      "ipBlackList": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "ipExceptionList": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "hostnameExceptionList": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js",
+      "checkAddress": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+    }
+  },
+  "helper": {
+    "shtml": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\config.default.js"
+  },
+  "jsonp": {
+    "limit": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-jsonp@2.0.0\\node_modules\\egg-jsonp\\config\\config.default.js",
+    "callback": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-jsonp@2.0.0\\node_modules\\egg-jsonp\\config\\config.default.js",
+    "csrf": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-jsonp@2.0.0\\node_modules\\egg-jsonp\\config\\config.default.js"
+  },
+  "onerror": {
+    "errorPageUrl": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-onerror@2.2.0\\node_modules\\egg-onerror\\config\\config.default.js",
+    "appErrorFilter": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-onerror@2.2.0\\node_modules\\egg-onerror\\config\\config.default.js",
+    "templatePath": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-onerror@2.2.0\\node_modules\\egg-onerror\\config\\config.default.js"
+  },
+  "i18n": {
+    "defaultLocale": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\config.default.js",
+    "dirs": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\config.default.js",
+    "queryField": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieField": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieDomain": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieMaxAge": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\config.default.js"
+  },
+  "watcher": {
+    "type": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher\\config\\config.local.js",
+    "eventSources": {
+      "default": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher\\config\\config.default.js",
+      "development": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher\\config\\config.default.js"
+    }
+  },
+  "customLogger": {
+    "scheduleLogger": {
+      "consoleLevel": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-schedule@4.0.1\\node_modules\\egg-schedule\\config\\config.default.js",
+      "file": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-schedule@4.0.1\\node_modules\\egg-schedule\\config\\config.default.js"
+    }
+  },
+  "schedule": {
+    "directory": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-schedule@4.0.1\\node_modules\\egg-schedule\\config\\config.default.js"
+  },
+  "multipart": {
+    "mode": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "autoFields": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "defaultCharset": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "defaultParamCharset": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fieldNameSize": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fieldSize": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fields": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fileSize": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "files": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fileExtensions": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "whitelist": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "allowArrayField": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "tmpdir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+    "cleanSchedule": {
+      "cron": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js",
+      "disable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\config.default.js"
+    }
+  },
+  "development": {
+    "watchDirs": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\config.default.js",
+    "ignoreDirs": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\config.default.js",
+    "fastReady": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\config.default.js",
+    "reloadOnDebug": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideDefault": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideIgnore": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\config.default.js"
+  },
+  "logrotator": {
+    "filesRotateByHour": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "hourDelimiter": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "filesRotateBySize": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxFileSize": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxFiles": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "rotateDuration": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxDays": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\config.default.js"
+  },
+  "static": {
+    "prefix": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\config.default.js",
+    "dir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\config.default.js",
+    "dynamic": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\config.default.js",
+    "preload": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\config.default.js",
+    "buffer": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\config.default.js",
+    "maxFiles": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\config.default.js"
+  },
+  "nunjucks": {
+    "autoescape": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "throwOnUndefined": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "trimBlocks": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "lstripBlocks": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "cache": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks\\config\\config.local.js"
+  },
+  "env": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "name": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "cookies": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "proxy": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "maxIpsCount": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "maxProxyCount": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "protocolHeaders": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "ipHeaders": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "hostHeaders": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "pkg": {
+    "name": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "version": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "description": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "main": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "scripts": {
+      "test": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "dev": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    },
+    "keywords": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "author": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "license": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "dependencies": {
+      "egg": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "egg-view-nunjucks": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    },
+    "devDependencies": {
+      "egg-bin": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "baseDir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "HOME": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "rundir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "dump": {
+    "ignore": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "timing": {
+      "slowBootActionMinDuration": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "confusedConfigurations": {
+    "bodyparser": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "notFound": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "sitefile": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "middlewares": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "httpClient": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "notfound": {
+    "pageUrl": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "siteFile": {
+    "/favicon.ico": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "cacheControl": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "bodyParser": {
+    "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "formLimit": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "jsonLimit": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "textLimit": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "strict": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "queryString": {
+      "arrayLimit": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "depth": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "parameterLimit": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    },
+    "onerror": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "logger": {
+    "dir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "env": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "level": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "consoleLevel": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "disableConsoleAfterReady": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "outputJSON": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "buffer": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "appLogName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "coreLogName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "agentLogName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "errorLogName": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "coreLogger": {
+      "consoleLevel": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.local.js"
+    },
+    "allowDebugAtProd": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "enablePerformanceTimer": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "enableFastContextLogger": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "httpclient": {
+    "enableDNSCache": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "dnsCacheLookupInterval": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "dnsCacheMaxLength": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "request": {
+      "timeout": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    },
+    "httpAgent": {
+      "keepAlive": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "freeSocketTimeout": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "maxSockets": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "maxFreeSockets": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    },
+    "httpsAgent": {
+      "keepAlive": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "freeSocketTimeout": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "maxSockets": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "maxFreeSockets": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    },
+    "useHttpClientNext": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "meta": {
+    "enable": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "logging": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "coreMiddleware": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "workerStartTimeout": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "serverTimeout": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+  "cluster": {
+    "listen": {
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "port": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+      "hostname": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "clusterClient": {
+    "maxWaitTime": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js",
+    "responseTimeout": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+  },
+  "onClientError": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\config.default.js"
+}

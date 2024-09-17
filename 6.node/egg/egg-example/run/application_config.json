@@ -1,0 +1,562 @@
+{
+  "config": {
+    "session": {
+      "maxAge": 86400000,
+      "key": "EGG_SESS",
+      "httpOnly": true,
+      "encrypt": true,
+      "logValue": true,
+      "overwrite": true,
+      "signed": true,
+      "autoCommit": true,
+      "encode": "<Function encode>",
+      "decode": "<Function decode>",
+      "genid": "<Function v4>"
+    },
+    "security": {
+      "domainWhiteList": [],
+      "protocolWhiteList": [],
+      "defaultMiddleware": "csrf,hsts,methodnoallow,noopen,nosniff,csp,xssProtection,xframe,dta",
+      "csrf": {
+        "enable": true,
+        "type": "ctoken",
+        "ignoreJSON": false,
+        "useSession": false,
+        "cookieName": "csrfToken",
+        "sessionName": "csrfToken",
+        "headerName": "x-csrf-token",
+        "bodyName": "_csrf",
+        "queryName": "_csrf",
+        "rotateWhenInvalid": false,
+        "supportedRequests": [
+          {
+            "path": {},
+            "methods": [
+              "POST",
+              "PATCH",
+              "DELETE",
+              "PUT",
+              "CONNECT"
+            ]
+          }
+        ],
+        "refererWhiteList": [],
+        "cookieOptions": {
+          "signed": false
+        },
+        "matching": "<Function anonymous>"
+      },
+      "xframe": {
+        "enable": true,
+        "value": "SAMEORIGIN",
+        "matching": "<Function anonymous>"
+      },
+      "hsts": {
+        "enable": false,
+        "maxAge": 31536000,
+        "includeSubdomains": false
+      },
+      "dta": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "methodnoallow": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "noopen": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "nosniff": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "referrerPolicy": {
+        "enable": false,
+        "value": "no-referrer-when-downgrade"
+      },
+      "xssProtection": {
+        "enable": true,
+        "value": "1; mode=block",
+        "matching": "<Function anonymous>"
+      },
+      "csp": {
+        "enable": false,
+        "policy": {}
+      },
+      "ssrf": {
+        "ipBlackList": null,
+        "ipExceptionList": null,
+        "hostnameExceptionList": null,
+        "checkAddress": null
+      },
+      "_protocolWhiteListSet": "<Set>"
+    },
+    "helper": {
+      "shtml": {}
+    },
+    "jsonp": {
+      "limit": 50,
+      "callback": [
+        "_callback",
+        "callback"
+      ],
+      "csrf": false
+    },
+    "onerror": {
+      "errorPageUrl": "",
+      "appErrorFilter": null,
+      "templatePath": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-onerror@2.2.0\\node_modules\\egg-onerror\\lib\\onerror_page.mustache"
+    },
+    "i18n": {
+      "defaultLocale": "en_US",
+      "dirs": [
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-jsonp@2.0.0\\node_modules\\egg-jsonp\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-onerror@2.2.0\\node_modules\\egg-onerror\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-schedule@4.0.1\\node_modules\\egg-schedule\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view@2.1.4\\node_modules\\egg-view\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\locales",
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\config\\locales"
+      ],
+      "queryField": "locale",
+      "cookieField": "locale",
+      "cookieDomain": "",
+      "cookieMaxAge": "1y",
+      "functionName": "__"
+    },
+    "watcher": {
+      "type": "development",
+      "eventSources": {
+        "default": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher\\lib\\event-sources\\default",
+        "development": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher\\lib\\event-sources\\development"
+      }
+    },
+    "customLogger": {
+      "scheduleLogger": {
+        "consoleLevel": "NONE",
+        "file": "egg-schedule.log"
+      }
+    },
+    "schedule": {
+      "directory": []
+    },
+    "multipart": {
+      "mode": "stream",
+      "autoFields": false,
+      "defaultCharset": "utf8",
+      "defaultParamCharset": "utf8",
+      "fieldNameSize": 100,
+      "fieldSize": 102400,
+      "fields": 10,
+      "fileSize": 10485760,
+      "files": 10,
+      "fileExtensions": [],
+      "whitelist": null,
+      "allowArrayField": false,
+      "tmpdir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\egg-multipart-tmp\\egg-example",
+      "cleanSchedule": {
+        "cron": "0 30 4 * * *",
+        "disable": false
+      },
+      "checkFile": "<Function anonymous>"
+    },
+    "development": {
+      "watchDirs": [],
+      "ignoreDirs": [],
+      "fastReady": false,
+      "reloadOnDebug": true,
+      "overrideDefault": false,
+      "overrideIgnore": false
+    },
+    "logrotator": {
+      "filesRotateByHour": null,
+      "hourDelimiter": "-",
+      "filesRotateBySize": null,
+      "maxFileSize": 52428800,
+      "maxFiles": 10,
+      "rotateDuration": 60000,
+      "maxDays": 31
+    },
+    "static": {
+      "prefix": "/public/",
+      "dir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\app\\public",
+      "dynamic": true,
+      "preload": false,
+      "buffer": false,
+      "maxFiles": 1000
+    },
+    "view": {
+      "root": [
+        "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\app\\view"
+      ],
+      "cache": false,
+      "defaultExtension": ".html",
+      "defaultViewEngine": "nunjucks",
+      "mapping": {
+        ".tpl": "nunjucks"
+      }
+    },
+    "nunjucks": {
+      "autoescape": true,
+      "throwOnUndefined": false,
+      "trimBlocks": false,
+      "lstripBlocks": false,
+      "cache": false
+    },
+    "env": "local",
+    "name": "egg-example",
+    "keys": "<String len: 8>",
+    "cookies": {},
+    "proxy": false,
+    "maxIpsCount": 0,
+    "maxProxyCount": 0,
+    "protocolHeaders": "x-forwarded-proto",
+    "ipHeaders": "x-forwarded-for",
+    "hostHeaders": "",
+    "pkg": {
+      "name": "egg-example",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "egg-bin dev"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "egg": "^3.28.0",
+        "egg-view-nunjucks": "^2.3.0"
+      },
+      "devDependencies": {
+        "egg-bin": "^6.10.0"
+      }
+    },
+    "baseDir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example",
+    "HOME": "C:\\Users\\Administrator",
+    "rundir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\run",
+    "dump": {
+      "ignore": "<Set>",
+      "timing": {
+        "slowBootActionMinDuration": 5000
+      }
+    },
+    "confusedConfigurations": {
+      "bodyparser": "bodyParser",
+      "notFound": "notfound",
+      "sitefile": "siteFile",
+      "middlewares": "middleware",
+      "httpClient": "httpclient"
+    },
+    "notfound": {
+      "pageUrl": ""
+    },
+    "siteFile": {
+      "/favicon.ico": "<Buffer len: 6463>",
+      "cacheControl": "public, max-age=2592000"
+    },
+    "bodyParser": {
+      "enable": true,
+      "encoding": "utf8",
+      "formLimit": "1mb",
+      "jsonLimit": "1mb",
+      "textLimit": "1mb",
+      "strict": true,
+      "queryString": {
+        "arrayLimit": 100,
+        "depth": 5,
+        "parameterLimit": 1000
+      },
+      "returnRawBody": true
+    },
+    "logger": {
+      "dir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\logs\\egg-example",
+      "encoding": "utf8",
+      "env": "local",
+      "level": "INFO",
+      "consoleLevel": "INFO",
+      "disableConsoleAfterReady": false,
+      "outputJSON": false,
+      "buffer": true,
+      "appLogName": "egg-example-web.log",
+      "coreLogName": "egg-web.log",
+      "agentLogName": "egg-agent.log",
+      "errorLogName": "common-error.log",
+      "coreLogger": {
+        "consoleLevel": "WARN"
+      },
+      "allowDebugAtProd": false,
+      "enablePerformanceTimer": false,
+      "enableFastContextLogger": false,
+      "type": "application",
+      "localStorage": "<AsyncLocalStorage>"
+    },
+    "httpclient": {
+      "enableDNSCache": false,
+      "dnsCacheLookupInterval": 10000,
+      "dnsCacheMaxLength": 1000,
+      "request": {
+        "timeout": 5000
+      },
+      "httpAgent": {
+        "keepAlive": true,
+        "freeSocketTimeout": 4000,
+        "maxSockets": 9007199254740991,
+        "maxFreeSockets": 256
+      },
+      "httpsAgent": {
+        "keepAlive": true,
+        "freeSocketTimeout": 4000,
+        "maxSockets": 9007199254740991,
+        "maxFreeSockets": 256
+      },
+      "useHttpClientNext": false
+    },
+    "meta": {
+      "enable": true,
+      "logging": false
+    },
+    "coreMiddleware": [
+      "meta",
+      "siteFile",
+      "notfound",
+      "static",
+      "bodyParser",
+      "overrideMethod",
+      "session",
+      "securities",
+      "i18n",
+      "eggLoaderTrace"
+    ],
+    "workerStartTimeout": 600000,
+    "serverTimeout": null,
+    "cluster": {
+      "listen": {
+        "path": "",
+        "port": 7001,
+        "hostname": ""
+      }
+    },
+    "clusterClient": {
+      "maxWaitTime": 60000,
+      "responseTimeout": 60000
+    },
+    "onClientError": null,
+    "coreMiddlewares": "~config~coreMiddleware",
+    "appMiddlewares": [],
+    "appMiddleware": "~config~appMiddlewares"
+  },
+  "plugins": {
+    "onerror": {
+      "enable": true,
+      "package": "egg-onerror",
+      "name": "onerror",
+      "dependencies": [],
+      "optionalDependencies": [
+        "jsonp"
+      ],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-onerror@2.2.0\\node_modules\\egg-onerror",
+      "version": "2.2.0"
+    },
+    "session": {
+      "enable": true,
+      "package": "egg-session",
+      "name": "session",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-session@3.3.0\\node_modules\\egg-session",
+      "version": "3.3.0"
+    },
+    "i18n": {
+      "enable": true,
+      "package": "egg-i18n",
+      "name": "i18n",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-i18n@2.1.1\\node_modules\\egg-i18n",
+      "version": "2.1.1"
+    },
+    "watcher": {
+      "enable": true,
+      "package": "egg-watcher",
+      "name": "watcher",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-watcher@3.1.1\\node_modules\\egg-watcher",
+      "version": "3.1.1",
+      "dependents": [
+        "development"
+      ]
+    },
+    "multipart": {
+      "enable": true,
+      "package": "egg-multipart",
+      "name": "multipart",
+      "dependencies": [],
+      "optionalDependencies": [
+        "schedule"
+      ],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-multipart@3.4.0\\node_modules\\egg-multipart",
+      "version": "3.4.0"
+    },
+    "security": {
+      "enable": true,
+      "package": "egg-security",
+      "name": "security",
+      "dependencies": [],
+      "optionalDependencies": [
+        "session"
+      ],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-security@3.6.0\\node_modules\\egg-security",
+      "version": "3.6.0",
+      "dependents": [
+        "nunjucks"
+      ]
+    },
+    "development": {
+      "enable": true,
+      "package": "egg-development",
+      "name": "development",
+      "dependencies": [
+        "watcher"
+      ],
+      "optionalDependencies": [],
+      "env": [
+        "local"
+      ],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-development@3.0.0\\node_modules\\egg-development",
+      "version": "3.0.0"
+    },
+    "logrotator": {
+      "enable": true,
+      "package": "egg-logrotator",
+      "name": "logrotator",
+      "dependencies": [
+        "schedule"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-logrotator@3.1.0\\node_modules\\egg-logrotator",
+      "version": "3.1.0"
+    },
+    "schedule": {
+      "enable": true,
+      "package": "egg-schedule",
+      "name": "schedule",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-schedule@4.0.1\\node_modules\\egg-schedule",
+      "version": "4.0.1",
+      "dependents": [
+        "logrotator"
+      ]
+    },
+    "static": {
+      "enable": true,
+      "package": "egg-static",
+      "name": "static",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-static@2.3.1\\node_modules\\egg-static",
+      "version": "2.3.1"
+    },
+    "jsonp": {
+      "enable": true,
+      "package": "egg-jsonp",
+      "name": "jsonp",
+      "dependencies": [],
+      "optionalDependencies": [
+        "security"
+      ],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-jsonp@2.0.0\\node_modules\\egg-jsonp",
+      "version": "2.0.0"
+    },
+    "view": {
+      "enable": true,
+      "package": "egg-view",
+      "name": "view",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg@3.28.0\\node_modules\\egg\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view@2.1.4\\node_modules\\egg-view",
+      "version": "2.1.4",
+      "dependents": [
+        "nunjucks"
+      ]
+    },
+    "nunjucks": {
+      "enable": true,
+      "package": "egg-view-nunjucks",
+      "name": "nunjucks",
+      "dependencies": [
+        "security",
+        "view"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\config\\plugin.js",
+      "path": "E:\\study\\lagou-study\\6.node\\egg\\egg-example\\node_modules\\.pnpm\\egg-view-nunjucks@2.3.0\\node_modules\\egg-view-nunjucks",
+      "version": "2.3.0"
+    }
+  },
+  "appInfo": {
+    "name": "egg-example",
+    "baseDir": "E:\\study\\lagou-study\\6.node\\egg\\egg-example",
+    "env": "local",
+    "scope": "",
+    "HOME": "C:\\Users\\Administrator",
+    "pkg": {
+      "name": "egg-example",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "egg-bin dev"
+      },
+      "keywords": "~config~pkg~keywords",
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "egg": "^3.28.0",
+        "egg-view-nunjucks": "^2.3.0"
+      },
+      "devDependencies": {
+        "egg-bin": "^6.10.0"
+      }
+    },
+    "root": "E:\\study\\lagou-study\\6.node\\egg\\egg-example"
+  }
+}
