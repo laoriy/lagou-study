@@ -99,12 +99,12 @@ MongoDB 是一个基于分布式文件存储的数据库。由 C++语言编写
 
 ## 启动 mongodb
 
-mongo --dbpath="数据存储目录"
+管理员 mongod --dbpath="数据存储目录"
 默认会占用本地 localhost:27017 端口
 
 ## mongo shell 使用 (https://www.mongodb.com/try/download/shell)
 
-mongosh 启动
+mongose 启动
 
 - show dbs
 - db

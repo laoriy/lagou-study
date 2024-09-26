@@ -5,14 +5,16 @@ class HomeController extends Controller {
     this.ctx.body = "Hello world";
   }
   async list() {
+    const { ctx } = this;
+    const user = ctx.helper.getUser("larrrr");
     const dataList = {
-        list: [
-          { id: 1, title: 'This is news 1', url: '/news/1' },
-          { id: 2, title: 'This is news 2', url: '/news/2' }
-        ]
-      };
+      list: [
+        { id: 1, title: "This is news 1" + user, url: "/news/1" },
+        { id: 2, title: "This is news 2" + user, url: "/news/2" },
+      ],
+    };
 
-    await this.ctx.render("index.tpl", dataList);
+    await ctx.render("index.tpl", dataList);
   }
 }
 
