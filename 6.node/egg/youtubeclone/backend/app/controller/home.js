@@ -1,14 +1,8 @@
-const { Controller } = require('egg');
+const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
   async index() {
-    const { ctx } = this;
-    const User = this.app.model.user;
-    await new User({
-      userName: 'test',
-      password: 'test',
-    }).save();
-    ctx.body = 'hi, egg';
+    this.ctx.body = '你好, egg';
   }
 }
 
