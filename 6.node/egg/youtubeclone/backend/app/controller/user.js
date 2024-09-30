@@ -25,9 +25,64 @@ class UserController extends Controller {
     // 2. 保存用户
     const user = await this.service.user.create(body);
     // 3. 生成 token
+    const token = await this.service.user.createToken({ userId: user._id });
+
     // 4. 发送响应
     this.ctx.body = {
-      user,
+      user: {
+        email: user.email,
+        token,
+        username: user.username,
+        channelDescription: user.channelDescription,
+        avatar: user.avatar,
+      },
+    };
+  }
+
+  async login() {
+    // 1. 基本数据验证
+    const body = this.ctx.request.body;
+    this.ctx.validate(
+      {
+        email: { type: 'email' },
+        password: { type: 'string' },
+      },
+      body
+    );
+    const { email, password } = body;
+    const user = await this.service.user.findByEmail(email);
+    if (!user) {
+      this.ctx.throw(402, '用户不存在');
+    }
+    if (user.password !== this.ctx.helper.md5(password)) {
+      this.ctx.throw(401, '密码错误');
+    }
+    const token = await this.service.user.createToken({ userId: user._id });
+    // 5. 发送响应数据
+    this.ctx.body = {
+      user: {
+        email: user.email,
+        token,
+        username: user.username,
+        channelDescription: user.channelDescription,
+        avatar: user.avatar,
+      },
+    };
+  }
+  getCurrentUser() {
+    // 1. 验证token
+    // 1. 验证 token
+    // 2. 获取用户
+    // 3. 发送响应
+    const user = this.ctx.user;
+    this.ctx.body = {
+      user: {
+        email: user.email,
+        token: this.ctx.header.authorization,
+        username: user.username,
+        channelDescription: user.channelDescription,
+        avatar: user.avatar,
+      },
     };
   }
 }

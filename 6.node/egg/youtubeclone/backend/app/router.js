@@ -3,12 +3,15 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+  const auth = app.middleware.auth();
+
   router.prefix('/api/v1'); // 设置基础路径
 
   router.get('/', controller.home.index);
-  router.post('/users', controller.user.create); // 用户注册
-  // .post('/users/login', controller.user.login) // 用户登录
-  // .get('/user', auth, controller.user.getCurrentUser) // 获取当前登录用户
+  router
+    .post('/users', controller.user.create) // 用户注册
+    .post('/users/login', controller.user.login) // 用户登录
+    .get('/user', auth, controller.user.getCurrentUser); // 获取当前登录用户
   // .patch('/user', auth, controller.user.update) // 更新当前登录用户
   // .get('/users/:userId', app.middleware.auth({ required: false }), controller.user.getUser) // 获取用户资料
   // .post('/users/:userId/subscribe', auth, controller.user.subscribe) // 添加用户订阅

@@ -31,6 +31,11 @@ module.exports = appInfo => {
     },
   };
 
+  config.jwt = {
+    secret: '014d9d6c-7f3c-11ef-a273-033fd029655f',
+    expiresIn: '1d',
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
