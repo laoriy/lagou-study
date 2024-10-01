@@ -11,7 +11,8 @@
     "egg-mongoose": "^4.0.1",
     "egg-scripts": "2",
     "egg-validate": "^2.0.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "egg-bin": "6",

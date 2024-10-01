@@ -34,7 +34,7 @@ module.exports = app => {
       default: null,
     },
     subscribersCount: {
-      type: Number,
+      type: Number, // 被订阅的用户数
       default: 0,
     },
     createdAt: {
