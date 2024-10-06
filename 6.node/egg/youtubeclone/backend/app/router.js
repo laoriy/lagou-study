@@ -17,8 +17,8 @@ module.exports = app => {
     .post('/users/:userId/subscribe', auth, controller.user.subscribe) // 添加用户订阅
     .delete('/users/:userId/subscribe', auth, controller.user.unsubscribe) // 取消用户订阅
     .get('/users/:userId/subscriptions', controller.user.getSubscriptions) // 获取用户订阅列表
-    .get('/vod/CreateUploadVideo', auth, controller.vod.createUploadVideo); // 获取视频上传地址和凭证
-  // .get('/vod/RefreshUploadVideo', auth, controller.vod.refreshUploadVideo) // 刷新视频上传凭证
+    .get('/vod/CreateUploadVideo', auth, controller.vod.createUploadVideo) // 获取视频上传地址和凭证
+    .get('/vod/RefreshUploadVideo', auth, controller.vod.refreshUploadVideo); // 刷新视频上传凭证
   // .get('/vod/GetVideoPlayAuth', controller.vod.getVideoPlayAuth) // 获取视频播放凭证
   // .post('/videos', auth, controller.video.createVideo) // 创建视频
   // .get('/videos/:videoId', app.middleware.auth({ required: false }), controller.video.getVideo) // 获取视频详情
