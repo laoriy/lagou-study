@@ -212,6 +212,19 @@ class UserController extends Controller {
       },
     };
   }
+
+  async getSubscriptions() {
+    const Subscription = this.app.model.Subscription;
+    let subscriptions = await Subscription.find({
+      user: this.ctx.params.userId,
+    }).populate('channel');
+    subscriptions = subscriptions.map(item => {
+      return this.ctx.helper._.pick(item.channel, ['_id', 'username', 'avatar']);
+    });
+    this.ctx.body = {
+      subscriptions,
+    };
+  }
 }
 
 module.exports = UserController;

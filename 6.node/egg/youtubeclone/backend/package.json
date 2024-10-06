@@ -7,6 +7,7 @@
     "declarations": true
   },
   "dependencies": {
+    "@alicloud/pop-core": "^1.7.13",
     "egg": "^3.17.5",
     "egg-mongoose": "^4.0.1",
     "egg-scripts": "2",
