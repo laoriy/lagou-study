@@ -23,14 +23,14 @@ module.exports = app => {
     .post('/videos', auth, controller.video.createVideo) // 创建视频
     .get('/videos/:videoId', app.middleware.auth({ required: false }), controller.video.getVideo) // 获取视频详情
     .get('/videos', controller.video.getVideos) // 获取视频列表
-    .get('/users/:userId/videos', controller.video.getUserVideos); // 获取用户发布的视频列表
-  // .get('/user/videos/feed', auth, controller.video.getUserFeedVideos) // 获取用户关注的频道视频列表
-  // .patch('/videos/:videoId', auth, controller.video.updateVideo) // 更新视频
-  // .delete('/videos/:videoId', auth, controller.video.deleteVideo) // 删除视频
-  // .post('/videos/:videoId/comments', auth, controller.video.createComment) // 添加视频评论
-  // .get('/videos/:videoId/comments', controller.video.getVideoComments) // 获取视频评论列表
-  // .delete('/videos/:videoId/comments/:commentId', auth, controller.video.deleteVideoComment) // 删除视频评论
-  // .post('/videos/:videoId/like', auth, controller.video.likeVideo) // 喜欢视频
-  // .post('/videos/:videoId/dislike', auth, controller.video.dislikeVideo) // 不喜欢视频
-  // .get('/user/videos/liked', auth, controller.video.getUserLikedVideos); // 获取用户喜欢的视频列表
+    .get('/users/:userId/videos', controller.video.getUserVideos) // 获取用户发布的视频列表
+    .get('/user/videos/feed', auth, controller.video.getUserFeedVideos) // 获取用户关注的频道视频列表
+    .patch('/videos/:videoId', auth, controller.video.updateVideo) // 更新视频
+    .delete('/videos/:videoId', auth, controller.video.deleteVideo) // 删除视频
+    .post('/videos/:videoId/comments', auth, controller.video.createComment) // 添加视频评论
+    .get('/videos/:videoId/comments', controller.video.getVideoComments) // 获取视频评论列表
+    .delete('/videos/:videoId/comments/:commentId', auth, controller.video.deleteVideoComment) // 删除视频评论
+    .post('/videos/:videoId/like', auth, controller.video.likeVideo) // 喜欢视频
+    .post('/videos/:videoId/dislike', auth, controller.video.dislikeVideo) // 不喜欢视频
+    .get('/user/videos/liked', auth, controller.video.getUserLikedVideos); // 获取用户喜欢的视频列表
 };
