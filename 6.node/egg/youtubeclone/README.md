@@ -16,6 +16,8 @@
 
 - 前端：vue3
 - 后端：eggjs
-- 使用 Yapi 管理接口 解决报错 getaddrinfo ENOTFOUND yapi.demo.qunar.com   https://github.com/YMFE/yapi/issues/2180
-- 使用阿里云vod 视频点播服务 https://help.aliyun.com/zh/vod/  
-    查看ram users权限 https://ram.console.aliyun.com/users
+- 使用 Yapi 管理接口 解决报错 getaddrinfo ENOTFOUND yapi.demo.qunar.com https://github.com/YMFE/yapi/issues/2180
+- 使用阿里云 vod 视频点播服务 https://help.aliyun.com/zh/vod/  
+   查看 ram users 权限 https://ram.console.aliyun.com/users
+
+mongodb linux 安装：https://www.mongodb.com/zh-cn/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu
