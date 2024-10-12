@@ -14,3 +14,4 @@ run/
 typings/
 .nyc_output/
 config/secret.js
+/*.tar

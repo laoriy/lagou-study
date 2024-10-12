@@ -21,3 +21,10 @@
    查看 ram users 权限 https://ram.console.aliyun.com/users
 
 mongodb linux 安装：https://www.mongodb.com/zh-cn/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu
+
+git 安装
+apt install git
+
+部署
+
+7zip 压缩 文件为 tar.gz 然后上传到服务器，直接 pnpm install --production 安装依赖 然后 pnpm start 即可
