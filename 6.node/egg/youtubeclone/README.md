@@ -28,3 +28,5 @@ apt install git
 部署
 
 7zip 压缩 文件为 tar.gz 然后上传到服务器，直接 pnpm install --production 安装依赖 然后 pnpm start 即可
+
+eggjs 教程： https://www.yuque.com/lipengzhou/eggjs/wftipy
