@@ -52,10 +52,10 @@ class UserController extends Controller {
     const { email, password } = body;
     const user = await this.service.user.findByEmail(email);
     if (!user) {
-      this.ctx.throw(402, '用户不存在');
+      this.ctx.throw(422, '用户不存在');
     }
     if (user.password !== this.ctx.helper.md5(password)) {
-      this.ctx.throw(401, '密码错误');
+      this.ctx.throw(422, '密码错误');
     }
     const token = await this.service.user.createToken({ userId: user._id });
     // 5. 发送响应数据

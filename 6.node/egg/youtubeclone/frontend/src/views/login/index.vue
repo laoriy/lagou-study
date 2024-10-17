@@ -4,7 +4,7 @@
     <form @submit.prevent="handleSubmit">
       <ul v-if="errors" class="errors">
         <li v-for="(error, index) in errors" :key="index">
-          {{ `${error.field} ${error.message}` }}
+          {{ `${error.field || ''} ${error.message}` }}
         </li>
       </ul>
       <input v-model="user.email" type="email" placeholder="email" />
@@ -29,8 +29,8 @@ const route = useRoute()
 const { setUser } = useUserStore()
 
 const user = reactive({
-  email: 'lpzmail@163.com',
-  password: '123456'
+  email: 'laor@laor.com1',
+  password: 'laor'
 })
 
 const errors = ref<{
@@ -50,7 +50,7 @@ const handleSubmit = async () => {
   } catch (error: unknown) {
     const err = error as { response: AxiosResponse }
     if (err.response?.status === 422) {
-      errors.value = err.response.data.detail
+      errors.value = err.response.data?.detail || [{ message: err.response.data.error }]
     }
   } finally {
     isLoading.value = false
