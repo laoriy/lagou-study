@@ -12,3 +12,10 @@ declare module 'vue-router' {
     requiresAuth: boolean
   }
 }
+
+declare global {
+  interface Window {
+    AliyunUpload: any
+    OSS: any
+  }
+}
