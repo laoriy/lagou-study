@@ -78,12 +78,12 @@ const createUploader = () => {
     onUploadSucceed: async function (uploadInfo: any) {
       video.vodVideoId = uploadInfo.videoId
       const { data } = await createVideo(video)
-      // router.push({
-      //   name: 'watch',
-      //   params: {
-      //     videoId: data.video._id
-      //   }
-      // })
+      router.push({
+        name: 'watch',
+        params: {
+          videoId: data.video._id
+        }
+      })
       emit('close')
     },
     onUploadFailed: function (uploadInfo: any, code: any, message: any) {

@@ -20,6 +20,11 @@ const router = createRouter({
           component: () => import('@/views/profile/index.vue'),
           meta: { requiresAuth: true },
         },
+        {
+          path: 'watch/:videoId',
+          name: 'watch',
+          component: () => import('@/views/watch/index.vue'),
+        },
       ],
     },
     {

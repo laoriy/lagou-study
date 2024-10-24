@@ -1,10 +1,11 @@
-<!-- src\views\watch\index.vue -->
 <template>
     <div class=".sc-AxmLO gmtmqV">
         <div class="sc-fzoXWK fRnHrz">
             <div class="video-container">
                 <div class="video">
-                    <video src="" controls></video>
+                    <!-- <video src="" controls></video> -->
+                    <!-- 阿里云播放器初始化容器 -->
+                    <div class="prism-player" id="J_prismPlayer"></div>
                 </div>
                 <div class="video-info">
                     <h3>321321</h3>
@@ -139,3 +140,71 @@
         </div>
     </div>
 </template>
+
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue'
+import { type Video, getVideo } from '@/api/video'
+import { useRoute } from 'vue-router'
+import { getVideoPlayAuth, type VideoPlayAuthPayload } from '@/api/vod'
+
+const createPlayer = (data: VideoPlayAuthPayload) => {
+    let onReady: (value: unknown) => void
+    const p = new Promise(resolve => {
+        onReady = resolve
+    })
+
+    new window.Aliplayer(
+        {
+            id: 'J_prismPlayer',
+            width: '100%',
+            height: '500px',
+            autoplay: false,
+            // // 支持播放地址播放,此播放优先级最高
+            // source: '播放url',
+
+            // 播放方式二：点播用户推荐
+            vid: data.VideoMeta.VideoId,
+            playauth: data.PlayAuth,
+            cover: data.VideoMeta.CoverURL
+            // encryptType: 1 // 当播放私有加密流时需要设置。
+
+            // 播放方式三：仅MPS用户使用
+            // vid: '1e067a2831b641db90d570b6480fbc40',
+            // accId: 'dd',
+            // accSecret: 'dd',
+            // stsToken: 'dd',
+            // domainRegion: 'dd',
+            // authInfo: 'dd',
+
+            // 播放方式四：使用STS方式播放
+            // vid: '1e067a2831b641db90d570b6480fbc40',
+            // accessKeyId: 'dd',
+            // securityToken: 'dd',
+            // accessKeySecret: 'dd',
+            // region: 'cn-shanghai' // eu-central-1,ap-southeast-1
+        },
+        function (player: any) {
+            onReady(player)
+        }
+    )
+    return p
+}
+
+const video = ref<Video | null>(null)
+const route = useRoute()
+const lodaVideoInfo = async () => {
+    const videoId = route.params.videoId as string
+    const { data } = await getVideo(videoId)
+    video.value = data.video
+}
+const playVideo = async (vodVideoId: string) => {
+    const { data } = await getVideoPlayAuth(vodVideoId)
+    createPlayer(data)
+    // 获取视频播放凭证
+    // 创建播放器，播放视频
+}
+onMounted(async () => {
+    await lodaVideoInfo()
+    playVideo(video.value?.vodVideoId as string)
+})
+</script>

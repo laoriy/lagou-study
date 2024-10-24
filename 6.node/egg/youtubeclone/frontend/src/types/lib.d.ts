@@ -17,5 +17,6 @@ declare global {
   interface Window {
     AliyunUpload: any
     OSS: any
+    Aliplayer: any
   }
 }
