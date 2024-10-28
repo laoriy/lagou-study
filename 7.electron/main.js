@@ -5,18 +5,26 @@ const path = require("node:path");
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 700,
     height: 600,
     webPreferences: {
+      nodeIntegration: true, //使用node功能
+      contextIsolation: false,
+      enableRemoteModule: true,
       preload: path.join(__dirname, "preload.js"),
     },
+    title: "hello ",
+    icon: "./lg.ico",
   });
+
+  require("@electron/remote/main").initialize();
+  require("@electron/remote/main").enable(mainWindow.webContents);
 
   // and load the index.html of the app.
   mainWindow.loadFile("index.html");
   mainWindow.on("close", () => {
     console.log("88888--->this window is closed");
-    mainWin = null;
+    mainWindow = null;
   });
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

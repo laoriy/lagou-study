@@ -5,12 +5,17 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "nodemon --watch main.js --exec npm run build",
+    "build": "electron ."
   },
   "keywords": [],
   "author": "laor",
   "license": "ISC",
   "devDependencies": {
     "electron": "^33.0.2"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "nodemon": "^3.1.7"
   }
 }
