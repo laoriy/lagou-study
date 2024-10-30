@@ -14,10 +14,16 @@ window.addEventListener("DOMContentLoaded", () => {
   oBtn.addEventListener("click", () => {
     // ?? 如何去创建窗口
     let indexMin = new BrowserWindow({
-      width: 200,
-      height: 200,
+      width: 600,
+      height: 500,
+      frame: false,
+      webPreferences: {
+        nodeIntegration: true, //使用node功能
+        contextIsolation: false, //  开启上下文隔离
+        enableRemoteModule: true,
+      },
     });
-    indexMin.loadFile("list.html");
+    indexMin.loadFile("sub/index.html");
 
     indexMin.on("close", () => {
       indexMin = null;

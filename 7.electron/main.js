@@ -1,15 +1,17 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require("electron");
 const path = require("node:path");
-
+const remote = require("@electron/remote/main");
 function createWindow() {
+  // 初始化远程模块
+  remote.initialize();
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 700,
     height: 600,
     webPreferences: {
       nodeIntegration: true, //使用node功能
-      contextIsolation: false,
+      contextIsolation: false, //  开启上下文隔离
       enableRemoteModule: true,
       preload: path.join(__dirname, "preload.js"),
     },
@@ -17,8 +19,7 @@ function createWindow() {
     icon: "./lg.ico",
   });
 
-  require("@electron/remote/main").initialize();
-  require("@electron/remote/main").enable(mainWindow.webContents);
+  remote.enable(mainWindow.webContents);
 
   // and load the index.html of the app.
   mainWindow.loadFile("index.html");
@@ -48,6 +49,10 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
+});
+
+app.on("browser-window-created", (_, window) => {
+  remote.enable(window.webContents);
 });
 
 // In this file you can include the rest of your app's specific main process
