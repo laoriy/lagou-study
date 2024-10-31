@@ -6,7 +6,7 @@ function createWindow() {
   // 初始化远程模块
   remote.initialize();
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  let mainWindow = new BrowserWindow({
     width: 700,
     height: 600,
     webPreferences: {

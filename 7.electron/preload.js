@@ -1,4 +1,4 @@
-const { BrowserWindow } = require("@electron/remote");
+const { BrowserWindow, getCurrentWindow } = require("@electron/remote");
 
 window.addEventListener("DOMContentLoaded", () => {
   const replaceText = (selector, text) => {
@@ -14,9 +14,11 @@ window.addEventListener("DOMContentLoaded", () => {
   oBtn.addEventListener("click", () => {
     // ?? 如何去创建窗口
     let indexMin = new BrowserWindow({
+      parent: getCurrentWindow(),
       width: 600,
       height: 500,
       frame: false,
+      modal: true,
       webPreferences: {
         nodeIntegration: true, //使用node功能
         contextIsolation: false, //  开启上下文隔离
