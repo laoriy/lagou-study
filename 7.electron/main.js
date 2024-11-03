@@ -27,6 +27,7 @@ function createWindow() {
     console.log("88888--->this window is closed");
     mainWindow = null;
   });
+  // 设置主窗口的菜单
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }

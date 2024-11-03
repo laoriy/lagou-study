@@ -1,6 +1,8 @@
-const { BrowserWindow, getCurrentWindow } = require("@electron/remote");
+const { BrowserWindow, getCurrentWindow, Menu } = require("@electron/remote");
 
 window.addEventListener("DOMContentLoaded", () => {
+  console.log(process.platform);
+
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector);
     if (element) element.innerText = text;
@@ -17,7 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
       parent: getCurrentWindow(),
       width: 600,
       height: 500,
-      frame: false,
       modal: true,
       webPreferences: {
         nodeIntegration: true, //使用node功能
@@ -25,6 +26,51 @@ window.addEventListener("DOMContentLoaded", () => {
         enableRemoteModule: true,
       },
     });
+    // 01 自定义菜单的内容
+    let menuTemp = [
+      {
+        label: "角色",
+        submenu: [
+          { label: "复制", role: "copy" },
+          { label: "剪切", role: "cut" },
+          { label: "粘贴", role: "paste" },
+          { label: "最小化", role: "minimize" },
+        ],
+      },
+      {
+        label: "类型",
+        submenu: [
+          { label: "选项1", type: "checkbox" },
+          { label: "选项2", type: "checkbox" },
+          { label: "选项3", type: "checkbox" },
+          { type: "separator" },
+          { label: "item1", type: "radio" },
+          { label: "item2", type: "radio" },
+          { type: "separator" },
+          { label: "windows", type: "submenu", role: "windowMenu" },
+        ],
+      },
+      {
+        label: "其它",
+        submenu: [
+          {
+            label: "打开",
+            icon: "./open.png",
+            accelerator: "ctrl + o",
+            click() {
+              console.log("open操作执行了");
+            },
+          },
+        ],
+      },
+    ];
+
+    // 利用上述的模板然后生成一个菜单项
+    let menu = Menu.buildFromTemplate(menuTemp);
+
+    // 设置子窗口的菜单
+    indexMin.setMenu(menu);
+
     indexMin.loadFile("sub/index.html");
 
     indexMin.on("close", () => {
