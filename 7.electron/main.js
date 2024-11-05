@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("node:path");
 const remote = require("@electron/remote/main");
 function createWindow() {
@@ -58,3 +58,14 @@ app.on("browser-window-created", (_, window) => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// 主进程接收消息操作
+ipcMain.on("msg1", (ev, data) => {
+  console.log(data);
+  ev.sender.send("msg1Re", "这是一条来自于主进程的异步消息");
+});
+
+ipcMain.on("msg2", (ev, data) => {
+  console.log(data);
+  ev.returnValue = "来自于主进程的同步消息";
+});
