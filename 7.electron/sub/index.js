@@ -114,4 +114,6 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     false
   );
+
+  document.getElementById("localstorage").value = localStorage.getItem("test");
 });

@@ -15,6 +15,9 @@ window.addEventListener("DOMContentLoaded", () => {
   // 点击按钮打开一个新窗口
   const oBtn = document.getElementById("btn");
   oBtn.addEventListener("click", () => {
+    // localstorage
+    localStorage.setItem("test", "localStorage test value");
+
     // ?? 如何去创建窗口
     let indexMin = new BrowserWindow({
       parent: getCurrentWindow(),
