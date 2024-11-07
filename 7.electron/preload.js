@@ -1,4 +1,10 @@
-const { BrowserWindow, getCurrentWindow, Menu } = require("@electron/remote");
+const {
+  BrowserWindow,
+  getCurrentWindow,
+  Menu,
+  dialog,
+} = require("@electron/remote");
+const path = require("node:path");
 const { ipcRenderer } = require("electron");
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -107,5 +113,33 @@ window.addEventListener("DOMContentLoaded", () => {
 
   ipcRenderer.on("mtp", (ev, data) => {
     console.log(data);
+  });
+
+  /**
+   * dialog ------------------
+   */
+  let oBtnDialog = document.querySelector(".dialog button");
+  let oBtnDialogErr = document.querySelector(".dialog button.error");
+
+  oBtnDialog.addEventListener("click", () => {
+    dialog
+      .showOpenDialog({
+        defaultPath: path.resolve(__dirname, "../"),
+        buttonLabel: "请选择",
+        title: "拉勾教育",
+        properties: ["openFile", "multiSelections"],
+        filters: [
+          { name: "代码文件", extensions: ["js", "json", "html"] },
+          { name: "图片文件", extensions: ["ico", "jpeg", "png"] },
+          { name: "媒体类型", extensions: ["avi", "mp4", "mp3"] },
+        ],
+      })
+      .then((ret) => {
+        console.log(ret);
+      });
+  });
+
+  oBtnDialogErr.addEventListener("click", () => {
+    dialog.showErrorBox("自定义标题", "当前错误内容");
   });
 });
