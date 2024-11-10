@@ -5,7 +5,7 @@ const {
   dialog,
 } = require("@electron/remote");
 const path = require("node:path");
-const { ipcRenderer } = require("electron");
+const { ipcRenderer, shell } = require("electron");
 
 window.addEventListener("DOMContentLoaded", () => {
   console.log(process.platform);
@@ -61,14 +61,18 @@ window.addEventListener("DOMContentLoaded", () => {
         ],
       },
       {
-        label: "其它",
+        label: "菜单",
         submenu: [
           {
-            label: "打开",
-            icon: "./open.png",
-            accelerator: "ctrl + o",
+            label: "关于",
             click() {
-              console.log("open操作执行了");
+              shell.openExternal("https://kaiwu.lagou.com/");
+            },
+          },
+          {
+            label: "打开",
+            click() {
+              BrowserWindow.getFocusedWindow().webContents.send("openUrl");
             },
           },
         ],
@@ -141,5 +145,44 @@ window.addEventListener("DOMContentLoaded", () => {
 
   oBtnDialogErr.addEventListener("click", () => {
     dialog.showErrorBox("自定义标题", "当前错误内容");
+  });
+
+  /**
+   * shell iframe-------------------
+   *
+   */
+  // 1 获取元素
+  let oBtn1 = document.getElementById("openUrl");
+  let oBtn2 = document.getElementById("openFolder");
+
+  oBtn1.addEventListener("click", (ev) => {
+    ev.preventDefault();
+
+    let urlPath = oBtn1.getAttribute("href");
+
+    shell.openExternal(urlPath);
+  });
+
+  oBtn2.addEventListener("click", (ev) => {
+    shell.showItemInFolder(path.resolve(__filename));
+  });
+
+  /**
+   * 消息通知 ------
+   */
+  let messageBtn = document.getElementById("message");
+
+  messageBtn.addEventListener("click", () => {
+    let option = {
+      title: "拉勾教育",
+      body: "互联网人的实战大学，大前端",
+      icon: "./msg.png",
+    };
+
+    let myNotification = new window.Notification(option.title, option);
+
+    myNotification.onclick = function () {
+      console.log("点击了消息页卡");
+    };
   });
 });

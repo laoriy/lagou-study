@@ -1,4 +1,5 @@
 const { getCurrentWindow, Menu, MenuItem } = require("@electron/remote");
+const { ipcRenderer, shell } = require("electron");
 
 window.addEventListener("DOMContentLoaded", () => {
   // 利用 remote 可以获取当前窗口对象
@@ -116,4 +117,9 @@ window.addEventListener("DOMContentLoaded", () => {
   );
 
   document.getElementById("localstorage").value = localStorage.getItem("test");
+
+  ipcRenderer.on("openUrl", () => {
+    let iframe = document.getElementById("webview");
+    iframe.src = "https://www.lagou.com/";
+  });
 });
