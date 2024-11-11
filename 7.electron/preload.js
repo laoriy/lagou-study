@@ -3,6 +3,8 @@ const {
   getCurrentWindow,
   Menu,
   dialog,
+  nativeImage,
+  clipboard,
 } = require("@electron/remote");
 const path = require("node:path");
 const { ipcRenderer, shell } = require("electron");
@@ -185,4 +187,35 @@ window.addEventListener("DOMContentLoaded", () => {
       console.log("点击了消息页卡");
     };
   });
+  /**
+   * 剪贴板*************
+   */
+
+  // 获取元素
+  let aBtn = document.querySelectorAll("#clipboard button");
+  let aInput = document.querySelectorAll("#clipboard input");
+  let clipImgBtn = document.getElementById("clipImg");
+  let ret = null;
+
+  aBtn[0].onclick = function () {
+    // 复制内容
+    ret = clipboard.writeText(aInput[0].value);
+  };
+
+  aBtn[1].onclick = function () {
+    // 粘贴内容
+    aInput[1].value = clipboard.readText(ret);
+  };
+
+  clipImgBtn.onclick = function () {
+    // 将图片放置于剪切板当中的时候要求图片类型属于 nativeImage 实例
+    let oImage = nativeImage.createFromPath("./msg.png");
+    clipboard.writeImage(oImage);
+
+    // 将剪切板中的图片做为 DOM 元素显示在界面上
+    let oImg = clipboard.readImage();
+    let oImgDom = new Image();
+    oImgDom.src = oImg.toDataURL();
+    document.body.appendChild(oImgDom);
+  };
 });

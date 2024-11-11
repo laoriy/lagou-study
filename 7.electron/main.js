@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, globalShortcut } = require("electron");
 const path = require("node:path");
 const remote = require("@electron/remote/main");
 function createWindow() {
@@ -43,6 +43,18 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+  // 注册
+  let ret = globalShortcut.register("ctrl + q", () => {
+    console.log("快捷键注册成功");
+  });
+
+  if (!ret) {
+    console.log("注册失败");
+  }
+
+  console.log(globalShortcut.isRegistered("ctrl + q"));
+
+  console.log(ret, "~~~~~");
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
