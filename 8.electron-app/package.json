@@ -38,10 +38,12 @@
     ]
   },
   "devDependencies": {
+    "bootstrap": "^5.3.3",
     "concurrently": "^9.1.0",
     "cross-env": "^7.0.3",
     "electron": "^33.2.0",
     "electron-is-dev": "^2.0.0",
+    "styled-components": "^6.1.13",
     "wait-on": "^8.0.1"
   }
 }
