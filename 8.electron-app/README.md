@@ -5,3 +5,8 @@ cross-env : 跨平台的环境变量设置
 
 bootstrap
 styled-components
+
+https://fontawesome.com/icons 图标字体库
+@fortawesome/fontawesome-svg-core: 核心文件需要安装
+@fortawesome/react-fontawesome ：react 风格
+@fortawesome/free-solid-svg-icons ：solid 类型字体库
