@@ -6,6 +6,9 @@ import FileList from "./components/FileList";
 import initFiles from "./utils/initFiles";
 import ButtonItem from "./components/ButtonItem";
 import { faFileImport, faPlus } from "@fortawesome/free-solid-svg-icons";
+import TabList from "./components/TabList";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 // 自定义左侧容器
 let LeftDiv = styled.div.attrs({
@@ -69,7 +72,31 @@ function App() {
             <ButtonItem title={"导入"} icon={faFileImport} />
           </div>
         </LeftDiv>
-        <RightDiv>右侧</RightDiv>
+        <RightDiv>
+          <TabList
+            files={initFiles}
+            activeItem={"1"}
+            unSaveItems={["1", "2"]}
+            clickItem={(id) => {
+              console.log(id);
+            }}
+            closeItem={(id) => {
+              console.log("关闭", id);
+            }}
+          />
+          <SimpleMDE
+            id="your-custom-id"
+            onChange={(value) => {
+              console.log(value);
+            }}
+            value={initFiles[1].body}
+            options={{
+              autofocus: true,
+              spellChecker: false,
+              minHeight: "445px",
+            }}
+          />
+        </RightDiv>
       </div>
     </div>
   );
