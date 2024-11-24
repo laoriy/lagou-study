@@ -48,6 +48,7 @@
     "electron-is-dev": "^2.0.0",
     "react-simplemde-editor": "^5.2.0",
     "styled-components": "^6.1.13",
+    "uuid": "^11.0.3",
     "wait-on": "^8.0.1"
   }
 }

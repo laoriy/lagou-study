@@ -32,15 +32,21 @@ const SearchFile = ({ title = "文档列表", onSearch }) => {
   const closeSearch = () => {
     setSearchActive(false);
     setValue("");
+
+    // 当我们关闭搜索功能的时候，可以给它提供一个空字符，这样就没有满足条件的搜索
+    // 结果，此时就能将原来列表数据重新展示出来
+    onSearch("");
   };
 
-  if (enterPressed && searchActive) {
-    onSearch(value);
-  }
+  useEffect(() => {
+    if (enterPressed && searchActive) {
+      onSearch(value);
+    }
 
-  if (escPressed && searchActive) {
-    closeSearch();
-  }
+    if (escPressed && searchActive) {
+      closeSearch();
+    }
+  });
 
   useEffect(() => {
     if (searchActive) {

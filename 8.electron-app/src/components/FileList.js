@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -25,20 +25,36 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
   const [value, setValue] = useState("");
   const enterPressed = useKeyHandler(13);
   const escPressed = useKeyHandler(27);
-  // 定义关闭行为
-  const closeFn = () => {
-    setEditItem(false);
-    setValue("");
-  };
+   // 定义关闭行为
+   const closeFn = () => {
+    setEditItem(false)
+    setValue('')
 
-  if (enterPressed && editItem) {
-    saveFile(editItem, value);
-    closeFn();
+    const currentFile = files.find(file => file.id == editItem)
+    if (currentFile.isNew) {
+      deleteFile(currentFile.id)
+    }
   }
 
-  if (escPressed && editItem) {
-    closeFn();
-  }
+  useEffect(() => {
+    const newFile = files.find(file => file.isNew)
+    if (newFile) {
+
+      setEditItem(newFile.id)
+      setValue(newFile.title)
+    }
+  }, [files])
+
+  useEffect(() => {
+    if (enterPressed && editItem && value.trim() !== '') {
+      saveFile(editItem, value)
+      closeFn()
+    }
+
+    if (escPressed && editItem) {
+      closeFn()
+    }
+  })
 
   return (
     <GroupUl>
@@ -82,16 +98,13 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
             {file.id === editItem && (
               <>
                 <input
-                  className="col-9"
+                  className="col-9 me-2"
                   value={value}
-                  onClick={() => {
-                    editFile(file.id);
-                  }}
                   onChange={(e) => {
                     setValue(e.target.value);
                   }}
                 />
-                <span className="col-3" onClick={closeFn}>
+                <span className="col-2" onClick={closeFn}>
                   <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
                 </span>
               </>

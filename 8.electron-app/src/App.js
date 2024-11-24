@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchFile from "./components/SearchFile";
@@ -9,6 +9,7 @@ import { faFileImport, faPlus } from "@fortawesome/free-solid-svg-icons";
 import TabList from "./components/TabList";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import { v4 } from "uuid";
 
 // 自定义左侧容器
 let LeftDiv = styled.div.attrs({
@@ -55,6 +56,8 @@ function App() {
   const [openIds, setOpenIds] = useState([]); // 当前已打开的所有文件信息 ids
   const [unSaveIds, setUnSaveIds] = useState([]); // 当前未被保存的所有文件信息 ids
 
+  const [searchFiles, setSearchFiles] = useState([]); // 将左侧展示的搜索列表与默认列表信息进行区分
+
   // 计算已打开的所有文件信息
   const openFiles = openIds.map((openId) => {
     return files.find((file) => file.id === openId);
@@ -63,6 +66,8 @@ function App() {
   // 计算正在编辑的文件信息
   const activeFile = files.find((file) => file.id === activeId);
 
+  // 计算当前左侧列表需要展示什么样的信息
+  const fileList = searchFiles.length > 0 ? searchFiles : files;
   // 01 点击左侧文件显示编辑页
   const openItem = (id) => {
     // 将当前 id 设置为 active id
@@ -107,28 +112,63 @@ function App() {
     setFiles(newFiles);
   };
 
+  // 05 删除某个文件项
+  const deleteItem = (id) => {
+    const newFiles = files.filter((file) => file.id !== id);
+    setFiles(newFiles);
+
+    // 如果当前想要关闭的项正在被打开那么删除之后应该将其关闭
+    closeFile(id);
+  };
+
+  // 06 依据关键字搜索文件
+  const searchFile = useCallback(
+    (keyWord) => {
+      const newFiles = files.filter((file) => file.title.includes(keyWord));
+      setSearchFiles(newFiles);
+    },
+    [files]
+  );
+
+  // 07 重命名
+  const reName = (id, newTitle) => {
+    const newFiles = files.map((file) => {
+      if (file.id == id) {
+        file.title = newTitle;
+        file.isNew = false;
+      }
+      return file;
+    });
+
+    setFiles(newFiles);
+  };
+
+  // 08 新建操作
+  const createFile = () => {
+    const newId = v4();
+    const newFile = {
+      id: newId,
+      title: "",
+      isNew: true,
+      body: "## 初始化内容",
+      createTime: new Date().getTime(),
+    };
+    setFiles([...files, newFile]);
+  };
+
   return (
     <div className="App container-fluid px-0">
       <div className="row g-0">
         <LeftDiv>
-          <SearchFile
-            title={"我的文档"}
-            onSearch={(value) => {
-              console.log(value);
-            }}
-          ></SearchFile>
+          <SearchFile title={"我的文档"} onSearch={searchFile}></SearchFile>
           <FileList
-            files={initFiles}
+            files={fileList}
             editFile={openItem}
-            deleteFile={(id) => {
-              console.log("删除", id);
-            }}
-            saveFile={(id, value) => {
-              console.log(id, value);
-            }}
+            deleteFile={deleteItem}
+            saveFile={reName}
           />
           <div className="btn_list">
-            <ButtonItem title={"新建"} icon={faPlus} />
+            <ButtonItem title={"新建"} icon={faPlus} btnClick={createFile} />
             <ButtonItem title={"导入"} icon={faFileImport} />
           </div>
         </LeftDiv>
