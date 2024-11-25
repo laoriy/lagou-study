@@ -25,36 +25,38 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
   const [value, setValue] = useState("");
   const enterPressed = useKeyHandler(13);
   const escPressed = useKeyHandler(27);
-   // 定义关闭行为
-   const closeFn = () => {
-    setEditItem(false)
-    setValue('')
-
-    const currentFile = files.find(file => file.id == editItem)
-    if (currentFile.isNew) {
-      deleteFile(currentFile.id)
-    }
-  }
+  // 定义关闭行为
+  const closeFn = () => {
+    setEditItem(false);
+    setValue("");
+  };
 
   useEffect(() => {
-    const newFile = files.find(file => file.isNew)
+    const newFile = files.find((file) => file.isNew);
+    if (newFile && editItem !== newFile.id) {
+      // 此时就说明我们本意是想新建一个文件，但是没有将新建文件操作完成就又去点击了其它的文件项
+      deleteFile(newFile.id);
+    }
+  }, [editItem]);
+
+  useEffect(() => {
+    const newFile = files.find((file) => file.isNew);
     if (newFile) {
-
-      setEditItem(newFile.id)
-      setValue(newFile.title)
+      setEditItem(newFile.id);
+      setValue(newFile.title);
     }
-  }, [files])
+  }, [files]);
 
   useEffect(() => {
-    if (enterPressed && editItem && value.trim() !== '') {
-      saveFile(editItem, value)
-      closeFn()
+    if (enterPressed && editItem && value.trim() !== "") {
+      saveFile(editItem, value);
+      closeFn();
     }
 
     if (escPressed && editItem) {
-      closeFn()
+      closeFn();
     }
-  })
+  });
 
   return (
     <GroupUl>
@@ -73,6 +75,7 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
                   className="col-8"
                   onClick={() => {
                     editFile(file.id);
+                    closeFn();
                   }}
                 >
                   {file.title}
