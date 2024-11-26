@@ -51,6 +51,13 @@ let RightDiv = styled.div.attrs({
   }
 `;
 
+const path = window.require("path");
+const remote = window.require("@electron/remote");
+// const Store = window.require("electron-store");
+// console.log(remote.app.getPath);
+
+// const fileStore = new Store({ name: "filesInfo" });
+
 function App() {
   const [files, setFiles] = useState(mapArray(initFiles)); // 代表所有的文件信息
   const [activeId, setActiveId] = useState(""); // 当前正在编辑的文件id
@@ -58,6 +65,9 @@ function App() {
   const [unSaveIds, setUnSaveIds] = useState([]); // 当前未被保存的所有文件信息 ids
 
   const [searchFiles, setSearchFiles] = useState([]); // 将左侧展示的搜索列表与默认列表信息进行区分
+
+  // 自定义一个当前磁盘里存放文件的路径
+  // const savedPath = remote.app.getPath("documents") + "/testMk";
 
   // 计算已打开的所有文件信息
   const openFiles = openIds.map((openId) => {

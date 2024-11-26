@@ -1,21 +1,21 @@
-const { app, BrowserWindow } = require('electron')
-const isDev = require('electron-is-dev')
+const { app, BrowserWindow } = require("electron");
+const isDev = require("electron-is-dev");
 
-let mainWindow
+let mainWindow;
 
-app.on('ready', () => {
+app.on("ready", () => {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 650,
     minWidth: 600,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true
-    }
-  })
+      enableRemoteModule: true,
+      contextIsolation: false,
+    },
+  });
 
-  const urlLocation = isDev ? "http://localhost:3000" : 'myUrl'
+  const urlLocation = isDev ? "http://localhost:3000" : "myUrl";
 
-  mainWindow.loadURL(urlLocation)
-
-})
+  mainWindow.loadURL(urlLocation);
+});
