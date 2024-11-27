@@ -10,7 +10,13 @@ import TabList from "./components/TabList";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { v4 } from "uuid";
-import { mapArray, objToArray } from "./helper";
+import {
+  deleteFile,
+  mapArray,
+  objToArray,
+  renameFile,
+  writeFile,
+} from "./helper";
 
 // 自定义左侧容器
 let LeftDiv = styled.div.attrs({
@@ -54,7 +60,6 @@ let RightDiv = styled.div.attrs({
 const path = window.require("path");
 const remote = window.require("@electron/remote");
 // const Store = window.require("electron-store");
-// console.log(remote.app.getPath);
 
 // const fileStore = new Store({ name: "filesInfo" });
 
@@ -67,7 +72,7 @@ function App() {
   const [searchFiles, setSearchFiles] = useState([]); // 将左侧展示的搜索列表与默认列表信息进行区分
 
   // 自定义一个当前磁盘里存放文件的路径
-  // const savedPath = remote.app.getPath("documents") + "/testMk";
+  const savedPath = remote.app.getPath("desktop") + "/testElectron";
 
   // 计算已打开的所有文件信息
   const openFiles = openIds.map((openId) => {
@@ -122,11 +127,20 @@ function App() {
 
   // 05 删除某个文件项
   const deleteItem = (id) => {
-    Reflect.deleteProperty(files, id);
-    setFiles(files);
-
-    // 如果当前想要关闭的项正在被打开那么删除之后应该将其关闭
-    closeFile(id);
+    const file = files[id];
+    if (!file.isNew) {
+      deleteFile(path.join(savedPath, `${files[id].title}.md`)).then(() => {
+        delete files[id];
+        setFiles(files);
+        // 如果当前想要关闭的项正在被打开那么删除之后应该将其关闭
+        closeFile(id);
+      });
+    } else {
+      delete files[id];
+      setFiles(files);
+      // 如果当前想要关闭的项正在被打开那么删除之后应该将其关闭
+      closeFile(id);
+    }
   };
 
   // 06 依据关键字搜索文件
@@ -141,13 +155,33 @@ function App() {
   );
 
   // 07 重命名
-  const reName = (id, newTitle) => {
+  const saveData = (id, newTitle, isNew) => {
     const item = objToArray(files).find((file) => file.title == newTitle);
     if (item) {
       newTitle += "_copy";
     }
-    const newFile = { ...files[id], title: newTitle, isNew: false };
-    setFiles({ ...files, [id]: newFile });
+    const newPath = path.join(savedPath, `${newTitle}.md`);
+    const newFile = {
+      ...files[id],
+      title: newTitle,
+      isNew: false,
+      path: newPath,
+    };
+    const newFiles = { ...files, [id]: newFile };
+    if (isNew) {
+      // 执行创建
+      writeFile(newPath, files[id].body).then(() => {
+        setFiles(newFiles);
+        // saveInfoToStore(newFiles);
+      });
+    } else {
+      // 执行更新
+      const oldPath = path.join(savedPath, `${files[id].title}.md`);
+      renameFile(oldPath, newPath).then(() => {
+        setFiles(newFiles);
+        // saveInfoToStore(newFiles);
+      });
+    }
   };
 
   // 08 新建操作
@@ -166,6 +200,16 @@ function App() {
     }
   };
 
+  // 09 保存当前正在编辑的文件
+  const saveCurrentFile = () => {
+    writeFile(
+      path.join(savedPath, `${activeFile.title}.md`),
+      activeFile.body
+    ).then(() => {
+      setUnSaveIds(unSaveIds.filter((id) => id !== activeFile.id));
+    });
+  };
+
   return (
     <div className="App container-fluid px-0">
       <div className="row g-0">
@@ -175,7 +219,7 @@ function App() {
             files={fileList}
             editFile={openItem}
             deleteFile={deleteItem}
-            saveFile={reName}
+            saveFile={saveData}
           />
           <div className="btn_list">
             <ButtonItem title={"新建"} icon={faPlus} btnClick={createFile} />
@@ -185,6 +229,7 @@ function App() {
         <RightDiv>
           {activeFile && (
             <>
+              <button onClick={saveCurrentFile}>保存</button>
               <TabList
                 files={openFiles}
                 activeItem={activeId}

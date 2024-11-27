@@ -4,7 +4,6 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "@electron/remote": "^2.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -40,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@electron/remote": "^2.1.2",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
     "concurrently": "^9.1.0",

@@ -49,7 +49,8 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
 
   useEffect(() => {
     if (enterPressed && editItem && value.trim() !== "") {
-      saveFile(editItem, value);
+      const file = files.find((file) => file.id == editItem);
+      saveFile(editItem, value, file.isNew);
       closeFn();
     }
 
