@@ -1,8 +1,9 @@
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
 const remote = require("@electron/remote/main");
+const Store = require("electron-store");
 
-let mainWindow;
+Store.initRenderer();
 
 app.on("ready", () => {
   // 初始化远程模块

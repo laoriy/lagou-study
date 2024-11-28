@@ -14,6 +14,7 @@ import {
   deleteFile,
   mapArray,
   objToArray,
+  readFile,
   renameFile,
   writeFile,
 } from "./helper";
@@ -59,12 +60,27 @@ let RightDiv = styled.div.attrs({
 
 const path = window.require("path");
 const remote = window.require("@electron/remote");
-// const Store = window.require("electron-store");
+const Store = window.require("electron-store");
 
-// const fileStore = new Store({ name: "filesInfo" });
+const fileStore = new Store({ name: "filesInfo" });
+
+// 定义方法实现具体属性的持久化存储
+const saveInfoToStore = (files) => {
+  const storeObj = objToArray(files).reduce((ret, file) => {
+    const { id, title, createTime, path } = file;
+    ret[id] = {
+      id,
+      path,
+      title,
+      createTime,
+    };
+    return ret;
+  }, {});
+  fileStore.set("files", storeObj);
+};
 
 function App() {
-  const [files, setFiles] = useState(mapArray(initFiles)); // 代表所有的文件信息
+  const [files, setFiles] = useState(fileStore.get("files") || {}); // 代表所有的文件信息
   const [activeId, setActiveId] = useState(""); // 当前正在编辑的文件id
   const [openIds, setOpenIds] = useState([]); // 当前已打开的所有文件信息 ids
   const [unSaveIds, setUnSaveIds] = useState([]); // 当前未被保存的所有文件信息 ids
@@ -73,6 +89,8 @@ function App() {
 
   // 自定义一个当前磁盘里存放文件的路径
   const savedPath = remote.app.getPath("desktop") + "/testElectron";
+
+  console.log(remote.app.getPath("userData"));
 
   // 计算已打开的所有文件信息
   const openFiles = openIds.map((openId) => {
@@ -88,7 +106,14 @@ function App() {
   const openItem = (id) => {
     // 将当前 id 设置为 active id
     setActiveId(id);
-
+    // 点击某个文件项时读取它里面的内容显示
+    const currentFile = files[id];
+    if (!currentFile.isLoaded) {
+      readFile(currentFile.path).then((data) => {
+        const newFile = { ...currentFile, body: data, isLoaded: true };
+        setFiles({ ...files, [id]: newFile });
+      });
+    }
     // 将id添加至 open ids
     if (!openIds.includes(id)) {
       setOpenIds([...openIds, id]);
@@ -132,13 +157,13 @@ function App() {
       deleteFile(path.join(savedPath, `${files[id].title}.md`)).then(() => {
         delete files[id];
         setFiles(files);
-        // 如果当前想要关闭的项正在被打开那么删除之后应该将其关闭
+        saveInfoToStore(files);
         closeFile(id);
       });
     } else {
       delete files[id];
       setFiles(files);
-      // 如果当前想要关闭的项正在被打开那么删除之后应该将其关闭
+      saveInfoToStore(files);
       closeFile(id);
     }
   };
@@ -172,14 +197,14 @@ function App() {
       // 执行创建
       writeFile(newPath, files[id].body).then(() => {
         setFiles(newFiles);
-        // saveInfoToStore(newFiles);
+        saveInfoToStore(newFiles);
       });
     } else {
       // 执行更新
       const oldPath = path.join(savedPath, `${files[id].title}.md`);
       renameFile(oldPath, newPath).then(() => {
         setFiles(newFiles);
-        // saveInfoToStore(newFiles);
+        saveInfoToStore(newFiles);
       });
     }
   };
