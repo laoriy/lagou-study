@@ -9,10 +9,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import useKeyHandler from "../hooks/useKeyHandler";
+import useContextMenu from "../hooks/useContextMenu";
+import { getParentNode } from "../helper";
 
 // ul 标签
 let GroupUl = styled.ul.attrs({
-  className: "list-group list-group-flush",
+  className: "list-group list-group-flush menu-box",
 })`
   li {
     color: #fff;
@@ -30,6 +32,26 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
     setEditItem(false);
     setValue("");
   };
+
+  const contextMenuTmp = [
+    {
+      label: "重命名",
+      click() {
+        console.log("执行重命名");
+        let retNode = getParentNode(currentEle.current, "menu-item");
+        setEditItem(retNode.dataset.id);
+      },
+    },
+    {
+      label: "删除",
+      click() {
+        let retNode = getParentNode(currentEle.current, "menu-item");
+        deleteFile(retNode.dataset.id);
+      },
+    },
+  ];
+
+  const currentEle = useContextMenu(contextMenuTmp, ".menu-box");
 
   useEffect(() => {
     const newFile = files.find((file) => file.isNew);
@@ -64,8 +86,10 @@ const FileList = ({ files, editFile, saveFile, deleteFile }) => {
       {files.map((file) => {
         return (
           <li
-            className="list-group-item d-flex align-items-center"
+            className="list-group-item d-flex align-items-center menu-item"
             key={file.id}
+            data-id={file.id}
+            data-title={file.title}
           >
             {file.id !== editItem && (
               <>

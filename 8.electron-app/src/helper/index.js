@@ -1,4 +1,4 @@
-const fs = window.require('fs').promises
+const fs = window.require("fs").promises;
 /**
  *
  * @param {Array} data
@@ -33,6 +33,17 @@ export const renameFile = (path, newPath) => {
 
 export const deleteFile = (path) => {
   return fs.unlink(path);
+};
+
+export const getParentNode = (node, parentClassName) => {
+  let currentEle = node;
+  while (currentEle !== null) {
+    if (currentEle.classList.contains(parentClassName)) {
+      return currentEle;
+    }
+    currentEle = currentEle.parentNode;
+  }
+  return false;
 };
 
 export { mapArray, objToArray };

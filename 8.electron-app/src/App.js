@@ -90,8 +90,6 @@ function App() {
   // 自定义一个当前磁盘里存放文件的路径
   const savedPath = remote.app.getPath("desktop") + "/testElectron";
 
-  console.log(remote.app.getPath("userData"));
-
   // 计算已打开的所有文件信息
   const openFiles = openIds.map((openId) => {
     return files[openId];
@@ -154,7 +152,7 @@ function App() {
   const deleteItem = (id) => {
     const file = files[id];
     if (!file.isNew) {
-      deleteFile(path.join(savedPath, `${files[id].title}.md`)).then(() => {
+      deleteFile(file.path).then(() => {
         delete files[id];
         setFiles(files);
         saveInfoToStore(files);
@@ -185,7 +183,10 @@ function App() {
     if (item) {
       newTitle += "_copy";
     }
-    const newPath = path.join(savedPath, `${newTitle}.md`);
+    const newPath = isNew
+      ? path.join(savedPath, `${newTitle}.md`)
+      : path.join(path.dirname(files[id].path), `${newTitle}.md`);
+
     const newFile = {
       ...files[id],
       title: newTitle,
@@ -201,7 +202,7 @@ function App() {
       });
     } else {
       // 执行更新
-      const oldPath = path.join(savedPath, `${files[id].title}.md`);
+      const oldPath = files[id].path;
       renameFile(oldPath, newPath).then(() => {
         setFiles(newFiles);
         saveInfoToStore(newFiles);
@@ -227,12 +228,61 @@ function App() {
 
   // 09 保存当前正在编辑的文件
   const saveCurrentFile = () => {
-    writeFile(
-      path.join(savedPath, `${activeFile.title}.md`),
-      activeFile.body
-    ).then(() => {
+    writeFile(activeFile.path, activeFile.body).then(() => {
       setUnSaveIds(unSaveIds.filter((id) => id !== activeFile.id));
     });
+  };
+
+  // 10 执行外部 md 文件导入
+  const importFile = () => {
+    remote.dialog
+      .showOpenDialog({
+        defaultPath: __dirname,
+        buttonLabel: "请选择",
+        title: "选择md文件",
+        properties: ["openFile", "multiSelections"],
+        filters: [
+          { name: "md文档", extensions: ["md"] },
+          { name: "其它类型", extensions: ["js", "json", "html"] },
+        ],
+      })
+      .then((ret) => {
+        const paths = ret.filePaths;
+        if (paths.length) {
+          // 01 判断当前路径们，是否存在于 files 当中，如果已经存在则无须再执行导入操作
+          const validPaths = paths.filter((filePath) => {
+            // 判断当前 path 是否已经存在过了
+            const existed = Object.values(files).find((file) => {
+              return file.path == filePath;
+            });
+            return !existed;
+          });
+
+          // 02 将上述的路径信息组装成 files 格式， id title path
+          const packageData = validPaths.map((filePath) => {
+            return {
+              id: v4(),
+              title: path.basename(filePath, ".md"),
+              path: filePath,
+            };
+          });
+          // 03 将上述的数据格式处理为 files 所需要的
+          const newFiles = { ...files, ...mapArray(packageData) };
+          // 04 更新数据重新渲染
+          setFiles(newFiles);
+          saveInfoToStore(newFiles);
+          // 05 成功导入提示
+          if (packageData.length) {
+            remote.dialog.showMessageBox({
+              type: "info",
+              title: "导入md文档",
+              message: "文件导入成功",
+            });
+          }
+        } else {
+          console.log("未选择文件导入");
+        }
+      });
   };
 
   return (
@@ -248,7 +298,11 @@ function App() {
           />
           <div className="btn_list">
             <ButtonItem title={"新建"} icon={faPlus} btnClick={createFile} />
-            <ButtonItem title={"导入"} icon={faFileImport} />
+            <ButtonItem
+              title={"导入"}
+              icon={faFileImport}
+              btnClick={importFile}
+            />
           </div>
         </LeftDiv>
         <RightDiv>
