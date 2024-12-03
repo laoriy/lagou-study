@@ -18,6 +18,7 @@ import {
   renameFile,
   writeFile,
 } from "./helper";
+import useIpcRenderer from "./hooks/useIpcRenderer";
 
 // 自定义左侧容器
 let LeftDiv = styled.div.attrs({
@@ -285,6 +286,13 @@ function App() {
       });
   };
 
+  // 实现主进程与渲染进程的事件通信
+  useIpcRenderer({
+    "execute-create-file": createFile,
+    "execute-import-file": importFile,
+    "execute-save-file": saveCurrentFile,
+  });
+
   return (
     <div className="App container-fluid px-0">
       <div className="row g-0">
@@ -308,7 +316,6 @@ function App() {
         <RightDiv>
           {activeFile && (
             <>
-              <button onClick={saveCurrentFile}>保存</button>
               <TabList
                 files={openFiles}
                 activeItem={activeId}

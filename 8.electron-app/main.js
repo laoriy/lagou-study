@@ -1,7 +1,8 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 const isDev = require("electron-is-dev");
 const remote = require("@electron/remote/main");
 const Store = require("electron-store");
+const menuTemp = require("./src/temp/menuTemp");
 
 Store.initRenderer();
 
@@ -23,4 +24,8 @@ app.on("ready", () => {
   const urlLocation = isDev ? "http://localhost:3000" : "myUrl";
 
   mainWindow.loadURL(urlLocation);
+
+  // 添加自定义的原生菜单
+  const menu = Menu.buildFromTemplate(menuTemp);
+  Menu.setApplicationMenu(menu);
 });

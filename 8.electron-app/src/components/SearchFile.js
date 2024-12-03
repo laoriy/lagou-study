@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import useKeyHandler from "../hooks/useKeyHandler";
+import useIpcRenderer from "../hooks/useIpcRenderer";
 
 // 自定义搜索区域的 div
 let SearchDiv = styled.div.attrs({
@@ -54,6 +55,11 @@ const SearchFile = ({ title = "文档列表", onSearch }) => {
     }
   }, [searchActive]);
 
+  useIpcRenderer({
+    "execute-search-file": () => {
+      setSearchActive(true);
+    },
+  });
   return (
     <Fragment>
       {!searchActive && (
