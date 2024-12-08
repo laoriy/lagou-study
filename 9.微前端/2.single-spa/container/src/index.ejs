@@ -15,7 +15,9 @@
   <script type="injector-importmap">
     {
       "imports": {
-        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js"
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js",
+        "react": "https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"
       }
     }
   </script>
@@ -29,6 +31,8 @@
     {
       "imports": {
         "@laoriy/root-config": "//localhost:9000/laoriy-root-config.js",
+        "@laoriy/lagou": "//localhost:9001/laoriy-lagou.js",
+        "@laoriy/todos":"//localhost:9002/laoriy-todos.js",
         "@single-spa/welcome": "https://cdn.jsdelivr.net/npm/single-spa-welcome/dist/single-spa-welcome.min.js"
       }
     }
