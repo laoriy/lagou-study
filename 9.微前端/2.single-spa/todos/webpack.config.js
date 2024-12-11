@@ -6,6 +6,7 @@ module.exports = (webpackConfigEnv, argv) => {
     orgName: "laoriy",
     projectName: "todos",
     webpackConfigEnv,
+    outputSystemJS: true,
     argv,
   });
 

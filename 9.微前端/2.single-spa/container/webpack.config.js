@@ -9,6 +9,7 @@ module.exports = (webpackConfigEnv, argv) => {
     projectName: "root-config",
     webpackConfigEnv,
     argv,
+    outputSystemJS: true,
     disableHtmlGeneration: true,
   });
 
