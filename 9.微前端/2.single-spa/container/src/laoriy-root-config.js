@@ -13,7 +13,9 @@ import { registerApplication, start } from "single-spa";
 registerApplication(
   "@single-spa/welcome",
   () =>
-    System.import("https://cdn.jsdelivr.net/npm/single-spa-welcome@2.4.3/dist/single-spa-welcome.js"),
+    System.import(
+      "https://cdn.jsdelivr.net/npm/single-spa-welcome@2.4.3/dist/single-spa-welcome.js"
+    ),
   (location) => location.pathname === "/"
 );
 
@@ -35,6 +37,12 @@ registerApplication({
       "@laoriy/todos"
     ),
   activeWhen: ["/todos"],
+});
+
+registerApplication({
+  name: "@laoriy/realworld",
+  app: () => System.import("@laoriy/realworld"),
+  activeWhen: ["/realworld"],
 });
 
 start({
