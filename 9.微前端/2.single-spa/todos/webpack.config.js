@@ -11,6 +11,7 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
+    externals: ["react-router-dom"],
     // modify the webpack config however you'd like to by adding to this object
   });
 };
