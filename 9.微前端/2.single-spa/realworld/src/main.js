@@ -1,8 +1,21 @@
-import { h, createApp } from 'vue';
-import singleSpaVue from 'single-spa-vue';
+import { h, createApp } from "vue";
+import singleSpaVue from "single-spa-vue";
+import { createRouter } from "vue-router";
+import Home from "./components/Home.vue";
+import Bar from "./components/Bar.vue";
 
-import App from './App.vue';
+import App from "./App.vue";
+import { createWebHistory } from "vue-router";
 
+const routes = [
+  { path: "/", component: Home },
+  { path: "/bar", component: Bar },
+];
+
+const router = createRouter({
+  history: createWebHistory("/realworld"),
+  routes,
+});
 const vueLifecycles = singleSpaVue({
   createApp,
   appOptions: {
@@ -18,6 +31,9 @@ const vueLifecycles = singleSpaVue({
         */
       });
     },
+  },
+  handleInstance: (app) => {
+    app.use(router);
   },
 });
 
