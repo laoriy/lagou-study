@@ -1,19 +1,16 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from "./Navbar";
-
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <Navbar />,
-    },
-  ],
-  {
-    basename: "/navbar",
-  }
-);
+import { BrowserRouter, Link } from "react-router-dom";
 
 export default function Root(props) {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <BrowserRouter>
+      navbar
+      <div>
+        <Link to="/">@single-spa/welcome</Link>{" "}
+        <Link to="/lagou">@study/lagou</Link>{" "}
+        <Link to="/todos">@study/todos</Link>{" "}
+        <Link to="/realworld">@study/realworld</Link>
+      </div>
+    </BrowserRouter>
+  );
 }

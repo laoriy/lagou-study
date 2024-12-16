@@ -11,7 +11,10 @@ const router = createBrowserRouter(
       path: "/",
       element: (
         <div>
-          <Parcel config={import("@laoriy/navbar")} />
+          <Parcel
+            config={System.import("@laoriy/navbar")}
+            wrapWith="div"
+          />
           <Outlet />
         </div>
       ),
