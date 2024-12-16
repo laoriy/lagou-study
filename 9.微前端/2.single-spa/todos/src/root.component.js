@@ -1,22 +1,34 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import About from "./About";
 import Main from "./Main";
 import Home from "./Home";
+import Parcel from "single-spa-react/parcel";
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <Main />,
-    },
-    {
-      path: "/about",
-      element: <About />,
-    },
-    {
-      path: "/home",
-      element: <Home />,
+      element: (
+        <div>
+          <Parcel config={import("@laoriy/navbar")} />
+          <Outlet />
+        </div>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <Main />,
+        },
+        {
+          path: "/about",
+          element: <About />,
+        },
+        {
+          path: "/home",
+          element: <Home />,
+        },
+      ],
     },
   ],
   {
