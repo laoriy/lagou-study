@@ -4,7 +4,7 @@ import Main from "./Main";
 function useToolsModule() {
   const [toolsModule, setToolsModule] = useState();
   useEffect(() => {
-    System.import("@study/tools").then(setToolsModule);
+    System.import("@laoriy/tools").then(setToolsModule);
   }, []);
   return toolsModule;
 }
@@ -12,13 +12,13 @@ function useToolsModule() {
 const Home = () => {
   const toolsModule = useToolsModule();
   useEffect(() => {
-    let subjection = null;
+    // let subjection = null;
     if (toolsModule) {
-      toolsModule.sayHello("@study/todos");
-      subjection = toolsModule.sharedSubject.subscribe(console.log);
+      toolsModule.sayHello("@laoriy/todos say ");
+      // subjection = toolsModule.sharedSubject.subscribe(console.log);
     }
-    return () => subjection.unsubscribe();
-  }, []);
+    // return () => subjection.unsubscribe();
+  }, [toolsModule]);
 
   return (
     <Main>

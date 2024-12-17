@@ -4,7 +4,7 @@ module.exports = defineConfig({
   devServer: {
     port: 9003,
     headers: {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
     },
     allowedHosts: "all",
   },
@@ -12,5 +12,6 @@ module.exports = defineConfig({
     output: {
       libraryTarget: "system",
     },
+    externals: ["single-spa"],
   },
 });
