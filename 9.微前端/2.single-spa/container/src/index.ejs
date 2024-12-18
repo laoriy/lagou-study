@@ -58,6 +58,28 @@
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.0/dist/extras/amd.min.js"></script>
     <% } %>
+
+    <template id="single-spa-layout">
+      <single-spa-router>
+        <nav class="topnav">
+          <application name="@laoriy/navbar"></application>
+        </nav>
+        <div class="main-content">
+          <route default>
+            <application name="@single-spa/welcome"></application>
+          </route>
+          <route path="lagou">
+            <application name="@laoriy/lagou"></application>
+          </route>
+          <route path="todos">
+            <application name="@laoriy/todos"></application>
+          </route>
+          <route path="realworld">
+            <application name="@laoriy/realworld"></application>
+          </route>
+        </div>
+      </single-spa-router>
+    </template>
   </head>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
