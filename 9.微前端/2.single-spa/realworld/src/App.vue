@@ -15,12 +15,18 @@
 <script setup>
 import Parcel from 'single-spa-vue/parcel'
 import { mountRootParcel } from 'single-spa'
+import { onMounted } from 'vue';
 const parcelConfig = window.System.import('@laoriy/navbar')
 
 async function handleClick() {
   const toolsModule = await window.System.import("@laoriy/tools")
-  toolsModule.sayHello("@study/realworld say hello")
+  toolsModule.sayHello("@laoriy/realworld say hello")
 }
+
+onMounted(async () => {
+  const toolsModule = await window.System.import("@laoriy/tools")
+  toolsModule.sharedSubject.subscribe(console.log)
+})
 </script>
 
 <style>

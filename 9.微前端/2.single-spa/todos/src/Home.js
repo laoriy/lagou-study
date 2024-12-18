@@ -12,12 +12,12 @@ function useToolsModule() {
 const Home = () => {
   const toolsModule = useToolsModule();
   useEffect(() => {
-    // let subjection = null;
+    let subjection = null;
     if (toolsModule) {
       toolsModule.sayHello("@laoriy/todos say ");
-      // subjection = toolsModule.sharedSubject.subscribe(console.log);
+      subjection = toolsModule.sharedSubject.subscribe(console.log);
     }
-    // return () => subjection.unsubscribe();
+    return () => subjection?.unsubscribe();
   }, [toolsModule]);
 
   return (
