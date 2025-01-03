@@ -54,18 +54,18 @@ export default function Album() {
               成为更专业的工作者, 是一所真正的互联网人实战大学.
             </Typography>
             <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
+              <Grid container spacing={2} justifyContent="center">
                 <Grid item>
                   <Link to="/pricing">
                     <Button variant="contained" color="primary">
                       价格
                     </Button>
+                  </Link>
                     <Link to="/dashboard">
                       <Button variant="contained" color="primary">
                         Dashboard
                       </Button>
                     </Link>
-                  </Link>
                 </Grid>
               </Grid>
             </div>
