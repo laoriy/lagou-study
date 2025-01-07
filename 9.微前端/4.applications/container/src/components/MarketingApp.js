@@ -7,6 +7,7 @@ export default function MarketingApp() {
   const history = useHistory()
   useEffect(() => {
     const { onParentNavigate } = mount(ref.current, {
+      initialPath: history.location.pathname,
       onNavgate({ pathname: nextPathname }) { // 微应用路由跳转，通知主应用进行页面路由变化
         const pathname = history.location.pathname;
         if (nextPathname !== pathname) {

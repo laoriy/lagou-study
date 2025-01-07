@@ -1,13 +1,11 @@
 import React, { lazy, Suspense, useState, useEffect } from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import MarketingApp from "./components/MarketingApp";
-// import AuthApp from "./components/AuthApp"
 import Header from "./components/Header";
-// import Progress from "./components/Progress"
+import Progress from "./components/Progress"
 
-// const MarketingApp = lazy(() => import("./components/MarketingApp"))
-// const AuthApp = lazy(() => import("./components/AuthApp"))
+const MarketingApp = lazy(() => import("./components/MarketingApp"));
+const AuthApp = lazy(() => import("./components/AuthApp"));
 // const DashboardApp = lazy(() => import("./components/DashboardApp"))
 
 const history = createBrowserHistory();
@@ -25,20 +23,20 @@ function App() {
       {/* <Header status={status} setStatus={setStatus} /> */}
       <Header status={null} setStatus={null} />
 
-      {/* <Suspense fallback={<Progress />}> */}
-      <Switch>
-        {/* <Route path="/auth/signin">
-            <AuthApp setStatus={setStatus} />
+      <Suspense fallback={<Progress />}>
+        <Switch>
+          <Route path="/auth/signin">
+            <AuthApp setStatus={null} />
           </Route>
-          <Route path="/dashboard">
+          {/* <Route path="/dashboard">
             {!status && <Redirect to="/" />}
             <DashboardApp />
           </Route> */}
-        <Route path="/">
-          <MarketingApp />
-        </Route>
-      </Switch>
-      {/* </Suspense> */}
+          <Route path="/">
+            <MarketingApp />
+          </Route>
+        </Switch>
+      </Suspense>
     </Router>
   );
 }
