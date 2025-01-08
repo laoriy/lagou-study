@@ -76,6 +76,7 @@ export default function Header({ status, setStatus }) {
             variant="outlined"
             className={classes.link}
             component={RouterLink}
+            onClick={() => setStatus(false)}
             to={"/auth/signin"}
           >
             {status ? "退出" : "登录"}

@@ -2,10 +2,7 @@
   <div class="p-grid p-fluid dashboard">
     <div class="p-col-12 p-md-6 p-xl-3">
       <div class="highlight-box">
-        <div
-          class="initials"
-          style="background-color: #007be5; color: #00448f"
-        >
+        <div class="initials" style="background-color: #007be5; color: #00448f">
           <span>TV</span>
         </div>
         <div class="highlight-details">
@@ -17,10 +14,7 @@
     </div>
     <div class="p-col-12 p-md-6 p-xl-3">
       <div class="highlight-box">
-        <div
-          class="initials"
-          style="background-color: #ef6262; color: #a83d3b"
-        >
+        <div class="initials" style="background-color: #ef6262; color: #a83d3b">
           <span>TI</span>
         </div>
         <div class="highlight-details">
@@ -32,10 +26,7 @@
     </div>
     <div class="p-col-12 p-md-6 p-xl-3">
       <div class="highlight-box">
-        <div
-          class="initials"
-          style="background-color: #20d077; color: #038d4a"
-        >
+        <div class="initials" style="background-color: #20d077; color: #038d4a">
           <span>OI</span>
         </div>
         <div class="highlight-details">
@@ -47,10 +38,7 @@
     </div>
     <div class="p-col-12 p-md-6 p-xl-3">
       <div class="highlight-box">
-        <div
-          class="initials"
-          style="background-color: #f9c851; color: #b58c2b"
-        >
+        <div class="initials" style="background-color: #f9c851; color: #b58c2b">
           <span>CI</span>
         </div>
         <div class="highlight-details">
@@ -64,12 +52,7 @@
       <Panel header="联系我们">
         <div class="p-grid">
           <div class="p-col-12">
-            <Dropdown
-              v-model="dropdownCity"
-              :options="dropdownCities"
-              optionLabel="name"
-              placeholder="选择城市"
-            />
+            <Dropdown v-model="dropdownCity" :options="dropdownCities" optionLabel="name" placeholder="选择城市" />
           </div>
           <div class="p-col-12">
             <InputText type="text" placeholder="姓名" />
@@ -102,7 +85,7 @@ import InputText from "primevue/inputtext"
 import Button from "primevue/button"
 import Column from "primevue/column"
 import DataTable from "primevue/datatable"
-import Chart from "primevue/chart"
+// import Chart from "primevue/chart"
 import ProgressBar from "primevue/progressbar"
 
 export default {
@@ -115,7 +98,7 @@ export default {
     Button,
     Column,
     DataTable,
-    Chart
+    // Chart
   },
   data() {
     return {
@@ -125,7 +108,9 @@ export default {
         { name: "罗马", code: "RM" },
         { name: "伦敦", code: "LDN" },
         { name: "巴黎", code: "PRS" }
-      ]
+      ],
+      dropdownCity: ''
+
     }
   },
   methods: {
@@ -139,18 +124,20 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 @media screen and (max-width: 960px) {
   ::v-deep(.p-datatable) {
     &.p-datatable-customers {
-      .p-datatable-thead > tr > th,
-      .p-datatable-tfoot > tr > td {
+
+      .p-datatable-thead>tr>th,
+      .p-datatable-tfoot>tr>td {
         display: none !important;
       }
 
-      .p-datatable-tbody > tr {
+      .p-datatable-tbody>tr {
         border-bottom: 1px solid #dee2e6;
-        > td {
+
+        >td {
           text-align: left;
           display: flex;
           align-items: center;
@@ -177,55 +164,56 @@ export default {
     }
   }
 }
-$fontSize: 14px;
-$bodyBgColor: #edf0f5;
-$textColor: #333333;
-$textSecondaryColor: #707070;
-$borderRadius: 3px;
-$dividerColor: #e3e3e3;
-$transitionDuration: 0.2s;
-$maskBgColor: #424242;
-$focusShadowColor: #8dcdff;
+
+@fontSize: 14px;
+@bodyBgColor: #edf0f5;
+@textColor: #333333;
+@textSecondaryColor: #707070;
+@borderRadius: 3px;
+@dividerColor: #e3e3e3;
+@transitionDuration: 0.2s;
+@maskBgColor: #424242;
+@focusShadowColor: #8dcdff;
 
 /* Menu Common */
-$menuitemBadgeBgColor: #007be5;
-$menuitemBadgeColor: #ffffff;
-$submenuFontSize: 13px;
-$menuitemActiveRouteColor: #1fa1fc;
+@menuitemBadgeBgColor: #007be5;
+@menuitemBadgeColor: #ffffff;
+@submenuFontSize: 13px;
+@menuitemActiveRouteColor: #1fa1fc;
 
 /* Menu Light */
-$menuBgColorFirst: #f3f4f9;
-$menuBgColorLast: #d7dbe8;
-$menuitemColor: #232428;
-$menuitemHoverColor: #0388e5;
-$menuitemActiveColor: #0388e5;
-$menuitemActiveBgColor: #ffffff;
-$menuitemBorderColor: rgba(207, 211, 224, 0.6);
+@menuBgColorFirst: #f3f4f9;
+@menuBgColorLast: #d7dbe8;
+@menuitemColor: #232428;
+@menuitemHoverColor: #0388e5;
+@menuitemActiveColor: #0388e5;
+@menuitemActiveBgColor: #ffffff;
+@menuitemBorderColor: rgba(207, 211, 224, 0.6);
 
 /* Menu Dark */
-$menuDarkBgColorFirst: #4d505b;
-$menuDarkBgColorLast: #3b3e47;
-$menuitemDarkColor: #ffffff;
-$menuitemDarkHoverColor: #0388e5;
-$menuitemDarkActiveColor: #0388e5;
-$menuitemDarkActiveBgColor: #2e3035;
-$menuitemDarkBorderColor: rgba(52, 56, 65, 0.6);
+@menuDarkBgColorFirst: #4d505b;
+@menuDarkBgColorLast: #3b3e47;
+@menuitemDarkColor: #ffffff;
+@menuitemDarkHoverColor: #0388e5;
+@menuitemDarkActiveColor: #0388e5;
+@menuitemDarkActiveBgColor: #2e3035;
+@menuitemDarkBorderColor: rgba(52, 56, 65, 0.6);
 
 /* Topbar */
-$topbarLeftBgColor: #0388e5;
-$topbarRightBgColor: #07bdf4;
-$topbarItemBadgeBgColor: #ef6262;
-$topbarItemBadgeColor: #ffffff;
-$topbarItemColor: #ffffff;
-$topbarItemHoverColor: #c3e8fb;
-$topbarSearchInputBorderBottomColor: #ffffff;
-$topbarSearchInputColor: #ffffff;
+@topbarLeftBgColor: #0388e5;
+@topbarRightBgColor: #07bdf4;
+@topbarItemBadgeBgColor: #ef6262;
+@topbarItemBadgeColor: #ffffff;
+@topbarItemColor: #ffffff;
+@topbarItemHoverColor: #c3e8fb;
+@topbarSearchInputBorderBottomColor: #ffffff;
+@topbarSearchInputColor: #ffffff;
 
 .card {
   background-color: #ffffff;
   padding: 1em;
   margin-bottom: 16px;
-  border-radius: $borderRadius;
+  border-radius: @borderRadius;
 
   &.card-w-title {
     padding-bottom: 2em;
@@ -272,53 +260,61 @@ h5 {
 h6 {
   font-size: 1rem;
 }
-@mixin icon-override($icon) {
+
+.icon-override(@icon) {
   &:before {
-    content: $icon;
+    content: @icon;
   }
 }
 
-@mixin linear-gradient($top, $bottom) {
-  background: $top; /* Old browsers */
-  background: linear-gradient(to bottom, $top 0%, $bottom 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+.linear-gradient(@top, @bottom) {
+  background: @top;
+  /* Old browsers */
+  background: linear-gradient(to bottom, @top 0%, @bottom 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=0);
+  /* IE6-9 */
 }
 
-@mixin linear-gradient-left($left, $right) {
-  background: $left; /* Old browsers */
-  background: linear-gradient(to right, $left 0%, $right 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$left, endColorstr=$right,GradientType=1 ); /* IE6-9 */
+.linear-gradient-left(@left, @right) {
+  background: @left;
+  /* Old browsers */
+  background: linear-gradient(to right, @left 0%, @right 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@left, endColorstr=@right, GradientType=1);
+  /* IE6-9 */
 }
 
-@mixin opacity($opacity) {
-  opacity: $opacity;
-  $opacity-ie: $opacity * 100;
-  filter: alpha(opacity=$opacity-ie);
+.opacity(@opacity) {
+  opacity: @opacity;
+  @opacity-ie: @opacity * 100;
+  filter: alpha(opacity=@opacity-ie);
 }
 
-@mixin focused() {
+.focused() {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em $focusShadowColor;
+  box-shadow: 0 0 0 0.2em @focusShadowColor;
 }
 
-@mixin focused-inset() {
+.focused-inset() {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: inset 0 0 0 0.2em $focusShadowColor;
+  box-shadow: inset 0 0 0 0.2em @focusShadowColor;
 }
 
-@mixin clearfix {
+.clearfix() {
   &:after {
     content: "";
     display: table;
     clear: both;
   }
 }
+
 mark {
   background: #fff8e1;
   padding: 0.25rem 0.4rem;
-  border-radius: $borderRadius;
+  border-radius: @borderRadius;
   font-family: monospace;
 }
 
@@ -329,7 +325,7 @@ blockquote {
 }
 
 hr {
-  border-top: solid $dividerColor;
+  border-top: solid @dividerColor;
   border-width: 1px 0 0 0;
   margin: 1rem 0;
 }
@@ -350,19 +346,22 @@ p {
     background: transparent;
     overflow: visible;
 
-    > code {
+    >code {
       border-left: 0 none;
       box-shadow: none !important;
       font-size: 14px;
     }
   }
 }
+
 /* Footer */
-$footerBgColor: #ffffff;
+@footerBgColor: #ffffff;
+
 .dashboard {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   background-color: #edf0f5;
+
   .summary {
     position: relative;
 
@@ -371,7 +370,7 @@ $footerBgColor: #ffffff;
     }
 
     .detail {
-      color: $textSecondaryColor;
+      color: @textSecondaryColor;
       display: block;
       margin-top: 10px;
     }
@@ -383,7 +382,7 @@ $footerBgColor: #ffffff;
       right: 10px;
       font-size: 24px;
       padding: 7px 14px;
-      border-radius: $borderRadius;
+      border-radius: @borderRadius;
 
       &.visitors {
         background-color: #20d077;
@@ -402,7 +401,7 @@ $footerBgColor: #ffffff;
   .highlight-box {
     height: 100px;
     display: flex;
-    @include clearfix();
+    .clearfix();
 
     .initials {
       height: 100%;
@@ -410,7 +409,7 @@ $footerBgColor: #ffffff;
       text-align: center;
       padding: 1em;
 
-      > span {
+      >span {
         font-size: 48px;
       }
     }
@@ -428,7 +427,7 @@ $footerBgColor: #ffffff;
       }
 
       .count {
-        color: $textSecondaryColor;
+        color: @textSecondaryColor;
         font-size: 36px;
         margin-top: 4px;
         display: block;
@@ -443,8 +442,8 @@ $footerBgColor: #ffffff;
 
     li {
       padding: 0.5em 0.25em;
-      border-bottom: 1px solid $dividerColor;
-      @include clearfix();
+      border-bottom: 1px solid @dividerColor;
+      .clearfix();
     }
 
     .p-checkbox {
@@ -459,7 +458,7 @@ $footerBgColor: #ffffff;
     i {
       float: right;
       font-size: 24px;
-      color: $textSecondaryColor;
+      color: @textSecondaryColor;
     }
 
     .p-panel-content {
@@ -480,7 +479,7 @@ $footerBgColor: #ffffff;
       margin: 0;
 
       li {
-        border-bottom: 1px solid $dividerColor;
+        border-bottom: 1px solid @dividerColor;
 
         button {
           padding: 9px;
@@ -504,7 +503,7 @@ $footerBgColor: #ffffff;
             right: 10px;
             top: 30px;
             font-size: 14px;
-            color: $textSecondaryColor;
+            color: @textSecondaryColor;
           }
 
           &:hover {
@@ -530,7 +529,7 @@ $footerBgColor: #ffffff;
     margin: 0;
 
     li {
-      border-bottom: 1px solid $dividerColor;
+      border-bottom: 1px solid @dividerColor;
       padding: 16px 8px;
 
       .count {
@@ -540,7 +539,7 @@ $footerBgColor: #ffffff;
         font-weight: 700;
         padding: 0.25em 0.5em;
         display: inline-block;
-        border-radius: $borderRadius;
+        border-radius: @borderRadius;
       }
     }
   }
