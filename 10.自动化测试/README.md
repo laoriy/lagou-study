@@ -52,3 +52,12 @@ BDD：首先定义行为（使用自然语言），然后编写使之通过的�
 
 TDD：通常侧重于单元测试。
 BDD：涵盖了从单元测试到验收测试的整个范围。
+
+## Jest 测试框架
+
+- 断言函数：expect(value).toBe(value)
+- 测试函数：test(name, fn)
+
+```shell
+    npx jest --init
+```
