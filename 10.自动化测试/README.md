@@ -55,9 +55,15 @@ BDD：涵盖了从单元测试到验收测试的整个范围。
 
 ## Jest 测试框架
 
-- 断言函数：expect(value).toBe(value)
-- 测试函数：test(name, fn)
-
 ```shell
     npx jest --init
 ```
+
+- 断言函数：expect(value).toBe(value), expect 匹配器 toBe、toEqual 等。
+- 测试函数：test(name, fn)，别名 it
+- describe 函数：describe 创建一个测试块，可以包含多个测试用例。
+- 生命周期函数：beforeEach、afterEach、beforeAll、afterAll
+
+- 异步测试：
+- Mock 定时器：jest.useFakeTimers()、jest.runAllTimers()、jest.runOnlyPendingTimers()、jest.advanceTimersByTime(1000);
+- Mock 函数：jest.fn() 创建一个模拟函数，可以模拟函数的返回值、调用次数、参数等。
