@@ -66,4 +66,8 @@ BDD：涵盖了从单元测试到验收测试的整个范围。
 
 - 异步测试：
 - Mock 定时器：jest.useFakeTimers()、jest.runAllTimers()、jest.runOnlyPendingTimers()、jest.advanceTimersByTime(1000);
-- Mock 函数：jest.fn() 创建一个模拟函数，可以模拟函数的返回值、调用次数、参数等。
+- Mock 函数：jest.fn() 创建一个模拟函数，可以模拟函数的返回值、调用次数、参数等、模拟模块、模拟 部分模块
+
+- DOM 测试 ：依赖于 jsdom，需要安装依赖包：jest-environment-jsdom
+- 测试 Vue 组件
+- 快照测试 ：jest.snapshot.matchSnapshot()
