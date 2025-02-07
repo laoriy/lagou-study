@@ -8,7 +8,8 @@
       <ul class="todo-list">
         <!-- These are here just to show the structure of the list items -->
         <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-        <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
+        <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" @delete-todo="handleDelteTodo"
+          @edit-todo="handleEditTodo" />
       </ul>
     </section>
   </section>
@@ -26,6 +27,25 @@ function handleNewTodo(text: string) {
     text,
     done: false
   })
+}
+
+function handleDelteTodo(todoId: number) {
+  const index = todos.value.findIndex(t => t.id === todoId)
+  if (index !== -1) {
+    todos.value.splice(index, 1)
+  }
+}
+function handleEditTodo({ id, text }: { id: number, text: string }) {
+  const todo = todos.value.find(t => t.id === id)
+  if (!todo) {
+    return
+  }
+  if (!text.trim().length) {
+    // 执行删除操作
+    return handleDelteTodo(id)
+  }
+  // 执行修改操作
+  todo.text = text
 }
 
 </script>

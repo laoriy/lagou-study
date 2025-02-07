@@ -1,11 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import TodoApp from '@/components/TodoApp/index.vue'
 import TodoItem from '@/components/TodoApp/TodoItem.vue'
-import Vue from 'vue'
 import { beforeEach, describe, expect, test } from 'vitest'
 
 describe('TodoApp.vue', () => {
-  let wrapper = null
+  let wrapper: VueWrapper = null
 
   beforeEach(async () => {
     const $route = {
@@ -36,27 +35,27 @@ describe('TodoApp.vue', () => {
     expect(wrapper.findAllComponents(TodoItem).length).toBe(wrapper.vm.todos.length)
   })
 
-  // test('Delete Todo', async () => {
-  //   await wrapper.vm.handleDelteTodo(1)
-  //   expect(wrapper.vm.todos.length).toBe(2)
-  //   expect(wrapper.findAllComponents(TodoItem).length).toBe(2)
-  // })
+  test('Delete Todo', async () => {
+    await wrapper.vm.handleDelteTodo(1)
+    expect(wrapper.vm.todos.length).toBe(2)
+    expect(wrapper.findAllComponents(TodoItem).length).toBe(2)
+  })
 
-  // test('Delete Todo', async () => {
-  //   await wrapper.vm.handleDelteTodo(123)
-  //   expect(wrapper.vm.todos.length).toBe(3)
-  //   expect(wrapper.findAllComponents(TodoItem).length).toBe(3)
-  // })
+  test('Delete Todo', async () => {
+    await wrapper.vm.handleDelteTodo(123)
+    expect(wrapper.vm.todos.length).toBe(3)
+    expect(wrapper.findAllComponents(TodoItem).length).toBe(3)
+  })
 
-  // test('Edit Todo', async () => {
-  //   const todo = { id: 2, text: 'abc' }
-  //   await wrapper.vm.handleEditTodo(todo)
-  //   expect(wrapper.vm.todos[1].text).toBe(todo.text)
+  test('Edit Todo', async () => {
+    const todo = { id: 2, text: 'abc' }
+    await wrapper.vm.handleEditTodo(todo)
+    expect(wrapper.vm.todos[1].text).toBe(todo.text)
 
-  //   todo.text = ''
-  //   await wrapper.vm.handleEditTodo(todo)
-  //   expect(wrapper.vm.todos.find(t => t.id === todo.id)).toBeFalsy()
-  // })
+    todo.text = ''
+    await wrapper.vm.handleEditTodo(todo)
+    expect(wrapper.vm.todos.find((t) => t.id === todo.id)).toBeFalsy()
+  })
 
   // test('Toggle All', async () => {
   //   const toggleAll = wrapper.find('input[data-testid="toggle-all"]')
