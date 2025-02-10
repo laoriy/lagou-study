@@ -2,6 +2,7 @@ import { mount, VueWrapper } from '@vue/test-utils'
 import TodoApp from '@/components/TodoApp/index.vue'
 import TodoItem from '@/components/TodoApp/TodoItem.vue'
 import { beforeEach, describe, expect, test } from 'vitest'
+import { nextTick } from 'vue'
 
 describe('TodoApp.vue', () => {
   let wrapper: VueWrapper = null
@@ -57,36 +58,36 @@ describe('TodoApp.vue', () => {
     expect(wrapper.vm.todos.find((t) => t.id === todo.id)).toBeFalsy()
   })
 
-  // test('Toggle All', async () => {
-  //   const toggleAll = wrapper.find('input[data-testid="toggle-all"]')
-  //   await toggleAll.setChecked()
-  //   // 断言所有的子任务都被选中了
-  //   wrapper.vm.todos.forEach(todo => {
-  //     expect(todo.done).toBeTruthy()
-  //   })
+  test('Toggle All', async () => {
+    const toggleAll = wrapper.find('input[data-testid="toggle-all"]')
+    await toggleAll.setChecked()
+    // 断言所有的子任务都被选中了
+    wrapper.vm.todos.forEach(todo => {
+      expect(todo.done).toBeTruthy()
+    })
 
-  //   // 取消完成状态
-  //   await toggleAll.setChecked(false)
-  //   wrapper.vm.todos.forEach(todo => {
-  //     expect(todo.done).toBeFalsy()
-  //   })
-  // })
+    // 取消完成状态
+    await toggleAll.setChecked(false)
+    wrapper.vm.todos.forEach(todo => {
+      expect(todo.done).toBeFalsy()
+    })
+  })
 
-  // test('Toggle All State', async () => {
-  //   const toggleAll = wrapper.find('input[data-testid="toggle-all"]')
-  //   // 让所有任务都变成完成状态
-  //   wrapper.vm.todos.forEach(todo => {
-  //     todo.done = true
-  //   })
-  //   await Vue.nextTick()
-  //   // 断言 toggleAll 也选中了
-  //   expect(toggleAll.element.checked).toBeTruthy()
+  test('Toggle All State', async () => {
+    const toggleAll = wrapper.find('input[data-testid="toggle-all"]')
+    // 让所有任务都变成完成状态
+    wrapper.vm.todos.forEach(todo => {
+      todo.done = true
+    })
+    await nextTick()
+    // 断言 toggleAll 也选中了
+    expect(toggleAll.element.checked).toBeTruthy()
 
-  //   // 取消某个任务未完成，断言 toggleAll 未完成
-  //   wrapper.vm.todos[0].done = false
-  //   await Vue.nextTick()
-  //   expect(toggleAll.element.checked).toBeFalsy()
-  // })
+    // 取消某个任务未完成，断言 toggleAll 未完成
+    wrapper.vm.todos[0].done = false
+    await nextTick()
+    expect(toggleAll.element.checked).toBeFalsy()
+  })
 
   // test('Clear All Completed', async () => {
   //   wrapper.vm.handleClearCompleted()

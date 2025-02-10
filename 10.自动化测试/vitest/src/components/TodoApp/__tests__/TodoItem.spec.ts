@@ -76,21 +76,21 @@ describe('TodoItem.vue', () => {
     expect(wrapper.vm.isEditing).toBeFalsy()
   })
 
-  // test('cancel edit todo', async () => {
-  //   const label = wrapper.find('label[data-testid="todo-text"]')
-  //   const todoEdit = wrapper.find('input[data-testid="todo-edit"]')
+  test('cancel edit todo', async () => {
+    const label = wrapper.find('label[data-testid="todo-text"]')
+    const todoEdit = wrapper.find('input[data-testid="todo-edit"]')
 
-  //   await label.trigger('dblclick')
-  //   const text = wrapper.vm.todo.text
-  //   await todoEdit.setValue('bbb')
-  //   // 触发取消的事件
-  //   await todoEdit.trigger('keyup.esc')
+    await label.trigger('dblclick')
+    const text = wrapper.vm.todo.text
+    await todoEdit.setValue('bbb')
+    // 触发取消的事件
+    await todoEdit.trigger('keyup.esc')
 
-  //   // 验证字段没有被修改
-  //   expect(wrapper.vm.todo.text).toBe(text)
-  //   // 验证编辑状态被取消
-  //   expect(wrapper.vm.isEditing).toBeFalsy()
-  // })
+    // 验证字段没有被修改
+    expect(wrapper.vm.todo.text).toBe(text)
+    // 验证编辑状态被取消
+    expect(wrapper.vm.isEditing).toBeFalsy()
+  })
 
   // test('snapshot', () => {
   //   expect(wrapper.html()).toMatchSnapshot()

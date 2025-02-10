@@ -1,10 +1,8 @@
 <template>
   <footer class="footer">
     <!-- This should be `0 items left` by default -->
-    <span class="todo-count"
-      ><strong data-testid="done-todos-count">{{ doneTodosCount }}</strong> item
-      left</span
-    >
+    <span class="todo-count"><strong data-testid="done-todos-count">{{ doneTodosCount }}</strong> item
+      left</span>
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">
       <li>
@@ -21,31 +19,25 @@
       </li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
-    <button
-      v-if="isClearCompletedShow"
-      class="clear-completed"
-      data-testid="clear-completed"
-      @click="$emit('clear-completed')"
-    >Clear completed</button>
+    <button v-if="isClearCompletedShow" class="clear-completed" data-testid="clear-completed"
+      @click="$emit('clear-completed')">Clear completed</button>
   </footer>
 </template>
 
-<script>
-export default {
-  name: 'TodoFooter',
-  props: {
-    todos: {
-      type: Array,
-      required: true
-    }
-  },
-  computed: {
-    doneTodosCount () {
-      return this.todos.filter(t => !t.done).length
-    },
-    isClearCompletedShow () {
-      return this.todos.find(t => t.done)
-    }
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const { todos } = defineProps({
+  todos: {
+    type: Array,
+    required: true
   }
-}
+})
+const doneTodosCount = computed(() => {
+  return todos.filter(t => !t.done).length
+})
+const isClearCompletedShow = computed(() => {
+  return todos.find(t => t.done)
+})
+defineEmits(['clear-completed'])
 </script>

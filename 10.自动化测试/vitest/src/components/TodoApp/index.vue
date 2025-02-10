@@ -3,7 +3,7 @@
     <TodoHeader @new-todo="handleNewTodo" />
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
-      <input id="toggle-all" class="toggle-all" type="checkbox">
+      <input v-model="toggleAll" data-testid="toggle-all" id="toggle-all" class="toggle-all" type="checkbox" />
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         <!-- These are here just to show the structure of the list items -->
@@ -12,14 +12,28 @@
           @edit-todo="handleEditTodo" />
       </ul>
     </section>
+    <!-- This footer should be hidden by default and shown when there are todos -->
+    <TodoFooter :todos="todos" @clear-completed="handleClearCompleted" />
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import TodoHeader from './TodoHeader.vue';
 import TodoItem from './TodoItem.vue';
+import TodoFooter from './TodoFooter.vue';
 const todos = ref<{ id: number, text: string, done: boolean }[]>([{ id: 1, text: 'foo', done: false }])
+
+const toggleAll = computed({
+  get() {
+    return todos.value.length && todos.value.every(todo => todo.done)
+  },
+  set(value) {
+    todos.value.forEach(todo => {
+      todo.done = value
+    })
+  }
+})
 function handleNewTodo(text: string) {
   const lastTodo = todos.value[todos.value.length - 1]
   todos.value.push({
