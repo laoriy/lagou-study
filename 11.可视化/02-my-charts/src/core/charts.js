@@ -1,6 +1,31 @@
 import utils from "../utils";
+import myAnimation from "../utils/myAnimation";
+import Cirque from "./cirque";
 
 const dpr = window.devicePixelRatio || 1;
+
+function doDrawCircle(chart) {
+  const { opts, defaultOptions } = chart.getOptions();
+  let circleConfig = {
+    x: opts.width / 2,
+    y: opts.height / 2,
+    radius: 200,
+    startAngle: 0,
+    endAngle: 2 * Math.PI,
+    arcWidth: 18,
+    target: 50,
+  };
+  circleConfig = utils.extendsObj(defaultOptions, circleConfig);
+  console.log("绘制圆环");
+  myAnimation.call(chart, {
+    percent: circleConfig.target,
+    render: (percent) => {
+      chart.clearCanvas();
+      Cirque.call(chart, percent / 100);
+    },
+  });
+}
+
 class MyCharts {
   #ops;
   #canvasParentDom;
@@ -53,10 +78,21 @@ class MyCharts {
     this.init();
   }
 
+  getOptions() {
+    return {
+      opts: this.#ops,
+      defaultOptions: this.#defaultOptions,
+    };
+  }
+
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+  }
+
   init() {
     switch (this.#ops.type) {
       case "cirque":
-        console.log("绘制圆环");
+        doDrawCircle(this);
         break;
       default:
         console.log("无此功能的绘制");
