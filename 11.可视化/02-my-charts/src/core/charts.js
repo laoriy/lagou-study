@@ -1,36 +1,14 @@
 import utils from "../utils";
-import myAnimation from "../utils/myAnimation";
-import Cirque from "./cirque";
+import { doDrawCircle } from "./cirque";
 
 const dpr = window.devicePixelRatio || 1;
-
-function doDrawCircle(chart) {
-  const { opts, defaultOptions } = chart.getOptions();
-  let circleConfig = {
-    x: opts.width / 2,
-    y: opts.height / 2,
-    radius: 200,
-    startAngle: 0,
-    endAngle: 2 * Math.PI,
-    arcWidth: 18,
-    target: 50,
-  };
-  circleConfig = utils.extendsObj(defaultOptions, circleConfig);
-  console.log("绘制圆环");
-  myAnimation.call(chart, {
-    percent: circleConfig.target,
-    render: (percent) => {
-      chart.clearCanvas();
-      Cirque.call(chart, percent / 100);
-    },
-  });
-}
 
 class MyCharts {
   #ops;
   #canvasParentDom;
   #canvas;
   #defaultOptions;
+  #ctx;
   constructor(selector, opts) {
     this.#ops = opts;
     this.#canvasParentDom = document.querySelector(selector);
@@ -64,7 +42,7 @@ class MyCharts {
     };
 
     // 上下文绘制环境
-    this.ctx = this.#canvas.getContext("2d");
+    this.#ctx = this.#canvas.getContext("2d");
 
     // 缩放画布大小
     this.#canvas.width = this.containerWidth * dpr;
@@ -82,11 +60,12 @@ class MyCharts {
     return {
       opts: this.#ops,
       defaultOptions: this.#defaultOptions,
+      ctx: this.#ctx,
     };
   }
 
   clearCanvas() {
-    this.ctx.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+    this.#ctx.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
   }
 
   init() {
