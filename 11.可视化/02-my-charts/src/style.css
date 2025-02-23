@@ -21,7 +21,7 @@ canvas{width: 100%;height: 100%;}
   text-align:center;
   background: #fff;
   border-radius:0.1rem;
-  margin: 0.1rem auto 0rem;
+  margin: 0  auto 0.1rem;
   border:1px solid transparent;
   box-shadow: 0 0 14px rgba(151,187,233,0.85);
 }

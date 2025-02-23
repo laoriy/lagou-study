@@ -2,7 +2,7 @@ import utils from "../utils";
 import myAnimation from "../utils/myAnimation";
 
 let Cirque = function ({ percent, circleConfig }) {
-  const { opts, ctx } = this.getOptions();
+  const { ctx } = this.getOptions();
 
   // 绘制打底圆环
   ctx.beginPath();
@@ -79,7 +79,6 @@ let Cirque = function ({ percent, circleConfig }) {
   ctx.fill();
   ctx.stroke();
   ctx.closePath();
-  console.log(opts, percent);
 };
 
 function doDrawCircle(chart) {
@@ -94,7 +93,6 @@ function doDrawCircle(chart) {
     target: 90,
   };
   circleConfig = utils.extendsObj(defaultOptions, circleConfig);
-  console.log("绘制圆环");
   myAnimation.call(chart, {
     percent: circleConfig.target,
     render: (percent) => {

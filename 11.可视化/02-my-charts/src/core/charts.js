@@ -1,7 +1,8 @@
 import utils from "../utils";
+import { doDrawAxis } from "./axis";
 import { doDrawCircle } from "./cirque";
 
-const dpr = window.devicePixelRatio || 1;
+const dpr = 1.5;
 
 class MyCharts {
   #ops;
@@ -53,6 +54,8 @@ class MyCharts {
     // 扩展或者覆盖配置
     this.#ops = utils.extendsObj(this.#defaultOptions, this.#ops);
 
+    // 设置合适的画布宽度
+    this.#defaultOptions.fitWidth = this.#canvas.width - 20;
     this.init();
   }
 
@@ -72,6 +75,16 @@ class MyCharts {
     switch (this.#ops.type) {
       case "cirque":
         doDrawCircle(this);
+        break;
+      case "line":
+        doDrawAxis(this);
+        console.log("绘制折线图");
+        break;
+      case "bar":
+        console.log("绘制柱状图");
+        break;
+      case "pie":
+        console.log("绘制饼图");
         break;
       default:
         console.log("无此功能的绘制");
