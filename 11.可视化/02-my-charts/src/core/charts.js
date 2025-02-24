@@ -1,6 +1,6 @@
 import utils from "../utils";
-import { doDrawAxis } from "./axis";
-import { doDrawCircle } from "./cirque";
+import { doDrawCircle } from "./circle";
+import { doDrawLine } from "./line";
 
 const dpr = 1.5;
 
@@ -56,6 +56,11 @@ class MyCharts {
 
     // 设置合适的画布宽度
     this.#defaultOptions.fitWidth = this.#canvas.width - 20;
+
+    // 设置缩放比
+    this.#defaultOptions.maxPoint =
+      utils.maxData(this.#defaultOptions.data) / 0.8;
+
     this.init();
   }
 
@@ -77,7 +82,7 @@ class MyCharts {
         doDrawCircle(this);
         break;
       case "line":
-        doDrawAxis(this);
+        doDrawLine(this);
         console.log("绘制折线图");
         break;
       case "bar":

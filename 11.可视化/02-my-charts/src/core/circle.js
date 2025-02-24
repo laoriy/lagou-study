@@ -1,7 +1,7 @@
 import utils from "../utils";
 import myAnimation from "../utils/myAnimation";
 
-let Cirque = function ({ percent, circleConfig }) {
+let Circle = function ({ percent, circleConfig }) {
   const { ctx } = this.getOptions();
 
   // 绘制打底圆环
@@ -98,9 +98,9 @@ function doDrawCircle(chart) {
     render: (percent) => {
       chart.clearCanvas();
 
-      Cirque.call(chart, { circleConfig, percent: percent / 100 });
+      Circle.call(chart, { circleConfig, percent: percent / 100 });
     },
   });
 }
 
-export { Cirque, doDrawCircle };
+export { Circle, doDrawCircle };

@@ -1,7 +1,5 @@
-import myAnimation from "../utils/myAnimation";
-
-function _doDrawAxis(chart) {
-  const { ctx, defaultOptions } = chart.getOptions();
+function doDrawAxis() {
+  const { ctx, defaultOptions } = this.getOptions();
   const pad = defaultOptions.padding;
   const bottomPad = 30;
   const wd = defaultOptions.width;
@@ -34,17 +32,6 @@ function _doDrawAxis(chart) {
   }
 
   ctx.restore();
-}
-function doDrawAxis(chart) {
-  myAnimation.call(chart, {
-    percent: 200,
-    render: (percent) => {
-      console.log("绘制圆环", percent);
-      chart.clearCanvas();
-
-      _doDrawAxis(chart);
-    },
-  });
 }
 
 export { doDrawAxis };
