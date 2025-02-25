@@ -39,3 +39,29 @@ new MyCharts("#box2", {
     },
   ],
 });
+
+new MyCharts('#box3', {
+  type: 'bar',
+  data: [{
+    xVal: 'vue',
+    yVal: 80
+  }, {
+    xVal: 'react',
+    yVal: 70
+  }, {
+    xVal: 'angular',
+    yVal: 40
+  }, {
+    xVal: 'webpack',
+    yVal: 90
+  }, {
+    xVal: '2222',
+    yVal: 80
+  }, {
+    xVal: 'typescript',
+    yVal: 40
+  }, {
+    xVal: 'ES6+',
+    yVal: 100
+  }]
+})

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <svg width="1000" height="1000">
+      <!-- 绘制矩形 -->
+      <rect
+        x="100"
+        y="100"
+        width="300"
+        height="150"
+        style="fill: red; stroke-width: 2; stroke: aqua"
+      ></rect>
+      <!-- 绘制圆角矩形 -->
+      <rect
+        x="600"
+        y="100"
+        width="300"
+        height="150"
+        rx="20"
+        ry="20"
+        style="fill: red; stroke-width: 2; stroke: aqua"
+      ></rect>
+
+      <!-- 绘制圆形 -->
+      <circle cx="400" cy="400" r="100" style="fill: red"></circle>
+
+      <!-- 绘制椭圆形 -->
+      <ellipse cx="800" cy="400" rx="100" ry="50" style="fill: green"></ellipse>
+
+      <!-- 绘制线段 -->
+      <line
+        x1="100"
+        y1="600"
+        x2="900"
+        y2="500"
+        style="stroke: pink; stroke-width: 3"
+      ></line>
+
+      <!-- 绘制多边形 -->
+      <polygon
+        points="100,700 200,800 300,700 "
+        style="fill: red; stroke-width: 3; stroke: aqua"
+      ></polygon>
+
+      <!-- 绘制多边形不闭合 -->
+      <polyline
+        points="100,800 200,900 300,800 "
+        style="fill: none; stroke-width: 3; stroke: aqua"
+      ></polyline>
+
+      <!-- 绘制文字 -->
+      <text
+        x="500"
+        y="800"
+        width="50"
+        style="fill: red; font-size: 20"
+      >
+        This is a long text that will wrap to the next line.
+      </text>
+    </svg>
+  </body>
+</html>

@@ -23,7 +23,6 @@ function drawLinePoint(speed) {
     ctx.shadowColor = defaultOptions.styles.pointColor;
     ctx.fillStyle = defaultOptions.styles.pointColor;
     ctx.strokeStyle = "#fff";
-    console.log("绘制圆点", tranX, tranY);
     ctx.arc(tranX, tranY, 6, 0, 2 * Math.PI, false);
     ctx.fill();
     ctx.stroke();
@@ -81,15 +80,45 @@ function drawLine(speed) {
   ctx.restore();
 }
 
+function drawDashLine(speed) {
+  const { ctx, defaultOptions } = this.getOptions();
+
+  const bottomPad = 30;
+  const data = defaultOptions.data;
+  const height = defaultOptions.height;
+  const maxPoint = defaultOptions.maxPoint;
+  const len = data.length;
+
+  ctx.save();
+  for (let i = 0; i < len; i++) {
+    // 起始点
+    const averageNum = defaultOptions.fitWidth / data.length - 1;
+    let axisX = i * averageNum + defaultOptions.x;
+    let axisY =
+      height - ((height * data[i].yVal) / maxPoint) * speed - bottomPad;
+
+    // 开始绘制
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = "#d6d6d6";
+    ctx.moveTo(axisX, height - bottomPad);
+    ctx.lineTo(axisX, axisY);
+    ctx.stroke();
+    ctx.closePath();
+  }
+  ctx.restore();
+}
+
 export function doDrawLine(chart) {
   myAnimation.call(chart, {
     percent: 200,
     render: (percent) => {
-      console.log("绘制圆环", percent);
       chart.clearCanvas();
 
       doDrawAxis.call(chart);
       drawLinePoint.call(chart, percent / 200);
+      drawDashLine.call(chart, percent / 200);
       drawLine.call(chart, percent / 200);
     },
   });

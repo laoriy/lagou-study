@@ -1,4 +1,5 @@
 import utils from "../utils";
+import { doDrawBar } from "./bar";
 import { doDrawCircle } from "./circle";
 import { doDrawLine } from "./line";
 
@@ -69,6 +70,7 @@ class MyCharts {
       opts: this.#ops,
       defaultOptions: this.#defaultOptions,
       ctx: this.#ctx,
+      canvas: this.#canvas,
     };
   }
 
@@ -83,9 +85,9 @@ class MyCharts {
         break;
       case "line":
         doDrawLine(this);
-        console.log("绘制折线图");
         break;
       case "bar":
+        doDrawBar(this);
         console.log("绘制柱状图");
         break;
       case "pie":
