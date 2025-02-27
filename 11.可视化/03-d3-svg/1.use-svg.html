@@ -57,10 +57,20 @@
       <text
         x="500"
         y="800"
-        width="50"
-        style="fill: red; font-size: 20"
+        lengthAdjust="spacing"
+        style="
+          fill: red;
+          font-size: 20;
+          white-space: pre-wrap;
+          text-anchor: middle;
+        "
       >
-        This is a long text that will wrap to the next line.
+        <tspan x="500">
+          This is a long text that will wrap to the next line.
+        </tspan>
+        <tspan x="500" dy="50">
+          This is a long text that will wrap to the next line.
+        </tspan>
       </text>
     </svg>
   </body>
