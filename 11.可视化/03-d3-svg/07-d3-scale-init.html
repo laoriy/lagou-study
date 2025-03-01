@@ -18,12 +18,18 @@
   <body>
     <div id="svg"></div>
     <script>
+      /**
+       * 比例尺，将某一范围内的值映射到另一范围的值，保持线性关系
+       * @param {*} domain 源数据范围
+       * @param {*} range 目标数据范围
+       */
+
       // 定义数据
       const width = 700;
       const height = 400;
       const rectStep = 40;
       const rectWidth = 30;
-      const data = [10, 50, 180, 122, 90, 230, 250, 300];
+      const data = [10, 50, 180, 122, 90, 230, 250, 400];
 
       // 定义填充
       const margin = { left: 20, right: 20, top: 20, bottom: 20 };
@@ -34,13 +40,15 @@
         .domain([0, d3.max(data)])
         .range([0, 300]);
 
+      console.log(linear(200));
+
       // 创建 svg
       d3.select("#svg")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
-      // 绘制矩形
+      // // 绘制矩形
       d3.select("svg")
         .selectAll("rect")
         .data(data)
@@ -52,7 +60,7 @@
         .attr("height", (d) => linear(d))
         .attr("fill", "lightblue");
 
-      // 绘制文字
+      // // 绘制文字
       d3.select("svg")
         .selectAll("text")
         .data(data)
@@ -61,7 +69,7 @@
         .attr("fill", "#666")
         .attr("font-size", "20")
         .attr("x", (d, i) => margin.left + i * rectStep)
-        .attr("y", (d) => height - d - margin.bottom - 5)
+        .attr("y", (d) => height - linear(d) - margin.bottom - 5)
         .attr("text-anchor", "middle")
         .attr("transform", `translate(${rectWidth / 2})`)
         .text((d) => d);
