@@ -34,7 +34,7 @@
         .attr("width", width)
         .attr("height", height);
 
-      // 绘制矩形
+      // // 绘制矩形
       d3.select("svg")
         .selectAll("rect")
         .data(data)
@@ -46,7 +46,7 @@
         .attr("height", (d) => d)
         .attr("fill", "lightblue");
 
-      // 绘制文字
+      // // 绘制文字
       d3.select("svg")
         .selectAll("text")
         .data(data)

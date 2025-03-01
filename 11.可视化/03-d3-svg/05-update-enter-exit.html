@@ -12,14 +12,16 @@
     <p></p>
     <p></p>
     <p></p>
+   
     <script>
       // 数据
-      const data = [1, 2, 3, 4, 5]
-      const allAp = d3.selectAll('body p')
-      const update = allAp.data(data)
-      update.text(d => "更新" + d)
-      const enter = update.enter()
-      enter.append('p').text(d => '新增' + d)
+      // const data = [1, 2, 3, 4, 5]
+      // const allAp = d3.selectAll('body p')
+      // const update = allAp.data(data)
+      // update.text(d => "更新" + d) // 更新
+      // const enter = update.enter()
+      // enter.append('p').text(d => '新增' + d) // 新增
+
 
       // const allAp = d3.selectAll('body p')
       // const update = allAp.data(data)
@@ -27,6 +29,7 @@
 
       // const exit = update.exit()
       // exit.text(d => "将要删除" + d)
+      // exit.remove()
 
       // 03 enter
       // d3.select('body').selectAll('p')
@@ -38,12 +41,12 @@
       // 04 data datum
       // const data = [1, 2, 3, 4, 5]
       // const data = '拉勾教育'
-      // const data = { name: "lg", age: 100 };
+      const data = { name: "lg", age: 100 };
 
-      // d3.selectAll("body p")
-      //   // .data(data)
-      //   .datum(data)
-      //   .text((d) => d.name);
+      d3.selectAll("body p")
+        // .data(data)
+        .datum(data)
+        .text((d) => d.name);
     </script>
   </body>
 </html>
