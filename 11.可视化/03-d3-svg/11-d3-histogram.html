@@ -21,24 +21,30 @@
         .attr("width", width)
         .attr("height", height);
 
-      // 2 填充
-      const margin = { left: 30, right: 30, top: 20, bottom: 30 };
+      // 2 边距
+      const margin = { left: 20, right: 20, top: 20, bottom: 20 };
 
       // 3 准备源数据
-      const data = [10, 20, 30, 40, 36, 25, 18, 5];
-
+      const data = {
+        ES6: 10,
+        NodeJS: 20,
+        Vue: 30,
+        React: 40,
+        Angular: 36,
+        TypeScript: 25,
+        Python: 18,
+        Java: 5,
+      };
       // 4 绘制坐标轴（比例尺）[0, 1 , 2, 3]=>[0, 540]
       const xScale = d3
         .scaleBand()
-        .domain(d3.range(data.length))
-        .range([margin.left, width - margin.left - margin.right])
-        .padding(0.1);
+        .domain(Object.keys(data))
+        .range([margin.left, width - margin.right]);
 
       // 5 定义X轴的生成器
       const xAxis = d3.axisBottom(xScale);
       // 6 绘制X轴坐标
-      const gx = d3
-        .select("svg")
+      svg
         .append("g")
         .call(xAxis)
         .attr("transform", `translate(0, ${height - margin.bottom})`);
@@ -46,60 +52,19 @@
       // 7 绘制Y轴（比例尺  生成器 Y绘制）[5, 40] [30, 400]
       const yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(data)])
-        .range([height - margin.top - margin.bottom, margin.bottom]);
-      const yAxis = d3.axisLeft(yScale);
-      const gy = d3
-        .select("svg")
+        .domain([0, 50])
+        .range([height - margin.bottom, margin.top]);
+      const yAxis = d3.axisLeft(yScale).ticks(5);
+      svg
         .append("g")
         .call(yAxis)
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        .attr("transform", `translate(${margin.left}, 0)`);
 
       // 8 绘制柱状图
-      const rects = svg
-        .selectAll(".myRect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "myRect")
-        .attr("x", (d, i) => xScale(i))
-        .attr("y", (d) => yScale(d))
-        .attr("width", xScale.bandwidth())
-        .attr("height", (d) => yScale(0) - yScale(d))
-        .attr("fill", "orange")
-        .attr("transform", `translate(0, ${margin.top})`);
 
       // 提供二个状态
-      rects.attr("y", () => yScale(0)).attr("height", 0);
-      rects
-        .transition()
-        .duration(1000)
-        .delay((d, i) => i * 200)
-        .ease(d3.easeBounce)
-        .attr("y", (d) => yScale(d))
-        .attr("height", (d) => yScale(0) - yScale(d));
 
       // 9 绘制文件
-      const texts = svg
-        .selectAll("myText")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "myText")
-        .attr("fill", "#666")
-        .attr("text-anchor", "middle")
-        .attr("x", (d, i) => xScale(i))
-        .text((d) => d)
-        .attr(
-          "transform",
-          `translate(${xScale.bandwidth() / 2}, ${margin.top})`
-        )
-        .attr("y", () => yScale(0))
-        .transition()
-        .delay((d, i) => i * 200)
-        .duration(1000)
-        .ease(d3.easeBounce)
-        .attr("y", (d) => yScale(d) - 5);
     </script>
   </body>
 </html>
