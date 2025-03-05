@@ -39,7 +39,8 @@
       const xScale = d3
         .scaleBand()
         .domain(Object.keys(data))
-        .range([margin.left, width - margin.right]);
+        .range([margin.left, width - margin.right])
+        .padding(0.1);
 
       // 5 定义X轴的生成器
       const xAxis = d3.axisBottom(xScale);
@@ -55,16 +56,49 @@
         .domain([0, 50])
         .range([height - margin.bottom, margin.top]);
       const yAxis = d3.axisLeft(yScale).ticks(5);
+
       svg
         .append("g")
         .call(yAxis)
         .attr("transform", `translate(${margin.left}, 0)`);
 
       // 8 绘制柱状图
-
-      // 提供二个状态
-
-      // 9 绘制文件
+      const rects = svg
+        .selectAll(".bar")
+        .data(Object.entries(data))
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("width", xScale.bandwidth())
+        .attr("x", (d) => xScale(d[0]))
+        .attr("fill", "steelblue")
+        .attr("y", yScale(0))
+        .attr("height", 0)
+        .transition()
+        .duration(1000)
+        .delay((d, i) => i * 200)
+        .ease(d3.easeBounce)
+        .attr("y", (d) => {
+          return yScale(d[1]); // 将y逐步变为d[1]
+        })
+        .attr("height", (d) => height - margin.bottom - yScale(d[1]));
+      // 9 绘制文本
+      svg
+        .selectAll(".text")
+        .data(Object.entries(data))
+        .enter()
+        .append("text")
+        .text((d) => d[1])
+        .attr("class", "text")
+        .attr("x", (d) => xScale(d[0]) + xScale.bandwidth() / 2)
+        .attr("y", (d) => yScale(0))
+        .attr("text-anchor", "middle")
+        .attr("fill", "#666")
+        .transition()
+        .duration(1000)
+        .delay((d, i) => i * 200)
+        .ease(d3.easeBounce)
+        .attr("y", (d) => yScale(d[1]) - 5);
     </script>
   </body>
 </html>
