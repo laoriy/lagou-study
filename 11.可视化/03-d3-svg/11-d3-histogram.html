@@ -5,6 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>柱状图带过渡</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+      }
+
+      #tip {
+        color: #fff;
+        display: none;
+        margin-top: 15px;
+        margin-left: 15px;
+        position: absolute;
+        padding: 5px 10px;
+        border-radius: 3px;
+        background: rgba(0, 0, 0, 0.4);
+        font: normal 14px/1em "微软雅黑";
+      }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   </head>
 
@@ -76,12 +95,11 @@
         .attr("height", 0)
         .transition()
         .duration(1000)
-        .delay((d, i) => i * 200)
+        .delay((d, i) => i * 100)
         .ease(d3.easeBounce)
-        .attr("y", (d) => {
-          return yScale(d[1]); // 将y逐步变为d[1]
-        })
+        .attr("y", (d) => yScale(d[1]))
         .attr("height", (d) => height - margin.bottom - yScale(d[1]));
+
       // 9 绘制文本
       svg
         .selectAll(".text")
@@ -99,6 +117,44 @@
         .delay((d, i) => i * 200)
         .ease(d3.easeBounce)
         .attr("y", (d) => yScale(d[1]) - 5);
+
+      // 10 定义提示框元素
+      const tooltip = d3.select("body").append("div").attr("id", "tip");
+
+      // 添加单个透明的交互区域
+      svg
+        .append("rect")
+        .attr("class", "hover-area")
+        .attr("width", width - margin.left - margin.right)
+        .attr("x", margin.left)
+        .attr("y", margin.top)
+        .attr("height", height - margin.top - margin.bottom)
+        .attr("fill", "transparent")
+        .on("mousemove", (event) => {
+          const [x, y] = d3.pointer(event);
+          // 根据x坐标找到对应的数据项
+          const xPos = x - margin.left;
+          const stepWidth = xScale.step();
+          const index = Math.floor(xPos / stepWidth);
+          const dataArray = Object.entries(data);
+
+          if (index >= 0 && index < dataArray.length) {
+            const currentData = dataArray[index];
+            tooltip
+              .html(`<p>此项平均值：${currentData[1]}</p>`)
+              .style("display", "block")
+              .transition()
+              .duration(200)
+              .ease(d3.easeCubicOut)
+              .style("left", event.pageX + 10 + "px")
+              .style("top", event.pageY + 10 + "px");
+          } else {
+            tooltip.style("display", "none");
+          }
+        })
+        .on("mouseout", () => {
+          tooltip.style("display", "none");
+        });
     </script>
   </body>
 </html>
