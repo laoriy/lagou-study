@@ -27,6 +27,25 @@
         scene = new THREE.Scene();
         const axesHelper = new THREE.AxesHelper(100);
         scene.add(axesHelper);
+        const directionalLight = new THREE.DirectionalLight("red"); // 平行光
+        const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0x00ff00); // 半球光
+        const pointLight = new THREE.PointLight("green", 2000.0); // 点光源
+        const spotLight = new THREE.SpotLight("green", 2000.0); // 聚光灯
+        const ambientLight = new THREE.AmbientLight("purple"); // 环境光
+
+        // directionalLight.position.set(0, 30, 0);
+        // hemisphereLight.position.set(0, 30, 0);
+        pointLight.position.set(0, 30, 0);
+        spotLight.position.set(0, 5, 0); // 从另一个方向照射
+
+        // 添加点光源辅助器，用于显示光源位置
+        const pointLightHelper = new THREE.PointLightHelper(pointLight, 1);
+        scene.add(pointLightHelper);
+        // scene.add(directionalLight);
+        // scene.add(hemisphereLight);
+        scene.add(pointLight);
+        // scene.add(spotLight);
+        // scene.add(ambientLight);
       }
 
       // 初始化相机
@@ -51,15 +70,18 @@
 
       // 初始化模型
       function initMesh() {
-        geometry = new THREE.BoxGeometry(2, 2, 2);
-        // material = new THREE.MeshNormalMaterial({
+        // geometry = new THREE.BoxGeometry(2, 2, 2); // 立方体
+        geometry = new THREE.SphereGeometry(3, 26, 26); // 球体，参数1：半径，参数2：水平分段，参数3：垂直分段
+        // material = new THREE.MeshNormalMaterial({ // 法向量材质
         //   side: THREE.DoubleSide,
         // });
         const texture = new THREE.TextureLoader().load("img/crate.gif");
-        material = new THREE.MeshBasicMaterial({
+        // 材质MeshPhongMaterial 光照材质,基础材质是MeshBasicMaterial
+        material = new THREE.MeshPhongMaterial({
           map: texture,
           side: THREE.DoubleSide,
         });
+
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
       }
