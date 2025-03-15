@@ -24,7 +24,33 @@
   <body>
     <script>
       // 定义全局变量
-      let scene, camera, geometry, mesh, renderer, controls;
+      let scene, camera, geometry, mesh, renderer, controls, boxMeshes;
+
+      let raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
+      function onMouseMove(event) {
+        // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+      window.addEventListener("mousemove", onMouseMove, false);
+
+      // 鼠标点击
+      function mouseClickEvent(ev) {
+        ev.preventDefault();
+        // 射线捕获
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObjects([spriteArrow]);
+
+        if (intersects.length > 0) {
+          intersects[0].object.material.color.set(0xff0000);
+          changeScene();
+        }
+      }
+
+      window.addEventListener("click", mouseClickEvent, false);
 
       // 初始化渲染器
       function initRenderer() {
@@ -67,7 +93,7 @@
           spriteArrow.position.set(0.5, -1, -1.5);
           scene.add(spriteArrow);
         });
-        const boxMeshes = createPlane(0);
+        boxMeshes = createPlane(0);
         for (let i = 0; i < boxMeshes.length; i++) {
           scene.add(boxMeshes[i]);
         }
@@ -161,6 +187,28 @@
         meshD.position.y = -2;
         boxMeshes.push(meshD);
         return boxMeshes;
+      }
+
+      function changeScene() {
+        console.log("changeScene"); // 创建六个面
+        const sixBox = createPlane(2);
+        const timer = setInterval(() => {
+          camera.fov -= 1;
+          camera.updateProjectionMatrix();
+          if (camera.fov == 20) {
+            clearInterval(timer);
+            camera.fov = 45;
+            camera.updateProjectionMatrix();
+            for (let i = 0; i < 6; i++) {
+              scene.remove(boxMeshes[i]);
+            }
+            boxMeshes = sixBox;
+            for (let i = 0; i < 6; i++) {
+              scene.add(boxMeshes[i]);
+            }
+            // spriteArrow.visible = false;
+          }
+        }, 50);
       }
     </script>
   </body>
