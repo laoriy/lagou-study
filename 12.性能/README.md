@@ -23,3 +23,7 @@ https://web.dev/articles/user-centric-performance-metrics?hl=zh-cn
 | Total Blocking Time (TBT)       | 衡量从 FCP 到 TTI 之间的总时长，在此期间，主线程处于屏蔽状态的时间够长，足以阻止输入响应                                                                               |
 | 累积布局偏移 (CLS)              | 衡量网页开始加载到其生命周期状态更改为"隐藏"之间发生的所有意外布局偏移的累计得分                                                                                       |
 | 首字节时间 (TTFB)               | 衡量网络响应用户请求并发送资源第一个字节所需的时间                                                                                                                     |
+
+### Web Vitals
+
+https://web.dev/vitals/
