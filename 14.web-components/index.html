@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <my-element></my-element>
+    <script>
+      customElements.define(
+        "my-element",
+        class extends HTMLElement {
+          constructor() {
+            super();
+            this.innerHTML = "Hello, World!";
+          }
+        }
+      );
+    //   console.log(customElements.get("my-element"));
+    </script>
+  </body>
+</html>
