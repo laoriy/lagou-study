@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <adopted-element>loading...</adopted-element>
+    <script>
+      class AdoptedElement extends HTMLElement {
+        constructor() {
+          super();
+          this.innerHTML = "我是被采用的元素";
+        }
+        adoptedCallback() {
+          console.log("我现在被采用了！！！！！！！");
+        }
+      }
+      customElements.define("adopted-element", AdoptedElement);
+    </script>
+  </body>
+</html>

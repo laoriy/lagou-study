@@ -4,20 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <style>
+      /* :not(:defined) {
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: gray;
+      } */
+      my-element {
+        color: red;
+      }
+    </style>
   </head>
   <body>
-    <my-element></my-element>
+    <my-element>loading...</my-element>
+    <iframe id="iframe" src="adopted.html"></iframe>
     <script>
-      customElements.define(
-        "my-element",
-        class extends HTMLElement {
-          constructor() {
-            super();
-            this.innerHTML = "Hello, World!";
-          }
+      const iframe = document.getElementById("iframe");
+      iframe.onload = () => {
+        const toBeAdopted =
+          iframe.contentWindow.document.querySelector("adopted-element");
+        setTimeout(() => {
+          document.body.appendChild(document.adoptNode(toBeAdopted));
+        }, 1000);
+      };
+      class MyElement extends HTMLElement {
+        constructor() {
+          super();
+          this.innerHTML = "Hello, World!";
         }
-      );
-    //   console.log(customElements.get("my-element"));
+
+        connectedCallback() {
+          console.log("自定义元素添加至页面。");
+        }
+
+        disconnectedCallback() {
+          console.log("自定义元素从页面中移除。");
+        }
+
+        adoptedCallback() {
+          console.log("自定义元素移动至新页面。");
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+          console.log(`属性 ${name} 已变更。`);
+        }
+      }
+      function create() {
+        // 定义一个自定义元素
+        customElements.define("my-element", MyElement);
+        // 获取一个自定义元素, 如果存在则返回, 否则返回null
+        console.log(customElements.get("my-element"));
+
+        customElements.whenDefined("my-element").then(() => {
+          console.log("my-element 已定义");
+        });
+      }
+      const el = document.createElement("my-element");
+      console.log(el instanceof MyElement);
+      setTimeout(() => {
+        create();
+        customElements.upgrade(el); // 升级一个自定义元素, 如果元素已经定义, 则不会升级
+        console.log(el instanceof MyElement);
+      }, 1000);
     </script>
   </body>
 </html>

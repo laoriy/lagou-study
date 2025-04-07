@@ -31,3 +31,18 @@ Web Components 由三项主要技术组成：
 - **跨框架兼容**：可以在任何框架中使用
 - **维护性**：独立的组件更容易维护和更新
 
+## Custom Elements
+
+1. 方法：
+
+- `customElements.define(name, class extends HTMLElement)` 定义一个自定义元素
+- `customElements.get(name)` 获取一个自定义元素
+- `customElements.upgrade(element)` 升级一个自定义元素
+- `customElements.whenDefined(name)` 等待一个自定义元素被定义
+
+2. 生命周期：
+
+- `connectedCallback` 当自定义元素添加至页面时
+- `disconnectedCallback` 当自定义元素从页面中移除时
+- `adoptedCallback` 当自定义元素移动至新页面时
+- `attributeChangedCallback` 当自定义元素的属性发生变化时
