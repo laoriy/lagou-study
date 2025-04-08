@@ -16,6 +16,17 @@
         adoptedCallback() {
           console.log("我现在被采用了！！！！！！！");
         }
+        connectedCallback() {
+          console.log("被采用的元素添加至页面。");
+        }
+
+        disconnectedCallback() {
+          console.log("被采用的元素从页面中移除。");
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+          console.log(`被采用的元素的属性 ${name} 已变更。`);
+        }
       }
       customElements.define("adopted-element", AdoptedElement);
     </script>

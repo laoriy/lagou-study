@@ -18,7 +18,7 @@
     </style>
   </head>
   <body>
-    <my-element>loading...</my-element>
+    <my-element color="red">loading...</my-element>
     <iframe id="iframe" src="adopted.html"></iframe>
     <script>
       const iframe = document.getElementById("iframe");
@@ -30,6 +30,10 @@
         }, 1000);
       };
       class MyElement extends HTMLElement {
+        static get observedAttributes() {
+          return ["color"];
+        }
+
         constructor() {
           super();
           this.innerHTML = "Hello, World!";
@@ -49,7 +53,13 @@
 
         attributeChangedCallback(name, oldValue, newValue) {
           console.log(`属性 ${name} 已变更。`);
+          if (name === "color") {
+            this.style.color = newValue;
+          }
         }
+      }
+      function changeAttribute(e) {
+        e.target.setAttribute("color", "blue");
       }
       function create() {
         // 定义一个自定义元素
@@ -67,6 +77,9 @@
         create();
         customElements.upgrade(el); // 升级一个自定义元素, 如果元素已经定义, 则不会升级
         console.log(el instanceof MyElement);
+        document
+          .querySelector("my-element")
+          .addEventListener("click", changeAttribute);
       }, 1000);
     </script>
   </body>
